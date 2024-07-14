@@ -9,6 +9,14 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar:AppBar(
+        title:Container(
+            height: 200,
+            color: Colors.amber,
+            child: const Text('Dashmesh RO', style: TextStyle(
+              color: Colors.black
+            ),)),
+      ),
       body: BlocBuilder<HomeCubit, SidebarState>(
         builder: (context, state) {
           return Row(
