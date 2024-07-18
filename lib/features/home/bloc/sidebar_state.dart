@@ -31,17 +31,6 @@ class ManageSelected extends SidebarState {
   ManageSelected() : super(title: 'Manage', layout: const ManageView());
 }
 
-class SidebarItem {
-  SidebarState? state;
-  String? title;
-  Widget? view;
-
-  SidebarItem(this.state) {
-    title = state?.title;
-    view = state?.layout;
-  }
-}
-
 class AddCustomerView extends StatelessWidget {
   const AddCustomerView({super.key});
 
