@@ -1,6 +1,5 @@
 import 'package:dashmesh_ro/features/app/bloc/theme_bloc.dart';
 import 'package:dashmesh_ro/features/app/bloc/theme_state.dart';
-import 'package:dashmesh_ro/features/app/themes.dart';
 import 'package:dashmesh_ro/features/home/view/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
