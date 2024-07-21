@@ -1,3 +1,5 @@
+import 'package:dashmesh_ro/features/add_customer/view/add_customer_view.dart';
+import 'package:dashmesh_ro/features/add_visit/view/add_visit_view.dart';
 import 'package:dashmesh_ro/features/dashboard/view/dashboard_view.dart';
 import 'package:flutter/material.dart';
 
@@ -31,27 +33,7 @@ class ManageSelected extends SidebarState {
   ManageSelected() : super(title: 'Manage', layout: const ManageView());
 }
 
-class AddCustomerView extends StatelessWidget {
-  const AddCustomerView({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.indigo,
-    );
-  }
-}
-
-class AddVisitView extends StatelessWidget {
-  const AddVisitView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.amberAccent,
-    );
-  }
-}
 
 class CustomerListView extends StatelessWidget {
   const CustomerListView({super.key});
