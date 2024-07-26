@@ -1,10 +1,21 @@
 import 'package:dashmesh_ro/core/database/database_helper.dart';
 import 'package:dashmesh_ro/core/shared/db_constants.dart';
 import 'package:flutter/material.dart';
-
-//ToDO:This UI has to be updated by Yash
-class AddCustomerView extends StatelessWidget {
+import 'package:dropdown_textfield/dropdown_textfield.dart';
+import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
+//ToDO:This UI has to be updated by Manish
+class AddCustomerView extends StatefulWidget {
   const AddCustomerView({super.key});
+
+  @override
+  State<AddCustomerView> createState() => _AddCustomerViewState();
+}
+
+class _AddCustomerViewState extends State<AddCustomerView> {
+  SingleValueDropDownController? type_selected;
+  TextEditingController _date= TextEditingController();
+  TextEditingController? state=new TextEditingController()..text="Delhi";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,12 +64,9 @@ class AddCustomerView extends StatelessWidget {
                                             hintText: 'Enter Name',
                                             border: OutlineInputBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(5)
-                                  
-                                                    ),
-                                            prefixIcon: const Icon(Icons.person)
-                                                    ),
-                                            
+                                                    BorderRadius.circular(5)),
+                                            prefixIcon:
+                                                const Icon(Icons.person)),
                                       ),
                                     ],
                                   ),
@@ -101,12 +109,15 @@ class AddCustomerView extends StatelessWidget {
                               height: 5,
                             ),
                             TextField(
+                              
+                              maxLength: 10,
                               decoration: InputDecoration(
+                                
                                   hintText: 'Enter Mobile Number',
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5)),
-                                      prefixIcon: const Icon(Icons.phone)
-                                      ),
+                                  prefixIcon: const Icon(Icons.phone)),
+                              
                             ),
                             const SizedBox(
                               height: 15,
@@ -119,12 +130,23 @@ class AddCustomerView extends StatelessWidget {
                               height: 5,
                             ),
                             TextField(
+                              controller: _date,
                               decoration: InputDecoration(
-                                  hintText: 'yyyy-mm-dd',
+                                  hintText: 'MM/DD/YYYY',
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5)),
                                   prefixIcon:
                                       const Icon(Icons.calendar_today_rounded)),
+                                      onTap: () async {
+                                        DateTime? pickeddate=await showDatePicker(context: context, firstDate:DateTime(DateTime.now().year - 70), currentDate: DateTime.now(),lastDate: DateTime(DateTime.now().year+70)
+                                        
+                                        );
+                                        if(pickeddate!=null){
+                                          setState(() {
+                                            _date.text=DateFormat.yMd().format(pickeddate);
+                                          });
+                                        }
+                                      },
                             ),
                             const SizedBox(
                               height: 15,
@@ -136,13 +158,20 @@ class AddCustomerView extends StatelessWidget {
                             const SizedBox(
                               height: 5,
                             ),
-                            TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Enter Type',
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5)),
-                                    prefixIcon: const Icon(Icons.type_specimen)
+                            DropDownTextField(
+                              textFieldDecoration: InputDecoration(
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                                prefixIcon: Icon(Icons.type_specimen_rounded),
+                                hintText: "Select Type",
                               ),
+                              controller: type_selected,
+                              clearOption: true,
+                              isEnabled: true,
+                              dropDownList: const [
+                                DropDownValueModel(name: "AMC", value: 1),
+                                DropDownValueModel(name: "Set Change", value: 2)
+                              ],
+                              onChanged:(value){}
                             ),
                           ],
                         ),
@@ -173,12 +202,15 @@ class AddCustomerView extends StatelessWidget {
                               height: 5,
                             ),
                             TextField(
+                              controller:state,
+                               
                               decoration: InputDecoration(
+                                
                                   hintText: 'Enter State Name',
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5)),
-                                      prefixIcon: const Icon(Icons.place)
-                                      ),
+                                  prefixIcon: const Icon(Icons.place)),
+                                  
                             ),
                             const SizedBox(
                               height: 15,
@@ -192,7 +224,8 @@ class AddCustomerView extends StatelessWidget {
                               decoration: InputDecoration(
                                   hintText: 'Enter District Name',
                                   border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5)),prefixIcon: const Icon(Icons.place)),
+                                      borderRadius: BorderRadius.circular(5)),
+                                  prefixIcon: const Icon(Icons.place)),
                             ),
                             const SizedBox(
                               height: 15,
@@ -208,7 +241,8 @@ class AddCustomerView extends StatelessWidget {
                               decoration: InputDecoration(
                                   labelText: 'Locality',
                                   border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5)),prefixIcon: const Icon(Icons.place)),
+                                      borderRadius: BorderRadius.circular(5)),
+                                  prefixIcon: const Icon(Icons.place)),
                             ),
                             const SizedBox(
                               height: 15,
@@ -235,8 +269,8 @@ class AddCustomerView extends StatelessWidget {
                                             border: OutlineInputBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(5)),
-                                                    prefixIcon: const Icon(Icons.place)
-                                            ),
+                                            prefixIcon:
+                                                const Icon(Icons.place)),
                                       ),
                                     ],
                                   ),
@@ -301,3 +335,5 @@ class AddCustomerView extends StatelessWidget {
     );
   }
 }
+
+List<String> type = ['Set Change', "AMC"];
