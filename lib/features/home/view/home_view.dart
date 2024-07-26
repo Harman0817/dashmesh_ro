@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:dashmesh_ro/features/home/bloc/home_cubit.dart';
 import 'package:dashmesh_ro/features/home/bloc/sidebar_state.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +11,13 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
-        title:Container(
+        backgroundColor: Colors.blueGrey,
+        title:const SizedBox(
             height: 200,
-            color: Colors.amber,
-            child: const Text('Dashmesh RO', style: TextStyle(
-              color: Colors.black
-            ),)),
+            child: Center( child:Text('Dashmesh Mechanix', style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+            ),)),)
       ),
       body: BlocBuilder<HomeCubit, SidebarState>(
         builder: (context, state) {
