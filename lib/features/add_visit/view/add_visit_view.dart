@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AddVisitView extends StatefulWidget {
   const AddVisitView({super.key});
@@ -15,6 +16,7 @@ class _AddVisitViewState extends State<AddVisitView> {
   TextEditingController serdateController = TextEditingController();
   TextEditingController noteController = TextEditingController();
   List<String> serviceType = ["AMC", "Set Change"];
+  TextEditingController _date= TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +91,7 @@ class _AddVisitViewState extends State<AddVisitView> {
                             ),
                           ),
                           const SizedBox(
-                            height: 10,
+                            height: 5,
                           )
                         ],
                       ),
@@ -123,7 +125,7 @@ class _AddVisitViewState extends State<AddVisitView> {
                         ),
                       ),
                       const SizedBox(
-                        height: 8,
+                        height: 25,
                       ),
                       SizedBox(
                         width: 550,
@@ -173,7 +175,7 @@ class _AddVisitViewState extends State<AddVisitView> {
                                 print(serdurationController.text);
                                 setState(() {});
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   hintText: 'Enter the duration of service',
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.vertical()),
@@ -187,47 +189,61 @@ class _AddVisitViewState extends State<AddVisitView> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "Service Date",
                               style: TextStyle(fontWeight: FontWeight.w500),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             TextField(
-                              controller: serdateController,
+                              controller: _date,
                               onChanged: (_) {
                                 print(serdateController.text);
                                 setState(() {});
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   hintText: 'Enter the date of service',
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.vertical()),
                                   prefixIcon: Icon(Icons.aod_outlined)),
+                              onTap: () async {
+                                DateTime? pickeddate=await showDatePicker(context: context, firstDate:DateTime(DateTime.now().year - 70), currentDate: DateTime.now(),lastDate: DateTime(DateTime.now().year+70)
+
+                                );
+                                if(pickeddate!=null){
+                                  setState(() {
+                                    _date.text=DateFormat.yMd().format(pickeddate);
+                                  });
+                                }
+                              },
                             ),
                           ],
                         ),
+                      ),
+                      const SizedBox(
+                        height: 25,
                       ),
                       SizedBox(
                         width: 550,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "Notes",
                               style: TextStyle(fontWeight: FontWeight.w500),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
-                            ),
-                            TextField(
+                            ) ,
+                        TextField(
+                          maxLines: 3,
                               controller: noteController,
                               onChanged: (_) {
                                 print(noteController.text);
                                 setState(() {});
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   hintText: 'Enter',
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.vertical()),
@@ -240,9 +256,9 @@ class _AddVisitViewState extends State<AddVisitView> {
                     ],
                   ),
                 )),
-                const ElevatedButton(
-                  onPressed: null,
-                  child: Text('Submit'),
+                ElevatedButton(
+                  onPressed: () {},
+                  child:const Text('Submit'),
                 ),
               ],
             ),
