@@ -24,6 +24,8 @@ dependencies:
   dropdown_textfield: ^1.2.0
   intl: ^0.18.1
   json_annotation: ^4.9.0
+  get: ^4.6.6
+  sqflite_common_ffi: ^2.3.3
 
 dev_dependencies:
   flutter_test:

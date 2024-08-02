@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dashmesh_ro/core/shared/db_constants.dart';
 import 'package:path/path.dart' as p;
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class DatabaseHelper {
   static const int _databaseVersion = 1;
@@ -13,7 +14,6 @@ class DatabaseHelper {
 
   static Future close() async => _database?.close();
 
-  //10
   DatabaseHelper._();
 
   static Future<Database?> get database async {
@@ -41,15 +41,22 @@ class DatabaseHelper {
   }
 
   static Future<Database> open() async {
-    String path = await initDb(DbConstants.DATA_BASE);
-    var database = await openDatabase(path,
-        version: _databaseVersion, onCreate: _createDb, onUpgrade: _onUpgrade);
-    return database;
+    sqfliteFfiInit();
+    var databaseFactory = databaseFactoryFfi;
+    // String path = await initDb(DbConstants.DATA_BASE);
+    var db = await databaseFactory.openDatabase(inMemoryDatabasePath);
+
+    // var database = await openDatabase(path,
+    //     version: _databaseVersion, onCreate: _createDb, onUpgrade: _onUpgrade);
+    // return database;
+    _createDb(db, _databaseVersion);
+    return db;
   }
 
 /*...........................create database all tables............*/
 
   static void _createDb(Database db, int newVersion) async {
+    await _createCustomerListTable(db);
     await _createVisitListTable(db);
   }
 
@@ -89,6 +96,7 @@ class DatabaseHelper {
 
 /*Function call after update db version for create table*/
   static Future<void> _onCreateAfter(Database db) async {
+    await _createCustomerListTable(db);
     await _createVisitListTable(db);
   }
 
@@ -97,9 +105,6 @@ class DatabaseHelper {
       String tableName, Map<String, dynamic> mapData) async {
     Database? db = await database;
     var result = await db?.insert(tableName, mapData);
-    print(mapData);
-    print('_____');
-
     return result;
   }
 

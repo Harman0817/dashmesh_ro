@@ -45,4 +45,20 @@ class DbOperationClass {
     );
     return visitList;
   }
+
+  static Future<List<CustomerModel>> getCustomerListDataFromDb() async {
+    List<CustomerModel> customerList = [];
+    await DatabaseHelper.fetchMapList(tableName: DbConstants.TABLE_CUSTOMER_LIST)
+        .then(
+      (dataList) {
+        if (dataList.isNotEmpty) {
+          for (var element in dataList) {
+            CustomerModel model = CustomerModel.fromJson(element);
+            customerList.add(model);
+          }
+        }
+      },
+    );
+    return customerList;
+  }
 }

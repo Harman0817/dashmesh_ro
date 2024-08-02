@@ -1,10 +1,11 @@
 import 'package:dashmesh_ro/core/database/database_helper.dart';
+import 'package:dashmesh_ro/core/database/db_operation.dart';
 import 'package:dashmesh_ro/core/shared/db_constants.dart';
+import 'package:dashmesh_ro/utils/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-//ToDO:This UI has to be updated by Manish
+
 class AddCustomerView extends StatefulWidget {
   const AddCustomerView({super.key});
 
@@ -14,8 +15,8 @@ class AddCustomerView extends StatefulWidget {
 
 class _AddCustomerViewState extends State<AddCustomerView> {
   SingleValueDropDownController? type_selected;
-  TextEditingController _date= TextEditingController();
-  TextEditingController? state=new TextEditingController()..text="Delhi";
+  TextEditingController _date = TextEditingController();
+  TextEditingController? state = new TextEditingController()..text = "Delhi";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,13 +37,11 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              "COSTUMER DETAIL FORM",
+                              StringConstants.customerDetails,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 24),
                             ),
-                            const SizedBox(
-                              height: 25,
-                            ),
+                            const SizedBox(height: 25),
                             Row(
                               children: [
                                 SizedBox(
@@ -52,7 +51,7 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       const Text(
-                                        "Name",
+                                        StringConstants.name,
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       ),
@@ -61,7 +60,7 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                                       ),
                                       TextField(
                                         decoration: InputDecoration(
-                                            hintText: 'Enter Name',
+                                            hintText: StringConstants.enterName,
                                             border: OutlineInputBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(5)),
@@ -71,9 +70,7 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                                     ],
                                   ),
                                 ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
+                                const SizedBox(width: 10),
                                 SizedBox(
                                   width: 236,
                                   child: Column(
@@ -81,16 +78,15 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       const Text(
-                                        "Last Name",
+                                        StringConstants.lastName,
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
+                                      const SizedBox(height: 5),
                                       TextField(
                                         decoration: InputDecoration(
-                                            hintText: 'Enter Last Name',
+                                            hintText:
+                                                StringConstants.enterLastName,
                                             border: OutlineInputBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(5))),
@@ -103,21 +99,18 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                             const SizedBox(
                               height: 15,
                             ),
-                            const Text("Mobile Number",
+                            const Text(StringConstants.mobileNumber,
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             const SizedBox(
                               height: 5,
                             ),
                             TextField(
-                              
                               maxLength: 10,
                               decoration: InputDecoration(
-                                
-                                  hintText: 'Enter Mobile Number',
+                                  hintText: StringConstants.enterMobileNumber,
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5)),
                                   prefixIcon: const Icon(Icons.phone)),
-                              
                             ),
                             const SizedBox(
                               height: 15,
@@ -137,16 +130,21 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                                       borderRadius: BorderRadius.circular(5)),
                                   prefixIcon:
                                       const Icon(Icons.calendar_today_rounded)),
-                                      onTap: () async {
-                                        DateTime? pickeddate=await showDatePicker(context: context, firstDate:DateTime(DateTime.now().year - 70), currentDate: DateTime.now(),lastDate: DateTime(DateTime.now().year+70)
-                                        
-                                        );
-                                        if(pickeddate!=null){
-                                          setState(() {
-                                            _date.text=DateFormat.yMd().format(pickeddate);
-                                          });
-                                        }
-                                      },
+                              onTap: () async {
+                                DateTime? pickeddate = await showDatePicker(
+                                    context: context,
+                                    firstDate:
+                                        DateTime(DateTime.now().year - 70),
+                                    currentDate: DateTime.now(),
+                                    lastDate:
+                                        DateTime(DateTime.now().year + 70));
+                                if (pickeddate != null) {
+                                  setState(() {
+                                    _date.text =
+                                        DateFormat.yMd().format(pickeddate);
+                                  });
+                                }
+                              },
                             ),
                             const SizedBox(
                               height: 15,
@@ -159,20 +157,22 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                               height: 5,
                             ),
                             DropDownTextField(
-                              textFieldDecoration: InputDecoration(
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-                                prefixIcon: Icon(Icons.type_specimen_rounded),
-                                hintText: "Select Type",
-                              ),
-                              controller: type_selected,
-                              clearOption: true,
-                              isEnabled: true,
-                              dropDownList: const [
-                                DropDownValueModel(name: "AMC", value: 1),
-                                DropDownValueModel(name: "Set Change", value: 2)
-                              ],
-                              onChanged:(value){}
-                            ),
+                                textFieldDecoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5)),
+                                  prefixIcon:
+                                      const Icon(Icons.type_specimen_rounded),
+                                  hintText: "Select Type",
+                                ),
+                                controller: type_selected,
+                                clearOption: true,
+                                isEnabled: true,
+                                dropDownList: const [
+                                  DropDownValueModel(name: "AMC", value: 1),
+                                  DropDownValueModel(
+                                      name: "Set Change", value: 2)
+                                ],
+                                onChanged: (value) {}),
                           ],
                         ),
                       ),
@@ -195,34 +195,27 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                               height: 25,
                             ),
                             const Text(
-                              "State",
+                              StringConstants.state,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(
                               height: 5,
                             ),
                             TextField(
-                              controller:state,
-                               
+                              controller: state,
                               decoration: InputDecoration(
-                                
-                                  hintText: 'Enter State Name',
+                                  hintText: StringConstants.enterState,
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5)),
                                   prefixIcon: const Icon(Icons.place)),
-                                  
                             ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            const Text("District",
+                            const SizedBox(height: 15),
+                            const Text(StringConstants.district,
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            const SizedBox(
-                              height: 5,
-                            ),
+                            const SizedBox(height: 5),
                             TextField(
                               decoration: InputDecoration(
-                                  hintText: 'Enter District Name',
+                                  hintText: StringConstants.enterDistrict,
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5)),
                                   prefixIcon: const Icon(Icons.place)),
@@ -315,8 +308,8 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                 ],
               ),
               ElevatedButton(
-                onPressed: () {
-                  DatabaseHelper.insertDataInTable(
+                onPressed: () async {
+                await  DatabaseHelper.insertDataInTable(
                       DbConstants.TABLE_CUSTOMER_LIST, {
                     'name': 'name',
                     'mobileNumber': 'mobileNumber',
@@ -328,6 +321,13 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                 },
                 child: const Text('Submit'),
               ),
+              //Create a text that fetches the customer list from the database and displays it
+              FutureBuilder(
+                  future: DbOperationClass.getCustomerListDataFromDb(),
+                  builder: (context, snapshot) {
+                return Text(snapshot.data.toString());
+              })
+
             ],
           ),
         ),
