@@ -21,6 +21,9 @@ class _AddVisitViewState extends State<AddVisitView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+         title: const Text('Add Visit'),
+      ),
         body: Padding(
       padding: const EdgeInsets.all(35),
       child: SingleChildScrollView(

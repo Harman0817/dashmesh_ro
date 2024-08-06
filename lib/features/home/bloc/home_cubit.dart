@@ -9,7 +9,7 @@ class HomeCubit extends Cubit<SidebarState>{
   List<SidebarItem> sidebarMenu = [
     SidebarItem(DashboardSelected()),
     SidebarItem(AddCustomerSelected()),
-    SidebarItem(AddVisitSelected()),
+    // SidebarItem(AddVisitSelected()),
     SidebarItem(CustomerListSelected()),
     SidebarItem(ManageSelected())];
 

@@ -11,15 +11,8 @@ class StringConstants{
       static const String enterMobileNumber = 'Enter Mobile Number';
       static const String email = 'Email';
       static const String enterEmail = 'Enter Email';
-      static const String district = 'District';
-      static const String enterDistrict = 'Enter District';
-      static const String enterAddress = 'Enter Address';
-      static const String city = 'City';
-      static const String enterCity = 'Enter City';
-      static const String state = 'State';
-      static const String enterState = 'Enter State';
-      static const String pincode = 'Pincode';
-      static const String enterPincode = 'Enter Pincode';
+      static const String enterAddress = 'Address';
+      static const String enterlocality = 'Locality';
 
       static const String customerList = 'Customer List';
       static const String noDataFound = 'No Data Found';

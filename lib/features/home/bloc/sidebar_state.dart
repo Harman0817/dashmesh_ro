@@ -21,9 +21,9 @@ class AddCustomerSelected extends SidebarState {
       : super(title: 'Add Customer', layout: const AddCustomerView());
 }
 
-class AddVisitSelected extends SidebarState {
-  AddVisitSelected() : super(title: 'Add Visit', layout: const AddVisitView());
-}
+// class AddVisitSelected extends SidebarState {
+//   AddVisitSelected() : super(title: 'Add Visit', layout: const AddVisitView());
+// }
 
 class CustomerListSelected extends SidebarState {
   CustomerListSelected()

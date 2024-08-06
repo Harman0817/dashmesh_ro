@@ -1,7 +1,10 @@
 import 'package:dashmesh_ro/core/database/db_operation.dart';
 import 'package:dashmesh_ro/core/models/customer_model.dart';
+import 'package:dashmesh_ro/features/add_visit/view/add_visit_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomerListView extends StatefulWidget {
@@ -18,7 +21,7 @@ class _CustomerListViewState extends State<CustomerListView> {
       children: [
         const Padding(
           padding: EdgeInsets.all(8.0),
-          child:  Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CircleAvatar(backgroundColor: Colors.blue, radius: 12),
@@ -57,12 +60,27 @@ class _CustomerListViewState extends State<CustomerListView> {
                           '${snapshot.data?[index].name} - ${snapshot.data?[index].lastContactDate}'),
                       subtitle: Text(
                           '${snapshot.data?[index].locality} - ${snapshot.data?[index].mobileNumber}'),
-                      trailing: IconButton(
-                        icon: const Icon(FontAwesomeIcons.whatsapp),
-                        onPressed: () => launchUrl(
-                            Uri.parse(
-                                'https://wa.me/${snapshot.data?[index].mobileNumber}?text=Hello%20${snapshot.data?[index].name}'),
-                            mode: LaunchMode.externalApplication),
+                      trailing: SizedBox(
+                        width: 150,
+                        child: Row(
+                          children: [
+                            IconButton(
+                              icon: const Icon(FontAwesomeIcons.house),
+                              onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const AddVisitView())),
+                            ),
+                            IconButton(
+                              icon: const Icon(FontAwesomeIcons.whatsapp),
+                              onPressed: () => launchUrl(
+                                  Uri.parse(
+                                      'https://wa.me/${snapshot.data?[index].mobileNumber}?text=Hello%20${snapshot.data?[index].name}'),
+                                  mode: LaunchMode.externalApplication),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },

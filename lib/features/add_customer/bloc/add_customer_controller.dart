@@ -8,21 +8,14 @@ class AddCustomerController extends GetxController {
   TextEditingController? nameController;
   TextEditingController? mobileController;
   TextEditingController? lastContactDateController;
-  TextEditingController? stateController;
+  TextEditingController? addressController;
   TextEditingController? districtController;
   TextEditingController? localityController;
   TextEditingController? streetController;
   TextEditingController? pinController;
-  List<DropdownItem> type = [
-    DropdownItem('1', 'Set Change'),
-    DropdownItem('2', 'AMC')
-  ];
-
+  List<String> type = ['Set Change','AMC'];
   String selectedType = 'Set Change';
 
-  final _isLoading = false.obs;
-  set isLoading(value) => this._isLoading.value = value;
-  get isLoading => this._isLoading.value;
 
   @override
   onInit() {
@@ -30,7 +23,7 @@ class AddCustomerController extends GetxController {
     nameController = TextEditingController();
     mobileController = TextEditingController();
     lastContactDateController = TextEditingController();
-    stateController = TextEditingController();
+    addressController = TextEditingController();
     districtController = TextEditingController();
     localityController = TextEditingController();
     streetController = TextEditingController();
@@ -43,43 +36,30 @@ class AddCustomerController extends GetxController {
     nameController?.dispose();
     mobileController?.dispose();
     lastContactDateController?.dispose();
-    stateController?.dispose();
+    addressController?.dispose();
     districtController?.dispose();
     localityController?.dispose();
     streetController?.dispose();
     pinController?.dispose();
   }
 
-  // Future<void> addCustomer() async {
-  //   isLoading = true;
-  //   try {
-  //     isLoading = false;
-  //     Get.back();
-  //   } catch (e) {
-  //     isLoading = false;
-  //     Get.snackbar('Error', e.toString());
-  //   }
-  // }
-
   Future addCustomer() async {
     await DatabaseHelper.insertDataInTable(DbConstants.TABLE_CUSTOMER_LIST, {
-      'name': nameController?.text,
+      'name': nameController?.text??'-',
       'mobileNumber': mobileController?.text,
-      'address': streetController?.text,
-      'locality': localityController?.text,
-      'lastContactDate': lastContactDateController?.text,
+      'address': addressController?.text??'-',
+      'locality': localityController?.text??'-',
+      'lastContactDate': lastContactDateController?.text??'-',
       'purifierType': selectedType
     }).onError((error, stackTrace) {
       Get.snackbar('Error', error.toString());
     }).whenComplete(() {
+      nameController?.clear();
+      mobileController?.clear();
+      addressController?.clear();
+      localityController?.clear();
+      lastContactDateController?.clear();
       Get.back();
     });
   }
-}
-
-class DropdownItem {
-  final String value;
-  final String label;
-
-  DropdownItem(this.value, this.label);
 }
