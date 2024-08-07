@@ -41,6 +41,7 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 24),
                           ),
+                          const SizedBox(height: 35,),
                           Row(
                             children: [
                               Expanded(
@@ -75,8 +76,9 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 12 ),
+                          const SizedBox(height: 20 ),
                           Row(
+
                             children: [
                               Expanded(
                                 child: CustomTextField(
@@ -108,7 +110,7 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: 20),
                           Row(
                             children: [
                               Expanded(
@@ -206,7 +208,7 @@ class _AddCustomerViewState extends State<AddCustomerView> {
 
                             ],
                           ),
-                          const SizedBox(height: 25,),
+                          const SizedBox(height: 35,),
                           GradientButton(
                             onPressed:
                             // !formKey.currentState!.validate()

@@ -12,34 +12,19 @@ class GradientButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-      ),
-      child: Ink(
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [Colors.blue, Colors.purple],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Center(
-          child: Text(
-            text,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ),
-    );
+    return Center(
+   child:Container(
+     height:50,
+     width:150,
+     decoration: BoxDecoration(
+       gradient: LinearGradient(colors: [
+         Colors.blue, Colors.purple
+       ]),
+       borderRadius: BorderRadius.circular(5)
+     ),
+     child:TextButton(onPressed: () {},
+     child:Text("SUBMIT",style: TextStyle(fontSize: 16,color: Colors.white,fontWeight: FontWeight.bold),),),
+   )
+   );
   }
 }

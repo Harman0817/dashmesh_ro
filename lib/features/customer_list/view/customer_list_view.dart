@@ -40,7 +40,7 @@ class _CustomerListViewState extends State<CustomerListView> {
         ),
         Expanded(
           child: FutureBuilder(
-              future: DbOperationClass.getCustomerListDataFromDb(),
+              future: DbOperation.getCustomerListDataFromDb(),
               builder: (BuildContext context,
                   AsyncSnapshot<List<CustomerModel>> snapshot) {
                 return ListView.separated(
