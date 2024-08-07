@@ -215,6 +215,7 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                             //     ? null:
                                 (){
                                controller.addCustomer();
+                               
 
                             },
                             text: 'Submit',
