@@ -145,6 +145,7 @@ class DatabaseHelper {
         orderBy: orderBy,
         limit: limit,
         offset: offset);
+
     return result;
   }
 }

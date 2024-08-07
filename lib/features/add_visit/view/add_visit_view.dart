@@ -28,20 +28,23 @@ class _AddVisitViewState extends State<AddVisitView> {
           },
           builder: (controller) {
           return Padding(
-            padding: const EdgeInsets.all(35),
+            padding: const EdgeInsets.symmetric(horizontal: 35),
             child: Row(
               children: [
                 Expanded(
-                  child: FutureBuilder(
+                  child:
+
+                  FutureBuilder(
                       future: DbOperation.getVisitListDataFromDb(),
                       builder: (BuildContext context,
                           AsyncSnapshot<List<VisitModel>> snapshot) {
+                        print(snapshot.data?.length);
                         return ListView.separated(
                           physics: const BouncingScrollPhysics(),
                           itemCount: snapshot.data?.length ?? 0,
                           itemBuilder: (context, index) {
                             return ListTile(
-                            
+
                               title: Text(
                                   '${snapshot.data?[index].visitDate} - ${snapshot.data?[index].visitRemarks}'),
                               subtitle: Text(
