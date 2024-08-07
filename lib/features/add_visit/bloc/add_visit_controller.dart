@@ -26,9 +26,9 @@ class AddVisitController extends GetxController {
     super.onInit();
   }
 
-  addVisit() {
+  addVisit(int customerID) {
     DatabaseHelper.insertDataInTable(DbConstants.TABLE_VISIT_LIST, {
-      // DbConstants.COL_CUSTOMER_ID: "",
+      DbConstants.COL_CUSTOMER_ID: customerID,
       DbConstants.COL_VISIT_DATE: date?.text,
       DbConstants.COL_BILLING_AMOUNT: amountController?.text,
       DbConstants.COL_VISIT_STATUS: "",

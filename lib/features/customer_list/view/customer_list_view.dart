@@ -65,13 +65,18 @@ class _CustomerListViewState extends State<CustomerListView> {
                         child: Row(
                           children: [
                             IconButton(
-                              icon: const Icon(FontAwesomeIcons.house),
-                              onPressed: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const AddVisitView())),
-                            ),
+                                icon: const Icon(FontAwesomeIcons.house),
+                                onPressed: () {
+                                  if (snapshot.data != null &&
+                                      snapshot.data?[index].id != null) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => AddVisitView(
+                                                customerID: snapshot
+                                                    .data![index].id!)));
+                                  }
+                                }),
                             IconButton(
                               icon: const Icon(FontAwesomeIcons.whatsapp),
                               onPressed: () => launchUrl(

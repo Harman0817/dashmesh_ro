@@ -1,6 +1,6 @@
 import 'package:dashmesh_ro/core/database/db_operation.dart';
 import 'package:dashmesh_ro/core/models/visit_model.dart';
-import 'package:dashmesh_ro/features/add_visit/bloc/Add_visit_controller.dart';
+import 'package:dashmesh_ro/features/add_visit/bloc/add_visit_controller.dart';
 import 'package:dashmesh_ro/features/widgets/custom_text_field.dart';
 import 'package:dashmesh_ro/utils/string_constants.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class AddVisitView extends StatefulWidget {
-  const AddVisitView({super.key});
+  final int customerID;
+  const AddVisitView({super.key, required this.customerID});
 
   @override
   State<AddVisitView> createState() => _AddVisitViewState();
@@ -129,7 +130,7 @@ class _AddVisitViewState extends State<AddVisitView> {
                         Center(
                           child: ElevatedButton(
                             onPressed: () {
-                             controller.addVisit();
+                             controller.addVisit(widget.customerID);
                             },
                             child: const Text('Submit'),
                           ),

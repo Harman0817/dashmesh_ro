@@ -1,4 +1,5 @@
 class CustomerModel{
+  int? id;
   String? name;
   String? mobileNumber;
   String? address;
@@ -7,7 +8,9 @@ class CustomerModel{
   String? purifierType;
 
   CustomerModel(
-      {this.name,
+      {
+        this.id,
+        this.name,
         this.mobileNumber,
         this.address,
         this.locality,
@@ -15,6 +18,7 @@ class CustomerModel{
         this.purifierType});
 
   CustomerModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     name = json['name'];
     mobileNumber = json['mobileNumber'];
     address = json['address'];
@@ -25,6 +29,7 @@ class CustomerModel{
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['name'] = name;
     data['mobileNumber'] = mobileNumber;
     data['address'] = address;
