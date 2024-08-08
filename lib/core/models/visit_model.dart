@@ -4,6 +4,7 @@ class VisitModel {
   int? id;
   int? customerId;
   String? visitDate;
+  String? notificationDate;
   String? billingAmount;
   String? visitStatus;
   String? visitRemarks;
@@ -13,20 +14,21 @@ class VisitModel {
 
   VisitModel(
       {this.id,
-        this.customerId,
-        this.visitDate,
-        this.billingAmount,
-        this.visitStatus,
-        this.visitRemarks,
-        this.serviceDuration,
-        this.guaranteePeriod,
-        this.serviceType});
-
+      this.customerId,
+      this.visitDate,
+      this.notificationDate,
+      this.billingAmount,
+      this.visitStatus,
+      this.visitRemarks,
+      this.serviceDuration,
+      this.guaranteePeriod,
+      this.serviceType});
 
   VisitModel.fromJson(Map<String, dynamic> json) {
     id = json[DbConstants.COL_ID];
     customerId = json[DbConstants.COL_CUSTOMER_ID];
     visitDate = json[DbConstants.COL_VISIT_DATE];
+    notificationDate = json[DbConstants.COL_NOTIFICATION_DATE];
     billingAmount = json[DbConstants.COL_BILLING_AMOUNT];
     visitStatus = json[DbConstants.COL_VISIT_STATUS];
     visitRemarks = json[DbConstants.COL_VISIT_REMARKS];
@@ -40,6 +42,7 @@ class VisitModel {
     data[DbConstants.COL_ID] = id;
     data[DbConstants.COL_CUSTOMER_ID] = customerId;
     data[DbConstants.COL_VISIT_DATE] = visitDate;
+    data[DbConstants.COL_NOTIFICATION_DATE] =notificationDate;
     data[DbConstants.COL_BILLING_AMOUNT] = billingAmount;
     data[DbConstants.COL_VISIT_STATUS] = visitStatus;
     data[DbConstants.COL_VISIT_REMARKS] = visitRemarks;

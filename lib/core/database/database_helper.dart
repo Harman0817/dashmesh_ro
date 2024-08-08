@@ -75,6 +75,8 @@ class DatabaseHelper {
         '${DbConstants.COL_ID} INTEGER PRIMARY KEY AUTOINCREMENT,'
         '${DbConstants.COL_CUSTOMER_ID} INTEGER,'
         '${DbConstants.COL_VISIT_DATE} TEXT,'
+    //ToDO Change
+        '${DbConstants.COL_NOTIFICATION_DATE} TEXT,'
         '${DbConstants.COL_BILLING_AMOUNT} TEXT,'
         '${DbConstants.COL_VISIT_STATUS} TEXT,'
         '${DbConstants.COL_VISIT_REMARKS} TEXT,'

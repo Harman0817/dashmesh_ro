@@ -27,9 +27,11 @@ class AddVisitController extends GetxController {
   }
 
   addVisit(int customerID) {
+
     DatabaseHelper.insertDataInTable(DbConstants.TABLE_VISIT_LIST, {
       DbConstants.COL_CUSTOMER_ID: customerID,
       DbConstants.COL_VISIT_DATE: date?.text,
+      DbConstants.COL_NOTIFICATION_DATE: date,
       DbConstants.COL_BILLING_AMOUNT: amountController?.text,
       DbConstants.COL_VISIT_STATUS: "",
       DbConstants.COL_VISIT_REMARKS: noteController?.text,

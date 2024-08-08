@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 
 class AddVisitView extends StatefulWidget {
   final int customerID;
+
   const AddVisitView({super.key, required this.customerID});
 
   @override
@@ -122,7 +123,7 @@ class _AddVisitViewState extends State<AddVisitView> {
                                 if (pickeddate != null) {
                                   setState(() {
                                     controller.date?.text =
-                                        DateFormat.yMd().format(pickeddate);
+                                        DateFormat("dd-MM-yyyy").format(pickeddate);
                                   });
                                 }
                               },
