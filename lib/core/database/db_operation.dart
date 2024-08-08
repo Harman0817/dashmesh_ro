@@ -1,4 +1,5 @@
 import 'package:dashmesh_ro/core/models/customer_model.dart';
+import 'package:dashmesh_ro/core/models/notification_model.dart';
 import 'package:dashmesh_ro/core/models/visit_model.dart';
 import 'package:dashmesh_ro/core/shared/db_constants.dart';
 import 'package:dashmesh_ro/core/shared/ro_logger.dart';
@@ -110,13 +111,16 @@ class DbOperation {
     return visitList;
   }
 
-static Future<List<Map<String, dynamic>>> getCustomerAndVisitData() async {
-    List<Map<String, dynamic>> fullJoinData = [];
+static Future<List<NotificationModel>> getCustomerAndVisitData() async {
+  List<NotificationModel> fullJoinData = [];
     await  DatabaseHelper.fetchJoinResult().then(
       (dataList) {
         print(dataList);
         if (dataList.isNotEmpty) {
-          fullJoinData = dataList;
+          for (var element in dataList){
+            NotificationModel model = NotificationModel.fromJson(element);
+            fullJoinData.add(model);
+          }
         }
       },
     );

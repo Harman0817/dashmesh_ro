@@ -1,11 +1,11 @@
 
+import 'package:dashmesh_ro/core/models/service_item.dart';
 import 'package:dashmesh_ro/features/services/bloc/service_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/database/db_operation.dart';
 import '../../../core/models/customer_model.dart';
-
 
 class NotificationView extends StatelessWidget {
   const NotificationView({super.key});
@@ -15,13 +15,12 @@ class NotificationView extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        // borderRadius: BorderRadius.circular(24),
-        color: Colors.grey.shade50
-      ),
+          // borderRadius: BorderRadius.circular(24),
+          color: Colors.grey.shade50),
       child: BlocBuilder<ServiceBloc, int>(
         builder: (context, state) {
           return FutureBuilder(
-future: DbOperation.getCustomerListDataFromDb(),
+              future: DbOperation.getCustomerListDataFromDb(),
 
             builder: (BuildContext context,
                 AsyncSnapshot<List<CustomerModel>> snapshot) {

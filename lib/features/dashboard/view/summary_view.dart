@@ -23,7 +23,7 @@ class ServiceSummary extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Container(
                     decoration:  BoxDecoration(
-                      color: const Color(0xffd29985),
+                      color: const Color(0xff3a9ab6),
                         borderRadius: BorderRadius.circular(10),
                       boxShadow: const [BoxShadow(
                         color: Colors.black38,

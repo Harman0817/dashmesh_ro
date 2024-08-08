@@ -138,7 +138,6 @@ class DatabaseHelper {
   ''';
 
     final result = await db!.rawQuery(query);
-    await db.close();
     return result;
   }
 
