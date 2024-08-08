@@ -10,9 +10,9 @@ class CalendarPage extends StatelessWidget {
     return CalendarCarousel<Event>(
         todayButtonColor: Colors.transparent,
       selectedDateTime: DateTime.now(),//ToDo:function to change datetime
-      selectedDayTextStyle:const TextStyle(color: Colors.yellow),
+      selectedDayTextStyle:const TextStyle(color: Colors.blue),
       selectedDayButtonColor: Colors.transparent,
-      weekdayTextStyle: const TextStyle(color: Colors.grey, fontWeight: FontWeight.w400),
+      weekdayTextStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
       weekendTextStyle:const TextStyle(color: Colors.grey, fontWeight: FontWeight.w400),
       dayPadding: 4,
       onDayPressed: (DateTime date, List<Event> events) {

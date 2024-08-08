@@ -11,7 +11,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: const Color(0xff3a9ab6),
         title:const SizedBox(
             height: 200,
             child: Center( child:Text('Dashmesh Mechanix', style: TextStyle(
@@ -51,7 +51,7 @@ class HomeView extends StatelessWidget {
                                                 .sidebarMenu[index]
                                                 .title ==
                                             state.title
-                                        ? Colors.green
+                                        ? const Color(0xff3a9ab6)
                                         : Colors.black),
                               ),
                             ),
