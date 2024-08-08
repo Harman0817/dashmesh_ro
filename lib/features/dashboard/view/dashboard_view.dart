@@ -27,7 +27,7 @@ class DashboardView extends StatelessWidget {
               ),
               const Expanded(
                 flex: 4,
-                child: ServicePage(),
+                child: NotificationPage(),
               ),
             ],
           ),

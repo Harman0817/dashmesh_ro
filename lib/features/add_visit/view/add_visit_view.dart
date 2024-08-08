@@ -36,7 +36,7 @@ class _AddVisitViewState extends State<AddVisitView> {
                   child:
 
                   FutureBuilder(
-                      future: DbOperation.getVisitListDataFromDb(),
+                      future: DbOperation.getVisitListDataFromDbByCustomerId(widget.customerID),
                       builder: (BuildContext context,
                           AsyncSnapshot<List<VisitModel>> snapshot) {
                         print(snapshot.data?.length);

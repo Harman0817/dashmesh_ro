@@ -1,6 +1,6 @@
 import 'package:dashmesh_ro/core/shared/db_constants.dart';
 
-class VisitModel {
+class VisitModel{
   int? id;
   int? customerId;
   String? visitDate;
