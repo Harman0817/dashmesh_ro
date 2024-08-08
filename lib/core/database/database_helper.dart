@@ -25,7 +25,8 @@ class DatabaseHelper {
   }
 
   static Future<String> initDb(String dbName) async {
-    var databasePath = Directory(Platform.environment['LOCALAPPDATA']??'.').path;
+    var databasePath =
+        Directory(Platform.environment['LOCALAPPDATA'] ?? '.').path;
     String path = p.join(databasePath, dbName);
     print(path);
     if (await Directory(p.dirname(path)).exists()) {
@@ -44,7 +45,9 @@ class DatabaseHelper {
     String path = await initDb(DbConstants.DATA_BASE);
     var database = await databaseFactoryFfi.openDatabase(path,
         options: OpenDatabaseOptions(
-            version: _databaseVersion, onCreate: _createDb, onUpgrade: _onUpgrade));
+            version: _databaseVersion,
+            onCreate: _createDb,
+            onUpgrade: _onUpgrade));
     return database;
   }
 
@@ -75,6 +78,7 @@ class DatabaseHelper {
         '${DbConstants.COL_ID} INTEGER PRIMARY KEY AUTOINCREMENT,'
         '${DbConstants.COL_CUSTOMER_ID} INTEGER,'
         '${DbConstants.COL_VISIT_DATE} TEXT,'
+        '${DbConstants.COL_NOTIFICATION_DATE} TEXT,'
         '${DbConstants.COL_BILLING_AMOUNT} TEXT,'
         '${DbConstants.COL_VISIT_STATUS} TEXT,'
         '${DbConstants.COL_VISIT_REMARKS} TEXT,'
@@ -100,7 +104,7 @@ class DatabaseHelper {
       String tableName, Map<String, dynamic> mapData, where, whereArg) async {
     var db = await database;
     var result =
-    await db?.update(tableName, mapData, where: where, whereArgs: whereArg);
+        await db?.update(tableName, mapData, where: where, whereArgs: whereArg);
     return result;
   }
 
@@ -125,16 +129,29 @@ class DatabaseHelper {
     return rowId;
   }
 
+  static Future<List<Map<String, Object?>>> fetchJoinResult() async {
+    Database? db = await database;
+    const query = '''
+    SELECT *
+    FROM ${DbConstants.TABLE_CUSTOMER_LIST} AS u
+    JOIN ${DbConstants.TABLE_VISIT_LIST} AS o ON u.id = o.customerId
+  ''';
+
+    final result = await db!.rawQuery(query);
+    await db.close();
+    return result;
+  }
+
   static Future<List<Map<String, dynamic>>> fetchMapList(
       {String? tableName,
-        List<String>? columns,
-        String? where,
-        List<dynamic>? whereArgs,
-        String? groupBy,
-        String? having,
-        String? orderBy,
-        int? limit,
-        int? offset}) async {
+      List<String>? columns,
+      String? where,
+      List<dynamic>? whereArgs,
+      String? groupBy,
+      String? having,
+      String? orderBy,
+      int? limit,
+      int? offset}) async {
     Database? db = await database;
     var result = await db!.query(tableName ?? "",
         columns: columns,

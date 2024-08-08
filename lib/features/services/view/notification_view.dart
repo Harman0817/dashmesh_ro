@@ -13,7 +13,7 @@ class NotificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(16),
+      margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         // borderRadius: BorderRadius.circular(24),
         color: Colors.grey.shade50
@@ -30,6 +30,9 @@ future: DbOperation.getCustomerListDataFromDb(),
                   itemCount: snapshot.data?.length ?? 0,
                   itemBuilder: (context, index) {
                     return ListTile(
+                      onTap: (){
+                        print(DbOperation.getCustomerAndVisitData());
+                      },
                       leading: CircleAvatar(
                         backgroundColor:
                           snapshot.data?[index].purifierType == 'Set Change'

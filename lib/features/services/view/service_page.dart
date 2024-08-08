@@ -3,8 +3,8 @@ import 'package:dashmesh_ro/features/services/view/notification_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ServicePage extends StatelessWidget {
-  const ServicePage({super.key});
+class NotificationPage extends StatelessWidget {
+  const NotificationPage({super.key});
 
   @override
   Widget build(BuildContext context) {

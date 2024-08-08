@@ -8,21 +8,28 @@ class CalendarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CalendarCarousel<Event>(
+        todayButtonColor: Colors.transparent,
+      selectedDateTime: DateTime.now(),//ToDo:function to change datetime
+      selectedDayTextStyle:const TextStyle(color: Colors.yellow),
+      selectedDayButtonColor: Colors.transparent,
+      weekdayTextStyle: const TextStyle(color: Colors.grey, fontWeight: FontWeight.w400),
+      weekendTextStyle:const TextStyle(color: Colors.grey, fontWeight: FontWeight.w400),
+      dayPadding: 4,
       onDayPressed: (DateTime date, List<Event> events) {
       },
-      weekendTextStyle:const TextStyle(color: Colors.red),
-      thisMonthDayBorderColor: Colors.grey,
+
+      //thisMonthDayBorderColor: Colors.grey,
       weekFormat: false,
-      selectedDateTime: DateTime.now(),
+
       daysHaveCircularBorder: false,childAspectRatio: 1.5,
       markedDateShowIcon: true,
       markedDateIconMaxShown: 2,
       markedDateMoreShowTotal: true,
       markedDateIconBuilder: (event) {
         return event.icon ?? const Icon(Icons.event_available);
-      },
-      todayButtonColor: Colors.transparent,
-      selectedDayTextStyle:const TextStyle(color: Colors.yellow),
+      }
+      ,
+
       minSelectedDate: DateTime.now().subtract(const Duration(days: 360)),
       maxSelectedDate: DateTime.now().add(const Duration(days: 360)),
       onCalendarChanged: (DateTime date) {

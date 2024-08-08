@@ -2,8 +2,6 @@ import 'package:dashmesh_ro/core/models/customer_model.dart';
 import 'package:dashmesh_ro/core/models/visit_model.dart';
 import 'package:dashmesh_ro/core/shared/db_constants.dart';
 import 'package:dashmesh_ro/core/shared/ro_logger.dart';
-import 'package:get/get.dart';
-
 import 'database_helper.dart';
 
 class DbOperation {
@@ -35,24 +33,38 @@ class DbOperation {
     }
   }
 
+  static Future<List<VisitModel>> getVisitListDataFromDbByCustomerId(
+      int customerId) async {
+    List<VisitModel> visitList = [];
+    await DatabaseHelper.fetchMapList(
+        tableName: DbConstants.TABLE_VISIT_LIST,
+        where: "${DbConstants.COL_CUSTOMER_ID} = ?",
+        whereArgs: [customerId]).then(
+      (dataList) {
+        if (dataList.isNotEmpty) {
+          for (var element in dataList) {
+            VisitModel model = VisitModel.fromJson(element);
+            visitList.add(model);
+          }
+        }
+      },
+    ).onError((stack, error) {
+      print(error);
+    });
+    return visitList;
+  }
+
   static Future<List<VisitModel>> getVisitListDataFromDb() async {
     List<VisitModel> visitList = [];
     await DatabaseHelper.fetchMapList(tableName: DbConstants.TABLE_VISIT_LIST)
         .then(
       (dataList) {
         if (dataList.isNotEmpty) {
-          print('Data list ${dataList.length}');
-          print('Visit List ${visitList.length}');
-          // dataList.forEach((e)=>print(e.toString()));
           for (var element in dataList) {
-            // print('------------------------------->');
-            // print(element.toString());
             VisitModel model = VisitModel.fromJson(element);
             visitList.add(model);
-            print('--->${visitList.length}');
           }
         }
-        // print('********************');
       },
     ).onError((stack, error) {
       print(error);
@@ -76,4 +88,39 @@ class DbOperation {
     );
     return customerList;
   }
+
+  static Future<List<VisitModel>> getVisitListDataFromDbByNotificationDate(
+      String date) async {
+    List<VisitModel> visitList = [];
+    await DatabaseHelper.fetchMapList(
+        tableName: DbConstants.TABLE_VISIT_LIST,
+        where: "${DbConstants.COL_NOTIFICATION_DATE} = ?",
+        whereArgs: [date]).then(
+      (dataList) {
+        if (dataList.isNotEmpty) {
+          for (var element in dataList) {
+            VisitModel model = VisitModel.fromJson(element);
+            visitList.add(model);
+          }
+        }
+      },
+    ).onError((stack, error) {
+      print(error);
+    });
+    return visitList;
+  }
+
+static Future<List<Map<String, dynamic>>> getCustomerAndVisitData() async {
+    List<Map<String, dynamic>> fullJoinData = [];
+    await  DatabaseHelper.fetchJoinResult().then(
+      (dataList) {
+        print(dataList);
+        if (dataList.isNotEmpty) {
+          fullJoinData = dataList;
+        }
+      },
+    );
+    return fullJoinData;
+  }
+
 }
