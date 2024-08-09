@@ -20,29 +20,32 @@ class ServiceSummary extends StatelessWidget {
               itemBuilder: (context, index){
                 SummaryItem item = context.read<HomeCubit>().summaryList[index];
                 return Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(25.0),
                   child: Container(
                     decoration:  BoxDecoration(
-                      color: const Color(0xff3a9ab6),
+                      color: Theme.of(context).colorScheme.tertiary,
                         borderRadius: BorderRadius.circular(10),
-                      boxShadow: const [BoxShadow(
-                        color: Colors.black38,
-                        offset: Offset(4,4),
+                      boxShadow: [BoxShadow(
+                        color: Theme.of(context).colorScheme.primary,
+                        offset:const Offset(4,4),
                         spreadRadius: 4,
                         blurRadius: 12
 
                       )]
                     ),
-                    height: 200,
-                    width: 200,
+                    height: 225,
+                    width: 215,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(item.icon),
-                        Text(item.title, style: const TextStyle(
+                        Icon(item.icon
+                        ),
+                        Text(item.title, style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
                             fontSize: 24
                         ),),
-                        Text('${item.count}', style: const TextStyle(
+                        Text('${item.count}', style: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary,
                             fontSize: 28
                         ),),
                       ],
