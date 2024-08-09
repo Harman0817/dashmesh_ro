@@ -21,7 +21,7 @@ class CalendarPage extends StatelessWidget {
       //thisMonthDayBorderColor: Colors.grey,
       weekFormat: false,
 
-      daysHaveCircularBorder: false,childAspectRatio: 1.5,
+      daysHaveCircularBorder: true,childAspectRatio: 1.5,
       markedDateShowIcon: true,
       markedDateIconMaxShown: 2,
       markedDateMoreShowTotal: true,

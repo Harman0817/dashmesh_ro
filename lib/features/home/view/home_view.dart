@@ -10,13 +10,13 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
-        backgroundColor: const Color(0xff3a9ab6),
-        title:const SizedBox(
+        appBar:AppBar(
+            backgroundColor: Theme.of(context).colorScheme.tertiary,
+        title: SizedBox(
             height: 200,
             child: Center( child:Text('Dashmesh Mechanix', style: TextStyle(
               fontWeight: FontWeight.w700,
-              color: Colors.black,
+              color: Theme.of(context).colorScheme.secondary,
             ),)),)
       ),
       body: BlocBuilder<HomeCubit, SidebarState>(
@@ -51,8 +51,8 @@ class HomeView extends StatelessWidget {
                                                 .sidebarMenu[index]
                                                 .title ==
                                             state.title
-                                        ? const Color(0xff3a9ab6)
-                                        : Colors.black),
+                                        ? Theme.of(context).colorScheme.secondary
+                                        : Theme.of(context).colorScheme.primary),
                               ),
                             ),
                           ))),

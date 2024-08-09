@@ -35,11 +35,9 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             StringConstants.customerDetails,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24),
+                            style: Theme.of(context).textTheme.displayLarge,
                           ),
                           const SizedBox(height: 35,),
                           Row(

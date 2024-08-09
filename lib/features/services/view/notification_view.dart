@@ -16,7 +16,7 @@ class NotificationView extends StatelessWidget {
       margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
           // borderRadius: BorderRadius.circular(24),
-          color: Colors.grey.shade50),
+          color:Theme.of(context).colorScheme.onError),
       child: BlocBuilder<ServiceBloc, int>(
         builder: (context, state) {
           return FutureBuilder(

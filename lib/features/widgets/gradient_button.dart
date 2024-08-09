@@ -17,13 +17,13 @@ class GradientButton extends StatelessWidget {
      height:50,
      width:150,
      decoration: BoxDecoration(
-       gradient: const LinearGradient(colors: [
-         Colors.blue, Colors.purple
+       gradient:  LinearGradient(colors: [
+         Theme.of(context).colorScheme.primary, Theme.of(context).colorScheme.secondary
        ]),
        borderRadius: BorderRadius.circular(5)
      ),
      child:TextButton(onPressed: onPressed,
-     child:const Text("SUBMIT",style: TextStyle(fontSize: 16,color: Colors.white,fontWeight: FontWeight.bold),),),
+     child: Text("SUBMIT",style: Theme.of(context).textTheme.displayMedium,),),
    )
    );
   }
