@@ -80,6 +80,7 @@ class DatabaseHelper {
         '${DbConstants.COL_VISIT_DATE} TEXT,'
         '${DbConstants.COL_NOTIFICATION_DATE} TEXT,'
         '${DbConstants.COL_BILLING_AMOUNT} TEXT,'
+        '${DbConstants.COL_PAID_AMOUNT} TEXT,'
         '${DbConstants.COL_VISIT_STATUS} TEXT,'
         '${DbConstants.COL_VISIT_REMARKS} TEXT,'
         '${DbConstants.COL_SERVICE_DURATION} TEXT,'

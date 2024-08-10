@@ -23,10 +23,10 @@ class ServiceSummary extends StatelessWidget {
                   padding: const EdgeInsets.all(25.0),
                   child: Container(
                     decoration:  BoxDecoration(
-                      color: Theme.of(context).colorScheme.tertiary,
+                      color: Theme.of(context).colorScheme.primary,
                         borderRadius: BorderRadius.circular(10),
                       boxShadow: [BoxShadow(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.tertiary,
                         offset:const Offset(4,4),
                         spreadRadius: 4,
                         blurRadius: 12
@@ -38,8 +38,6 @@ class ServiceSummary extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(item.icon
-                        ),
                         Text(item.title, style: TextStyle(
                           color: Theme.of(context).colorScheme.secondary,
                             fontSize: 24

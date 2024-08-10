@@ -29,10 +29,10 @@ class App extends StatelessWidget {
       color: Theme.of(context).colorScheme.tertiary,
 
     ),
-      displayMedium: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w300,
-          color: Theme.of(context).colorScheme.tertiary,
+      displayMedium: const TextStyle(
+        fontSize: 25,
+        fontWeight: FontWeight.w500 ,
+          color: Colors.white,
       ),
 
     ),

@@ -9,14 +9,15 @@ class DbConstants{
   /*................................VisitList TABLE KEY......................*/
   static const String COL_ID               = "Id";
   static const String COL_CUSTOMER_ID      =  "customerId";
-  static const String COL_VISIT_DATE       = "visitDate";
+  static const String COL_VISIT_DATE       =  "visitDate";
   static const String COL_NOTIFICATION_DATE = "notificationDate";
-  static const String COL_BILLING_AMOUNT   = "billingAmount";
+  static const String COL_BILLING_AMOUNT   =  "billingAmount";
+  static const String COL_PAID_AMOUNT   =  "paidAmount";
   static const String COL_VISIT_STATUS      = "visitStatus";
   static const String COL_VISIT_REMARKS     = "visitRemarks";
   static const String COL_SERVICE_DURATION  = "serviceDuration";
-  static const String COL_GUARANTEE_PERIOD   = "guaranteePeriod";
-  static const String COL_SERVICE_TYPE        = "serviceType";
+  static const String COL_GUARANTEE_PERIOD  = "guaranteePeriod";
+  static const String COL_SERVICE_TYPE      = "serviceType";
   /*................................CustomerList TABLE KEY......................*/
   static const String COL_NAME= "name";
   static const String COL_MOBILE_NUMBER= "mobileNumber";

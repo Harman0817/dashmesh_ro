@@ -14,6 +14,7 @@ class StringConstants{
       static const String enterAddress = 'Address';
       static const String enterlocality = 'Locality';
       static const String enterAmount = 'Billing Amount';
+      static const enterPaidAmount = 'Paid Amount';
       static const String enterGaranteeDuration  = 'Garantee Duration';
       static const String enterServiceDuration = 'Service Duration';
       static const String enterNote = 'Note';
@@ -23,5 +24,7 @@ class StringConstants{
       static const String editCustomer = 'Edit Customer';
       static const String yes = 'Yes';
       static const String no = 'No';
+
+
 
 }
