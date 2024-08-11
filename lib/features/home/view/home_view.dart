@@ -23,48 +23,71 @@ class HomeView extends StatelessWidget {
         title: SizedBox(
             height: 200,
             child: Center( child:Text('Dashmesh Mechanix', style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.bold,
               fontSize: 30,
               color: Theme.of(context).scaffoldBackgroundColor,
             ),)),)
       ),
+
       body: BlocBuilder<HomeCubit, SidebarState>(
         builder: (context, state) {
           return Row(
             children: [
               Expanded(
                   flex: 2,
-                  child: ListView.builder(
-                      itemCount: context.read<HomeCubit>().sidebarMenu.length,
-                      itemBuilder: (context, index) => GestureDetector(
-                            onTap: () => context.read<HomeCubit>().changeState(
-                                context
-                                        .read<HomeCubit>()
-                                        .sidebarMenu[index]
-                                        .state ??
-                                    DashboardSelected()),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
+                  child: Container(
+                    color: Theme.of(context).colorScheme.primary.withOpacity(0.9),
+                    child: ListView.builder(
+                        itemCount: context.read<HomeCubit>().sidebarMenu.length,
+                        itemBuilder: (context, index) => GestureDetector(
+                              onTap: () => context.read<HomeCubit>().changeState(
                                   context
                                           .read<HomeCubit>()
                                           .sidebarMenu[index]
-                                          .title ??
-                                      '',
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                      fontWeight: FontWeight.w600,
+                                          .state ??
+                                      DashboardSelected(),
+
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+
+                                    Text(
+                                        context
+                                                .read<HomeCubit>()
+                                                .sidebarMenu[index]
+                                                .title ??
+                                            '',
+                                        style: GoogleFonts.montserrat(
+                                          fontSize: 25,
+                                            // fontWeight: FontWeight.bold,
+                                            color: context
+                                                        .read<HomeCubit>()
+                                                        .sidebarMenu[index]
+                                                        .title ==
+                                                    state.title
+                                                ? Theme.of(context).scaffoldBackgroundColor
+                                                : Theme.of(context).scaffoldBackgroundColor.withOpacity(0.4)),
+                                      ),
+                                    Container(
+                                      height: 5,
                                       color: context
-                                                  .read<HomeCubit>()
-                                                  .sidebarMenu[index]
-                                                  .title ==
-                                              state.title
-                                          ? Theme.of(context).colorScheme.secondary
-                                          : Theme.of(context).colorScheme.primary),
+                                          .read<HomeCubit>()
+                                          .sidebarMenu[index]
+                                          .title ==
+                                          state.title
+                                          ? Theme.of(context).scaffoldBackgroundColor
+                                          : Theme.of(context).scaffoldBackgroundColor.withOpacity(0)),
+
+                                  ],
+                                ),
                                 ),
                               ),
                             ),
-                          )),
+                  )
+              ),
+
               Expanded(flex: 10, child: Container(
                 child: Center(
                   child: context
@@ -79,3 +102,5 @@ class HomeView extends StatelessWidget {
     );
   }
 }
+
+

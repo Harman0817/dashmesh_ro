@@ -47,10 +47,9 @@ class ServiceSummary extends StatelessWidget {
                         Text(item.title, style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           color: Theme.of(context).scaffoldBackgroundColor
                         ),),
-                        SizedBox(height: 5,),
-                        Text('${item.count}', style: GoogleFonts.quicksand(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            fontSize: 28
+                        SizedBox(height:10,),
+                        Text('${item.count}', style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                            color: Theme.of(context).scaffoldBackgroundColor
                         ),),
                       ],
                     ),
