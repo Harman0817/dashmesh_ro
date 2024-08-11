@@ -22,16 +22,18 @@ class GradientButton extends StatelessWidget {
             begin: Alignment.topCenter,
             end:Alignment.bottomCenter,
             colors: [
-            Theme.of(context).colorScheme.primary,
-            Theme.of(context).colorScheme.tertiary
+            Theme.of(context).colorScheme.onPrimary,
+            Theme.of(context).colorScheme.primary
           ]),
           borderRadius: BorderRadius.circular(5)),
       child: Center(
         child: GestureDetector(
           onTap: onPressed,
           child: Text(
-            "SUBMIT",
-            style: Theme.of(context).textTheme.displayMedium,
+            "Submit",
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
+              color: Theme.of(context).scaffoldBackgroundColor
+            ),
           ),
         ),
       ),

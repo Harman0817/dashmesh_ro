@@ -22,7 +22,7 @@ class HomeView extends StatelessWidget {
           ),
         title: SizedBox(
             height: 200,
-            child: Center( child:Text('Dashmesh Mechanix', style: GoogleFonts.ysabeauSc(
+            child: Center( child:Text('Dashmesh Mechanix', style: GoogleFonts.montserrat(
               fontWeight: FontWeight.w700,
               fontSize: 30,
               color: Theme.of(context).scaffoldBackgroundColor,

@@ -3,8 +3,8 @@ import 'package:dashmesh_ro/core/models/customer_model.dart';
 import 'package:dashmesh_ro/features/add_visit/view/add_visit_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
+// import 'package:get/get.dart';
+// import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomerListView extends StatefulWidget {
@@ -77,6 +77,7 @@ class _CustomerListViewState extends State<CustomerListView> {
                                                     .data![index].id!)));
                                   }
                                 }),
+                                const SizedBox(width: 25,),
                             IconButton(
                               icon: const Icon(FontAwesomeIcons.whatsapp),
                               onPressed: () => launchUrl(

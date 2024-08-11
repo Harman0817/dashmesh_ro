@@ -25,18 +25,21 @@ class App extends StatelessWidget {
             ),
               scaffoldBackgroundColor: Colors.white ,
     textTheme:  TextTheme(
-    displayLarge: GoogleFonts.quicksand(
+    displayLarge: GoogleFonts.montserrat(
     fontSize:34,
     fontWeight: FontWeight.bold,
-      color: Theme.of(context).colorScheme.tertiary,
+      
 
     ),
-      displayMedium:GoogleFonts.quicksand(
+      displayMedium:GoogleFonts.montserrat(
         fontSize: 25,
-        fontWeight: FontWeight.w500 ,
-          color: Colors.white,
+         
+          
       ),
-      displaySmall: GoogleFonts.quicksand()
+      displaySmall: GoogleFonts.montserrat(
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+      )
     ),
 
           ),

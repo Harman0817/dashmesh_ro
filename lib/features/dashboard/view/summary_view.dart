@@ -44,10 +44,10 @@ class ServiceSummary extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(item.title, style: GoogleFonts.quicksand(
-                          color: Theme.of(context).colorScheme.secondary,
-                            fontSize: 24
+                        Text(item.title, style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                          color: Theme.of(context).scaffoldBackgroundColor
                         ),),
+                        SizedBox(height: 5,),
                         Text('${item.count}', style: GoogleFonts.quicksand(
                             color: Theme.of(context).scaffoldBackgroundColor,
                             fontSize: 28

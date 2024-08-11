@@ -4,6 +4,7 @@ import 'package:dashmesh_ro/features/widgets/gradient_button.dart';
 import 'package:dashmesh_ro/utils/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class AddCustomerView extends StatefulWidget {
@@ -115,10 +116,9 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
+                                     Text(
                                       "Purifier Type ",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                      style:Theme.of(context).textTheme.displaySmall
                                     ),
                                     const SizedBox(
                                       height: 5
@@ -156,10 +156,9 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
+                                    Text(
                                       "Last Contact Date ",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                      style: Theme.of(context).textTheme.displaySmall
                                     ),
                                     const SizedBox(
                                       height: 5,

@@ -65,10 +65,9 @@ class _AddVisitViewState extends State<AddVisitView> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "ADD COSTUMER VISIT",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w800, fontSize: 30),
+                         Text(
+                          "Add Customer Visit",
+                          style: Theme.of(context).textTheme.displayLarge
                         ),
                         const SizedBox(height: 35),
                         CustomTextField(
@@ -105,9 +104,9 @@ class _AddVisitViewState extends State<AddVisitView> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Service Date",
-                              style: TextStyle(fontWeight: FontWeight.w500),
+                              style:Theme.of(context).textTheme.displaySmall,
                             ),
                             const SizedBox(
                               height: 5,
