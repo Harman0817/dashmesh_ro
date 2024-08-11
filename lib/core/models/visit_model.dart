@@ -6,6 +6,7 @@ class VisitModel{
   String? visitDate;
   String? notificationDate;
   String? billingAmount;
+  String? pendingAmount;
   String? visitStatus;
   String? visitRemarks;
   String? serviceDuration;
@@ -18,6 +19,7 @@ class VisitModel{
       this.visitDate,
       this.notificationDate,
       this.billingAmount,
+        this.pendingAmount,
       this.visitStatus,
       this.visitRemarks,
       this.serviceDuration,
@@ -30,6 +32,7 @@ class VisitModel{
     visitDate = json[DbConstants.COL_VISIT_DATE];
     notificationDate = json[DbConstants.COL_NOTIFICATION_DATE];
     billingAmount = json[DbConstants.COL_BILLING_AMOUNT];
+    pendingAmount = json[DbConstants.COL_PAID_AMOUNT];
     visitStatus = json[DbConstants.COL_VISIT_STATUS];
     visitRemarks = json[DbConstants.COL_VISIT_REMARKS];
     serviceDuration = json[DbConstants.COL_SERVICE_DURATION];
@@ -44,6 +47,7 @@ class VisitModel{
     data[DbConstants.COL_VISIT_DATE] = visitDate;
     data[DbConstants.COL_NOTIFICATION_DATE] =notificationDate;
     data[DbConstants.COL_BILLING_AMOUNT] = billingAmount;
+    data[DbConstants.COL_PAID_AMOUNT] = pendingAmount;
     data[DbConstants.COL_VISIT_STATUS] = visitStatus;
     data[DbConstants.COL_VISIT_REMARKS] = visitRemarks;
     data[DbConstants.COL_SERVICE_DURATION] = serviceDuration;

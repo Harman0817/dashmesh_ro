@@ -7,6 +7,8 @@ class AddVisitController extends GetxController {
   List<String> serviceType = ["AMC", "Set Change"];
 
   TextEditingController? amountController;
+  TextEditingController? pendingAmountController;
+  TextEditingController? paidAmountController;
   TextEditingController? servicetypeController;
   TextEditingController? gtdurationController;
   TextEditingController? serdurationController;
@@ -17,6 +19,8 @@ class AddVisitController extends GetxController {
   @override
   void onInit() {
     amountController = TextEditingController();
+    paidAmountController = TextEditingController();
+    pendingAmountController = TextEditingController();
     servicetypeController = TextEditingController();
     gtdurationController = TextEditingController();
     serdurationController = TextEditingController();
@@ -27,12 +31,13 @@ class AddVisitController extends GetxController {
   }
 
   addVisit(int customerID) {
-
     DatabaseHelper.insertDataInTable(DbConstants.TABLE_VISIT_LIST, {
       DbConstants.COL_CUSTOMER_ID: customerID,
       DbConstants.COL_VISIT_DATE: date?.text,
       DbConstants.COL_NOTIFICATION_DATE: date?.text,
       DbConstants.COL_BILLING_AMOUNT: amountController?.text,
+      DbConstants.COL_PAID_AMOUNT: paidAmountController?.text,
+      //DbConstants.COL_PENDING_AMOUNT: int.parse(amountController?.text ?? '0') - int.parse(pendingAmountController?.text ?? '0'),
       DbConstants.COL_VISIT_STATUS: "",
       DbConstants.COL_VISIT_REMARKS: noteController?.text,
       DbConstants.COL_SERVICE_DURATION: serdurationController?.text,

@@ -6,6 +6,7 @@ import 'package:dashmesh_ro/utils/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import '../../widgets/gradient_button.dart';
 
 class AddVisitView extends StatefulWidget {
   final int customerID;
@@ -23,40 +24,42 @@ class _AddVisitViewState extends State<AddVisitView> {
         appBar: AppBar(
           title: const Text('Add Visit'),
         ),
-        body: GetBuilder<AddVisitController>(
-          initState: (_) {
-            Get.put(AddVisitController());
-          },
-          builder: (controller) {
+        body: GetBuilder<AddVisitController>(initState: (_) {
+          Get.put(AddVisitController());
+        }, builder: (controller) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 35),
             child: Row(
               children: [
                 Expanded(
+                  flex: 2,
                   child:
-
                   FutureBuilder(
                       future: DbOperation.getVisitListDataFromDbByCustomerId(widget.customerID),
                       builder: (BuildContext context,
                           AsyncSnapshot<List<VisitModel>> snapshot) {
-                        print(snapshot.data?.length);
                         return ListView.separated(
                           physics: const BouncingScrollPhysics(),
                           itemCount: snapshot.data?.length ?? 0,
                           itemBuilder: (context, index) {
-                            return ListTile(
-
-                              title: Text(
-                                  '${snapshot.data?[index].visitDate} - ${snapshot.data?[index].visitRemarks}'),
-                              subtitle: Text(
-                                  '${snapshot.data?[index].guaranteePeriod} - ${snapshot.data?[index].visitStatus}'),
+                            return Row(
+                              children: [
+                                Expanded(child: Text('${snapshot.data?[index].visitDate}')),
+                                Expanded(child: Text('${snapshot.data?[index].serviceType}')),
+                                Expanded(child: Text('${snapshot.data?[index].billingAmount}')),
+                                Expanded(child: Text('${snapshot.data?[index].pendingAmount}')),
+                                Expanded(child: Text('${snapshot.data?[index].guaranteePeriod}')),
+                                Expanded(child: Text('${snapshot.data?[index].visitRemarks}')),
+                                Expanded(child: Text('${snapshot.data?[index].visitStatus}')),
+                                Expanded(child: Text('${snapshot.data?[index].serviceDuration}')),
+                              ],
                             );
                           },
                           separatorBuilder: (context, index) => const Divider(),
                         );
                       }),
                 ),
-                const SizedBox(width:20),
+                const SizedBox(width: 20),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
@@ -75,6 +78,12 @@ class _AddVisitViewState extends State<AddVisitView> {
                             icon: const Icon(Icons.add_box_rounded)),
                         const SizedBox(height: 15),
                         CustomTextField(
+                            label: StringConstants.enterPaidAmount,
+                            maxLength: 5,
+                            controller: controller.pendingAmountController,
+                            icon: const Icon(Icons.add_box_rounded)),
+                        const SizedBox(height: 15),
+                        CustomTextField(
                             label: StringConstants.enterGaranteeDuration,
                             maxLength: 5,
                             controller: controller.gtdurationController,
@@ -90,7 +99,9 @@ class _AddVisitViewState extends State<AddVisitView> {
                           maxlines: 3,
                           controller: controller.noteController,
                         ),
-                        const SizedBox(height: 15,),
+                        const SizedBox(
+                          height: 15,
+                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -123,20 +134,23 @@ class _AddVisitViewState extends State<AddVisitView> {
                                 if (pickeddate != null) {
                                   setState(() {
                                     controller.date?.text =
-                                        DateFormat("dd-MM-yyyy").format(pickeddate);
+                                        DateFormat("dd-MM-yyyy")
+                                            .format(pickeddate);
                                   });
                                 }
                               },
                             ),
                           ],
                         ),
-                        const SizedBox(height: 15,),
+                        const SizedBox(
+                          height: 15,
+                        ),
                         Center(
-                          child: ElevatedButton(
+                          child: GradientButton(
                             onPressed: () {
-                             controller.addVisit(widget.customerID);
+                              controller.addVisit(widget.customerID);
                             },
-                            child: const Text('Submit'),
+                            text: 'Submit',
                           ),
                         ),
                       ],

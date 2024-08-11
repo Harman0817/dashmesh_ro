@@ -25,10 +25,7 @@ class HomeView extends StatelessWidget {
             children: [
               Expanded(
                   flex: 2,
-                  child: ListView.separated(
-                      separatorBuilder: (context, index) => const Divider(
-                            color: Colors.black,
-                          ),
+                  child: ListView.builder(
                       itemCount: context.read<HomeCubit>().sidebarMenu.length,
                       itemBuilder: (context, index) => GestureDetector(
                             onTap: () => context.read<HomeCubit>().changeState(
@@ -40,22 +37,25 @@ class HomeView extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                context
-                                        .read<HomeCubit>()
-                                        .sidebarMenu[index]
-                                        .title ??
-                                    '',
-                                style: TextStyle(
-                                    color: context
-                                                .read<HomeCubit>()
-                                                .sidebarMenu[index]
-                                                .title ==
-                                            state.title
-                                        ? Theme.of(context).colorScheme.secondary
-                                        : Theme.of(context).colorScheme.primary),
+                                  context
+                                          .read<HomeCubit>()
+                                          .sidebarMenu[index]
+                                          .title ??
+                                      '',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                      fontWeight: FontWeight.w600,
+                                      color: context
+                                                  .read<HomeCubit>()
+                                                  .sidebarMenu[index]
+                                                  .title ==
+                                              state.title
+                                          ? Theme.of(context).colorScheme.secondary
+                                          : Theme.of(context).colorScheme.primary),
+                                ),
                               ),
                             ),
-                          ))),
+                          )),
               Expanded(flex: 10, child: Container(
                 child: Center(
                   child: context
