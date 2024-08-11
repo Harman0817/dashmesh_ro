@@ -2,7 +2,7 @@ class StringConstants{
 
 
   ///Add Customer Screen
-      static const String customerDetails = 'Customer Details';
+      static const String customerDetails = 'CUSTUMER DETAILS';
       static const String name = 'Name';
       static const String enterName = 'Enter Name';
       static const String lastName = 'Last Name';

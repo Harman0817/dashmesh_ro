@@ -2,6 +2,7 @@ import 'package:dashmesh_ro/core/models/summary_item.dart';
 import 'package:dashmesh_ro/features/home/bloc/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 //ToDo: Tanmeet update the UI
 
@@ -23,7 +24,12 @@ class ServiceSummary extends StatelessWidget {
                   padding: const EdgeInsets.all(25.0),
                   child: Container(
                     decoration:  BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                        Theme.of(context).colorScheme.onPrimary,Theme.of(context).colorScheme.primary
+                      ]),
                         borderRadius: BorderRadius.circular(10),
                       boxShadow: [BoxShadow(
                         color: Theme.of(context).colorScheme.tertiary,
@@ -38,12 +44,12 @@ class ServiceSummary extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(item.title, style: TextStyle(
+                        Text(item.title, style: GoogleFonts.quicksand(
                           color: Theme.of(context).colorScheme.secondary,
                             fontSize: 24
                         ),),
-                        Text('${item.count}', style: TextStyle(
-                            color: Theme.of(context).colorScheme.secondary,
+                        Text('${item.count}', style: GoogleFonts.quicksand(
+                            color: Theme.of(context).scaffoldBackgroundColor,
                             fontSize: 28
                         ),),
                       ],

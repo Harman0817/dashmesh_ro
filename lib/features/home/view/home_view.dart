@@ -2,7 +2,9 @@ import 'dart:ui';
 import 'package:dashmesh_ro/features/home/bloc/home_cubit.dart';
 import 'package:dashmesh_ro/features/home/bloc/sidebar_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -11,12 +13,19 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar:AppBar(
-            backgroundColor: Theme.of(context).colorScheme.tertiary,
+          flexibleSpace:Container(
+            decoration: BoxDecoration(
+              gradient:LinearGradient(colors: [
+                Theme.of(context).colorScheme.onPrimary,Theme.of(context).colorScheme.primary
+              ])
+            )
+          ),
         title: SizedBox(
             height: 200,
-            child: Center( child:Text('Dashmesh Mechanix', style: TextStyle(
+            child: Center( child:Text('Dashmesh Mechanix', style: GoogleFonts.ysabeauSc(
               fontWeight: FontWeight.w700,
-              color: Theme.of(context).colorScheme.secondary,
+              fontSize: 30,
+              color: Theme.of(context).scaffoldBackgroundColor,
             ),)),)
       ),
       body: BlocBuilder<HomeCubit, SidebarState>(

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class GradientButton extends StatelessWidget {
@@ -17,16 +18,21 @@ class GradientButton extends StatelessWidget {
       height: 50,
       width: 150,
       decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end:Alignment.bottomCenter,
+            colors: [
             Theme.of(context).colorScheme.primary,
             Theme.of(context).colorScheme.tertiary
           ]),
           borderRadius: BorderRadius.circular(5)),
-      child: TextButton(
-        onPressed: onPressed,
-        child: Text(
-          "SUBMIT",
-          style: Theme.of(context).textTheme.displayMedium,
+      child: Center(
+        child: GestureDetector(
+          onTap: onPressed,
+          child: Text(
+            "SUBMIT",
+            style: Theme.of(context).textTheme.displayMedium,
+          ),
         ),
       ),
     ));
