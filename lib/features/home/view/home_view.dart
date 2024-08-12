@@ -36,7 +36,9 @@ class HomeView extends StatelessWidget {
               Expanded(
                   flex: 2,
                   child: Container(
-                    color: Theme.of(context).colorScheme.primary.withOpacity(0.9),
+                    color: Colors.grey.shade100
+                    //  Theme.of(context).colorScheme.secondary
+                     ,
                     child: ListView.builder(
                         itemCount: context.read<HomeCubit>().sidebarMenu.length,
                         itemBuilder: (context, index) => GestureDetector(
@@ -49,18 +51,28 @@ class HomeView extends StatelessWidget {
 
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-
-                                    Text(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Container(
+                                  padding:  const EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),
+                                  color: 
+                                  context
+                                                        .read<HomeCubit>()
+                                                        .sidebarMenu[index]
+                                                        .title ==
+                                                    state.title?
+                                  Theme.of(context).colorScheme.onPrimary:Colors.transparent,
+                                  ),
+                                  
+                                  child: Center(
+                                    child: Text(
                                         context
                                                 .read<HomeCubit>()
                                                 .sidebarMenu[index]
                                                 .title ??
                                             '',
                                         style: GoogleFonts.montserrat(
-                                          fontSize: 25,
+                                          fontSize: 20,
                                             // fontWeight: FontWeight.bold,
                                             color: context
                                                         .read<HomeCubit>()
@@ -68,19 +80,11 @@ class HomeView extends StatelessWidget {
                                                         .title ==
                                                     state.title
                                                 ? Theme.of(context).scaffoldBackgroundColor
-                                                : Theme.of(context).scaffoldBackgroundColor.withOpacity(0.4)),
+                                                :Colors.black
+                                                //  Theme.of(context).scaffoldBackgroundColor.withOpacity(0.4)
+                                                ),
                                       ),
-                                    Container(
-                                      height: 5,
-                                      color: context
-                                          .read<HomeCubit>()
-                                          .sidebarMenu[index]
-                                          .title ==
-                                          state.title
-                                          ? Theme.of(context).scaffoldBackgroundColor
-                                          : Theme.of(context).scaffoldBackgroundColor.withOpacity(0)),
-
-                                  ],
+                                  ),
                                 ),
                                 ),
                               ),
@@ -88,8 +92,7 @@ class HomeView extends StatelessWidget {
                   )
               ),
 
-              Expanded(flex: 10, child: Container(
-                child: Center(
+              Expanded(flex: 10, child: Container(            child: Center(
                   child: context
                       .read<HomeCubit>()
                       .state.layout,
