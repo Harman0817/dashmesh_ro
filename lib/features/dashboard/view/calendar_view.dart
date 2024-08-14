@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
@@ -28,9 +29,9 @@ class _CalendarPageState extends State<CalendarPage> {
         selectedDayTextStyle: const TextStyle(color: Colors.blue),
         selectedDayButtonColor: Colors.transparent,
         weekdayTextStyle:
-            const TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+            GoogleFonts.montserrat(color: Colors.black, fontWeight: FontWeight.w400),
         weekendTextStyle:
-            const TextStyle(color: Colors.grey, fontWeight: FontWeight.w400),
+            GoogleFonts.montserrat(color: Colors.grey, fontWeight: FontWeight.w400),
         dayPadding: 4,
         onDayPressed: (DateTime date, List<Event> events) {
           context.read<NotificationBloc>().changeDate(date);

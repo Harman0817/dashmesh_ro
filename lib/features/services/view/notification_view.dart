@@ -38,20 +38,20 @@ class NotificationView extends StatelessWidget {
                             leading: CircleAvatar(
                               backgroundColor:
                                 snapshot.data?[index].purifierType == 'Set Change'
-                            ? Colors.blue
+                            ? Theme.of(context).colorScheme.secondary
                                 : snapshot.data?[index].purifierType == 'AMC'
-                                ? Colors.green
+                                ? Theme.of(context).colorScheme.onPrimary
                                 : Colors.red,
-                              child: Text("${snapshot.data?[index].name}"[0]),
+                              child: Text("${snapshot.data?[index].name}"[0],style: Theme.of(context).textTheme.displayMedium,),
                             ),
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Expanded(child: Text('${snapshot.data?[index].name}', style: const TextStyle(fontWeight: FontWeight.bold),)),
+                                Expanded(child: Text('${snapshot.data?[index].name}', style:Theme.of(context).textTheme.displayMedium!.copyWith(fontWeight: FontWeight.bold,fontSize: 16))),
                                 
-                                Expanded(child: Center(child: Text('${snapshot.data?[index].purifierType}'))),
-                                Expanded(child: Center(child: Text('${snapshot.data?[index].mobileNumber}'))),
-                                Expanded(child: Center(child: Text('${snapshot.data?[index].locality}')))
+                                Expanded(child: Center(child: Text('${snapshot.data?[index].purifierType}',style:Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 16)))),
+                                Expanded(child: Center(child: Text('${snapshot.data?[index].mobileNumber}',style:Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 16)))),
+                                Expanded(child: Center(child: Text('${snapshot.data?[index].locality}',style:Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 16))))
                               ],
                             ),
                             subtitle:Text('${snapshot.data?[index].address}'),

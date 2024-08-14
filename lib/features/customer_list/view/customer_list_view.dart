@@ -3,8 +3,7 @@ import 'package:dashmesh_ro/core/models/customer_model.dart';
 import 'package:dashmesh_ro/features/add_visit/view/add_visit_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-// import 'package:get/get.dart';
-// import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomerListView extends StatefulWidget {
@@ -19,22 +18,22 @@ class _CustomerListViewState extends State<CustomerListView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.all(8.0),
+       Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CircleAvatar(backgroundColor: Colors.blue, radius: 12),
-              SizedBox(width: 10),
-              Text('Set Change'),
-              SizedBox(width: 100),
-              CircleAvatar(backgroundColor: Colors.green, radius: 12),
-              SizedBox(width: 10),
-              Text('AMC'),
-              SizedBox(width: 100),
-              CircleAvatar(backgroundColor: Colors.red, radius: 12),
-              SizedBox(width: 10),
-              Text('Error'),
+              CircleAvatar(backgroundColor: Theme.of(context).colorScheme.secondary, radius: 12),
+              const SizedBox(width: 10),
+               Text('Set Change',style: GoogleFonts.montserrat(),),
+              const SizedBox(width: 100),
+              CircleAvatar(backgroundColor: Theme.of(context).colorScheme.onPrimary, radius: 12),
+              const SizedBox(width: 10),
+               Text('AMC',style: GoogleFonts.montserrat(),),
+              const SizedBox(width: 100),
+              CircleAvatar(backgroundColor: Theme.of(context).colorScheme.tertiary, radius: 12),
+              const SizedBox(width: 10),
+               Text('Error',style: GoogleFonts.montserrat(),),
             ],
           ),
         ),
@@ -51,15 +50,21 @@ class _CustomerListViewState extends State<CustomerListView> {
                       leading: CircleAvatar(
                         backgroundColor:
                             snapshot.data?[index].purifierType == 'Set Change'
-                                ? Colors.blue
+                                ? Theme.of(context).colorScheme.secondary
                                 : snapshot.data?[index].purifierType == 'AMC'
-                                    ? Colors.green
+                                    ? Theme.of(context).colorScheme.onPrimary
                                     : Colors.red,
+                        child: Text(
+                          "${snapshot.data?[index].name![0]}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                        ),
                       ),
                       title: Text(
-                          '${snapshot.data?[index].name} - ${snapshot.data?[index].lastContactDate}'),
+                          '${snapshot.data?[index].name} - ${snapshot.data?[index].lastContactDate}',style: GoogleFonts.montserrat(),),
                       subtitle: Text(
-                          '${snapshot.data?[index].locality} - ${snapshot.data?[index].mobileNumber}'),
+                          '${snapshot.data?[index].locality} - ${snapshot.data?[index].mobileNumber}',style: GoogleFonts.montserrat(),),
                       trailing: SizedBox(
                         width: 150,
                         child: Row(
@@ -77,7 +82,9 @@ class _CustomerListViewState extends State<CustomerListView> {
                                                     .data![index].id!)));
                                   }
                                 }),
-                                const SizedBox(width: 25,),
+                            const SizedBox(
+                              width: 25,
+                            ),
                             IconButton(
                               icon: const Icon(FontAwesomeIcons.whatsapp),
                               onPressed: () => launchUrl(

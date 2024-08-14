@@ -39,7 +39,8 @@ class App extends StatelessWidget {
       displaySmall: GoogleFonts.montserrat(
         fontSize: 14,
         fontWeight: FontWeight.bold,
-      )
+      ),
+      
     ),
 
           ),
