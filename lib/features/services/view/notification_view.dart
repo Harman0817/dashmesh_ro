@@ -1,3 +1,4 @@
+import 'package:dashmesh_ro/core/models/notification_model.dart';
 import 'package:dashmesh_ro/features/services/bloc/notification_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,10 +22,10 @@ class NotificationView extends StatelessWidget {
 
               Expanded(
                 child: FutureBuilder(
-                    future: DbOperation.getCustomerListDataFromDb(),
+                    future: DbOperation.getCustomerAndVisitData(),
                             
                   builder: (BuildContext context,
-                      AsyncSnapshot<List<CustomerModel>> snapshot) {
+                      AsyncSnapshot<List<NotificationModel>> snapshot) {
                     return ListView.builder(
                       scrollDirection: Axis.vertical,
                     shrinkWrap: true,
@@ -33,6 +34,7 @@ class NotificationView extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return ListTile(
                             onTap: (){
+                              // ignore: avoid_print
                               print(DbOperation.getCustomerAndVisitData());
                             },
                             leading: CircleAvatar(
@@ -48,13 +50,12 @@ class NotificationView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(child: Text('${snapshot.data?[index].name}', style:Theme.of(context).textTheme.displayMedium!.copyWith(fontWeight: FontWeight.bold,fontSize: 16))),
-                                
                                 Expanded(child: Center(child: Text('${snapshot.data?[index].purifierType}',style:Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 16)))),
                                 Expanded(child: Center(child: Text('${snapshot.data?[index].mobileNumber}',style:Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 16)))),
                                 Expanded(child: Center(child: Text('${snapshot.data?[index].locality}',style:Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 16))))
                               ],
                             ),
-                            subtitle:Text('${snapshot.data?[index].address}'),
+                            subtitle:Text('${snapshot.data?[index].address}',style:Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 14),),
                           );
                         });
                   }

@@ -63,97 +63,100 @@ class _AddVisitViewState extends State<AddVisitView> {
                 const SizedBox(width: 20),
                 Expanded(
                   child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                         Text(
-                          "Add Customer Visit",
-                          style: Theme.of(context).textTheme.displayLarge
-                        ),
-                        const SizedBox(height: 35),
-                        CustomTextField(
-                            label: StringConstants.enterAmount,
-                            maxLength: 5,
-                            controller: controller.amountController,
-                            icon: const Icon(Icons.add_box_rounded)),
-                        const SizedBox(height: 15),
-                        CustomTextField(
-                            label: StringConstants.enterPaidAmount,
-                            maxLength: 5,
-                            controller: controller.pendingAmountController,
-                            icon: const Icon(Icons.add_box_rounded)),
-                        const SizedBox(height: 15),
-                        CustomTextField(
-                            label: StringConstants.enterGaranteeDuration,
-                            maxLength: 5,
-                            controller: controller.gtdurationController,
-                            icon: const Icon(Icons.access_alarm_rounded)),
-                        const SizedBox(height: 15),
-                        CustomTextField(
-                            label: StringConstants.enterServiceDuration,
-                            controller: controller.serdurationController,
-                            icon: const Icon(Icons.access_time_rounded)),
-                        const SizedBox(height: 15),
-                        CustomTextField(
-                          label: StringConstants.enterNote,
-                          maxlines: 3,
-                          controller: controller.noteController,
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Service Date",
-                              style:Theme.of(context).textTheme.displaySmall,
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            TextField(
-                              controller: controller.date,
-                              onChanged: (_) {
-                                print(controller.serdateController?.text);
-                                setState(() {});
-                              },
-                              decoration: const InputDecoration(
-                                  hintText: 'Enter the date of service',
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.vertical()),
-                                  prefixIcon: Icon(Icons.aod_outlined)),
-                              onTap: () async {
-                                DateTime? pickeddate = await showDatePicker(
-                                    context: context,
-                                    firstDate:
-                                        DateTime(DateTime.now().year - 70),
-                                    currentDate: DateTime.now(),
-                                    lastDate:
-                                        DateTime(DateTime.now().year + 70));
-                                if (pickeddate != null) {
-                                  setState(() {
-                                    controller.date?.text =
-                                        DateFormat("dd-MM-yyyy")
-                                            .format(pickeddate);
-                                  });
-                                }
-                              },
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Center(
-                          child: GradientButton(
-                            onPressed: () {
-                              controller.addVisit(widget.customerID);
-                            },
-                            text: 'Submit',
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                           Text(
+                            "Add Customer Visit",
+                            style: Theme.of(context).textTheme.displayLarge
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 35),
+                          CustomTextField(
+                              label: StringConstants.enterAmount,
+                              maxLength: 5,
+                              controller: controller.amountController,
+                              icon: const Icon(Icons.add_box_rounded)),
+                          const SizedBox(height: 15),
+                          CustomTextField(
+                              label: StringConstants.enterPaidAmount,
+                              maxLength: 5,
+                              controller: controller.pendingAmountController,
+                              icon: const Icon(Icons.add_box_rounded)),
+                          const SizedBox(height: 15),
+                          CustomTextField(
+                              label: StringConstants.enterGaranteeDuration,
+                              maxLength: 5,
+                              controller: controller.gtdurationController,
+                              icon: const Icon(Icons.access_alarm_rounded)),
+                          const SizedBox(height: 15),
+                          CustomTextField(
+                              label: StringConstants.enterServiceDuration,
+                              controller: controller.serdurationController,
+                              icon: const Icon(Icons.access_time_rounded)),
+                          const SizedBox(height: 15),
+                          CustomTextField(
+                            label: StringConstants.enterNote,
+                            maxlines: 3,
+                            controller: controller.noteController,
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Service Date",
+                                style:Theme.of(context).textTheme.displaySmall,
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              TextField(
+                                controller: controller.date,
+                                onChanged: (_) {
+                                  print(controller.serdateController?.text);
+                                  setState(() {});
+                                },
+                                decoration: const InputDecoration(
+                                    hintText: 'Enter the date of service',
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.vertical()),
+                                    prefixIcon: Icon(Icons.aod_outlined)),
+                                onTap: () async {
+                                  DateTime? pickeddate = await showDatePicker(
+                                      context: context,
+                                      firstDate:
+                                          DateTime(DateTime.now().year - 70),
+                                      currentDate: DateTime.now(),
+                                      lastDate:
+                                          DateTime(DateTime.now().year + 70));
+                                  if (pickeddate != null) {
+                                    setState(() {
+                                      controller.date?.text =
+                                          DateFormat("dd-MM-yyyy")
+                                              .format(pickeddate);
+                                    });
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Center(
+                            child: GradientButton(
+                              onPressed: () {
+                                controller.addVisit(widget.customerID);
+                              },
+                              text: 'Submit',
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
