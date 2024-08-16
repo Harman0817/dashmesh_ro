@@ -2,6 +2,7 @@ import 'package:dashmesh_ro/core/models/notification_model.dart';
 import 'package:dashmesh_ro/features/services/bloc/notification_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import '../../../core/database/db_operation.dart';
 import '../../../core/models/customer_model.dart';
 
@@ -18,7 +19,7 @@ class NotificationView extends StatelessWidget {
         builder: (context, state) {
           return Column(
             children: [
-                        Text(context.read<NotificationBloc>().state.toString()),
+                        Text(DateFormat("dd-MM-yyyy").format(context.read<NotificationBloc>().state)),
 
               Expanded(
                 child: FutureBuilder(
