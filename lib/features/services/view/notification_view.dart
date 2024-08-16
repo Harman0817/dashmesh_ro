@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import '../../../core/database/db_operation.dart';
-import '../../../core/models/customer_model.dart';
 
 class NotificationView extends StatelessWidget {
   const NotificationView({super.key});
@@ -23,7 +22,9 @@ class NotificationView extends StatelessWidget {
 
               Expanded(
                 child: FutureBuilder(
-                    future: DbOperation.getCustomerAndVisitData(),
+                    future: DbOperation.getCustomerAndVisitData(
+                        DateFormat("dd-MM-yyyy").format(context.read<NotificationBloc>().state)
+                    ),
                             
                   builder: (BuildContext context,
                       AsyncSnapshot<List<NotificationModel>> snapshot) {
@@ -36,7 +37,7 @@ class NotificationView extends StatelessWidget {
                           return ListTile(
                             onTap: (){
                               // ignore: avoid_print
-                              print(DbOperation.getCustomerAndVisitData());
+                              // print(DbOperation.getCustomerAndVisitData());
                             },
                             leading: CircleAvatar(
                               backgroundColor:

@@ -90,8 +90,7 @@ class DbOperation {
     return customerList;
   }
 
-  static Future<List<VisitModel>> getVisitListDataFromDbByNotificationDate(
-      String date) async {
+  static Future<List<VisitModel>> getVisitListDataFromDbByNotificationDate(String date) async {
     List<VisitModel> visitList = [];
     await DatabaseHelper.fetchMapList(
         tableName: DbConstants.TABLE_VISIT_LIST,
@@ -111,9 +110,10 @@ class DbOperation {
     return visitList;
   }
 
-static Future<List<NotificationModel>> getCustomerAndVisitData() async {
+static Future<List<NotificationModel>> getCustomerAndVisitData(String date) async {
+    print('called');
   List<NotificationModel> fullJoinData = [];
-    await  DatabaseHelper.fetchJoinResult().then(
+    await  DatabaseHelper.fetchJoinResult(date).then(
       (dataList) {
         print(dataList);
         if (dataList.isNotEmpty) {
