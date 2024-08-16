@@ -23,7 +23,15 @@ class _AddVisitViewState extends State<AddVisitView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title:  Text('Add Visit',style: GoogleFonts.montserrat(),),
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+            Theme.of(context).colorScheme.onPrimary,Theme.of(context).colorScheme.primary       ])
+        ),
+      ),
+          title:  Text('Add Visit',style: Theme.of(context).textTheme.displayMedium!.copyWith(
+            fontWeight: FontWeight.bold,
+            color:Theme.of(context).scaffoldBackgroundColor),),
         ),
         body: GetBuilder<AddVisitController>(initState: (_) {
           Get.put(AddVisitController());
