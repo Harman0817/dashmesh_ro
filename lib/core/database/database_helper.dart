@@ -12,7 +12,7 @@ class DatabaseHelper {
 
   static Future close() async => _database?.close();
 
-  static DatabaseHelper? _databaseHelperInstance;
+  // static DatabaseHelper? _databaseHelperInstance;
 
   static Future<Database?> get database async {
     _database ??= await open();

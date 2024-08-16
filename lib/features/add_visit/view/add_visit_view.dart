@@ -5,6 +5,7 @@ import 'package:dashmesh_ro/features/widgets/custom_text_field.dart';
 import 'package:dashmesh_ro/utils/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../../widgets/gradient_button.dart';
 
@@ -22,7 +23,7 @@ class _AddVisitViewState extends State<AddVisitView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Add Visit'),
+          title:  Text('Add Visit',style: GoogleFonts.montserrat(),),
         ),
         body: GetBuilder<AddVisitController>(initState: (_) {
           Get.put(AddVisitController());
@@ -44,14 +45,14 @@ class _AddVisitViewState extends State<AddVisitView> {
                           itemBuilder: (context, index) {
                             return Row(
                               children: [
-                                Expanded(child: Text('${snapshot.data?[index].visitDate}')),
-                                Expanded(child: Text('${snapshot.data?[index].serviceType}')),
-                                Expanded(child: Text('${snapshot.data?[index].billingAmount}')),
-                                Expanded(child: Text('${snapshot.data?[index].pendingAmount}')),
-                                Expanded(child: Text('${snapshot.data?[index].guaranteePeriod}')),
-                                Expanded(child: Text('${snapshot.data?[index].visitRemarks}')),
-                                Expanded(child: Text('${snapshot.data?[index].visitStatus}')),
-                                Expanded(child: Text('${snapshot.data?[index].serviceDuration}')),
+                                Expanded(child: Text('${snapshot.data?[index].visitDate}',style: GoogleFonts.montserrat(),)),
+                                Expanded(child: Text('${snapshot.data?[index].serviceType}',style: GoogleFonts.montserrat(),)),
+                                Expanded(child: Text('${snapshot.data?[index].billingAmount}',style: GoogleFonts.montserrat(),)),
+                                Expanded(child: Text('${snapshot.data?[index].pendingAmount}',style: GoogleFonts.montserrat(),)),
+                                Expanded(child: Text('${snapshot.data?[index].guaranteePeriod}',style: GoogleFonts.montserrat(),)),
+                                Expanded(child: Text('${snapshot.data?[index].visitRemarks}',style: GoogleFonts.montserrat(),)),
+                                Expanded(child: Text('${snapshot.data?[index].visitStatus}',style: GoogleFonts.montserrat(),)),
+                                Expanded(child: Text('${snapshot.data?[index].serviceDuration}',style: GoogleFonts.montserrat(),)),
                               ],
                             );
                           },
@@ -67,10 +68,9 @@ class _AddVisitViewState extends State<AddVisitView> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "ADD COSTUMER VISIT",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800, fontSize: 30),
+                           Text(
+                            "Add Customer Visit",
+                            style: Theme.of(context).textTheme.displayLarge
                           ),
                           const SizedBox(height: 35),
                           CustomTextField(
@@ -107,9 +107,9 @@ class _AddVisitViewState extends State<AddVisitView> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                               Text(
                                 "Service Date",
-                                style: TextStyle(fontWeight: FontWeight.w500),
+                                style: Theme.of(context).textTheme.displaySmall,
                               ),
                               const SizedBox(
                                 height: 5,

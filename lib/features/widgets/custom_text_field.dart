@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextField extends StatelessWidget {
   final String label;
@@ -27,7 +28,7 @@ class CustomTextField extends StatelessWidget {
       children: [
         Text(
           label,
-          style:const TextStyle(fontWeight: FontWeight.bold),
+          style:Theme.of(context).textTheme.displaySmall,
         ),
         const SizedBox(
           height: 5,
@@ -36,9 +37,10 @@ class CustomTextField extends StatelessWidget {
           validator: validator,
           controller: controller,
           maxLength: maxLength,
-          maxLines: maxlines,
+          maxLines: maxlines??1,
           decoration: InputDecoration(
               hintText: 'Enter $label',
+              hintStyle: GoogleFonts.montserrat(),
               counterText: "",
               border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
