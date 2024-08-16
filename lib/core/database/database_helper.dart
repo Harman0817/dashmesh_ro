@@ -131,14 +131,14 @@ class DatabaseHelper {
   }
 
   static Future<List<Map<String, Object?>>> fetchJoinResult(String date) async {
-    print('called');
     Database? db = await database;
-    final query = '''
+    var query = '''
     SELECT *
     FROM ${DbConstants.TABLE_CUSTOMER_LIST} AS u
     JOIN ${DbConstants.TABLE_VISIT_LIST} AS o ON u.id = o.customerId
-    where "${DbConstants.COL_NOTIFICATION_DATE} = $date
+    where ${DbConstants.COL_NOTIFICATION_DATE} = '$date';
   ''';
+
     final result = await db!.rawQuery(query);
     print('Hello $result');
     return result;

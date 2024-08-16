@@ -24,6 +24,10 @@ class App extends StatelessWidget {
                 tertiary:const Color(0xff2e2e2e),
             ),
               scaffoldBackgroundColor: Colors.white ,
+    checkboxTheme: CheckboxThemeData(
+      fillColor: WidgetStateProperty.all(Colors.blue),
+      checkColor: WidgetStateProperty.all(Colors.white),
+    ),
     textTheme:  TextTheme(
     displayLarge: GoogleFonts.montserrat(
     fontSize:34,

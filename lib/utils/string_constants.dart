@@ -24,7 +24,7 @@ class StringConstants{
       static const String editCustomer = 'Edit Customer';
       static const String yes = 'Yes';
       static const String no = 'No';
-
+      static const String visitdate = 'Visit Date';
 
 
 }

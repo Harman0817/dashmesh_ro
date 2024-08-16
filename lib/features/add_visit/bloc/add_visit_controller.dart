@@ -43,7 +43,17 @@ class AddVisitController extends GetxController {
       DbConstants.COL_SERVICE_DURATION: serdurationController?.text,
       DbConstants.COL_GUARANTEE_PERIOD: gtdurationController?.text,
       DbConstants.COL_SERVICE_TYPE: "",
-    });
+    }
+    ).onError((error, stackTrace) {
+      Get.snackbar('Error', error.toString());
+    }).whenComplete(() {
+      date?.clear();
+      amountController?.clear();
+      pendingAmountController?.clear();
+      noteController?.clear();
+      serdurationController?.clear();
+      gtdurationController?.clear();
+    });;
     update();
   }
 }

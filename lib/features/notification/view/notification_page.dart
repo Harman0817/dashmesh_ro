@@ -1,4 +1,4 @@
-import 'package:dashmesh_ro/features/services/view/notification_view.dart';
+import 'package:dashmesh_ro/features/notification/view/notification_view.dart';
 import 'package:flutter/material.dart';
 
 class NotificationPage extends StatelessWidget {
