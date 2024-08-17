@@ -96,6 +96,7 @@ class DatabaseHelper {
 
   static Future<int?> insertDataInTable(
       String tableName, Map<String, dynamic> mapData) async {
+    print(mapData);
     Database? db = await database;
     var result = await db?.insert(tableName, mapData);
     return result;
@@ -165,6 +166,24 @@ class DatabaseHelper {
         limit: limit,
         offset: offset);
 
+    return result;
+  }
+
+  static Future<List<Map<String, Object?>>> fetchSearchResult(String text) async {
+    Database? db = await database;
+    var query = '''
+    SELECT *
+    FROM ${DbConstants.TABLE_CUSTOMER_LIST} 
+    where ${DbConstants.COL_MOBILE_NUMBER} LIKE '$text%'
+    OR ${DbConstants.COL_NAME} LIKE '$text%'
+    OR ${DbConstants.COL_ADDRESS} LIKE '$text%'
+    OR ${DbConstants.COL_LOCALITY} LIKE '$text%'
+    OR ${DbConstants.COL_PURIFIER_TYPE} LIKE '$text%'
+    ;
+  ''';
+
+    final result = await db!.rawQuery(query);
+    print('Hello $result');
     return result;
   }
 }

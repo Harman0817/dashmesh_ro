@@ -105,7 +105,7 @@ class _AddVisitViewState extends State<AddVisitView> {
                                       children: [
                                         Expanded(
                                             child: Text(
-                                          '${snapshot.data?[index].visitDate}',
+                                          '${snapshot.data?[index].visitDate}'.split(" ")[0],
                                           style: GoogleFonts.montserrat(),
                                         )
                                         ),
@@ -273,8 +273,7 @@ class _AddVisitViewState extends State<AddVisitView> {
                                     if (pickeddate != null) {
                                       setState(() {
                                         controller.date?.text =
-                                            DateFormat("dd-MM-yyyy")
-                                                .format(pickeddate);
+                                            "$pickeddate";
                                       });
                                     }
                                   },

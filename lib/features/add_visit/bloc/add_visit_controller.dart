@@ -34,17 +34,16 @@ class AddVisitController extends GetxController {
     DatabaseHelper.insertDataInTable(DbConstants.TABLE_VISIT_LIST, {
       DbConstants.COL_CUSTOMER_ID: customerID,
       DbConstants.COL_VISIT_DATE: date?.text,
-      DbConstants.COL_NOTIFICATION_DATE: date?.text,
+      DbConstants.COL_NOTIFICATION_DATE:
+          DateTime.parse(date!.text).add(const Duration(days: 60)).toString(),
       DbConstants.COL_BILLING_AMOUNT: amountController?.text,
       DbConstants.COL_PAID_AMOUNT: paidAmountController?.text,
-      //DbConstants.COL_PENDING_AMOUNT: int.parse(amountController?.text ?? '0') - int.parse(pendingAmountController?.text ?? '0'),
       DbConstants.COL_VISIT_STATUS: "",
       DbConstants.COL_VISIT_REMARKS: noteController?.text,
       DbConstants.COL_SERVICE_DURATION: serdurationController?.text,
       DbConstants.COL_GUARANTEE_PERIOD: gtdurationController?.text,
       DbConstants.COL_SERVICE_TYPE: "",
-    }
-    ).onError((error, stackTrace) {
+    }).onError((error, stackTrace) {
       Get.snackbar('Error', error.toString());
     }).whenComplete(() {
       date?.clear();
@@ -53,7 +52,8 @@ class AddVisitController extends GetxController {
       noteController?.clear();
       serdurationController?.clear();
       gtdurationController?.clear();
-    });;
+    });
+    ;
     update();
   }
 }

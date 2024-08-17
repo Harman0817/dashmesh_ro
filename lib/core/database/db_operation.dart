@@ -111,7 +111,7 @@ class DbOperation {
   }
 
 static Future<List<NotificationModel>> getCustomerAndVisitData(String date) async {
-    print('called');
+    print('called $date');
   List<NotificationModel> fullJoinData = [];
     await  DatabaseHelper.fetchJoinResult(date).then(
       (dataList) {
@@ -125,6 +125,23 @@ static Future<List<NotificationModel>> getCustomerAndVisitData(String date) asyn
       },
     );
     return fullJoinData;
+  }
+
+  static Future<List<CustomerModel>> searchCustomer(String searchText) async{
+    List<CustomerModel> customerList = [];
+    await DatabaseHelper.fetchSearchResult(searchText)
+        .then(
+          (dataList) {
+        if (dataList.isNotEmpty) {
+          for (var element in dataList) {
+            CustomerModel model = CustomerModel.fromJson(element);
+            customerList.add(model);
+          }
+        }
+      },
+    );
+    return customerList;
+
   }
 
 }

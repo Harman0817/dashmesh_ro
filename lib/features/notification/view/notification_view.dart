@@ -2,7 +2,7 @@ import 'package:dashmesh_ro/core/models/notification_model.dart';
 import 'package:dashmesh_ro/features/notification/bloc/notification_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+
 import '../../../core/database/db_operation.dart';
 
 class NotificationView extends StatelessWidget {
@@ -22,8 +22,11 @@ class NotificationView extends StatelessWidget {
               Expanded(
                 child: FutureBuilder(
                     future: DbOperation.getCustomerAndVisitData(
-                        DateFormat("dd-MM-yyyy")
-                            .format(context.read<NotificationBloc>().state)),
+                        // DateFormat("dd-MM-yyyy")
+                        //     .format(
+                            context.read<NotificationBloc>().state.toString()
+                        // )
+                    ),
                     builder: (BuildContext context,
                         AsyncSnapshot<List<NotificationModel>> snapshot) {
                       if(snapshot.data==null||snapshot.data!.isEmpty){
@@ -40,8 +43,7 @@ class NotificationView extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return ListTile(
                               onTap: () {
-                                // ignore: avoid_print
-                                // print(DbOperation.getCustomerAndVisitData());
+
                               },
                               trailing: Checkbox(value: true, onChanged: (bool? value) {  },),
                               leading: CircleAvatar(

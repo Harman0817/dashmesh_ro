@@ -34,6 +34,21 @@ class _CustomerListViewState extends State<CustomerListView> {
               CircleAvatar(backgroundColor: Theme.of(context).colorScheme.tertiary, radius: 12),
               const SizedBox(width: 10),
                Text('Error',style: GoogleFonts.montserrat(),),
+              const SizedBox(width: 100),
+               Expanded(
+                child:  TextFormField(
+                  onChanged: (_){
+                    DbOperation.searchCustomer(_);
+                  },
+                  decoration:const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Search',
+                    prefixIcon: Icon(Icons.search),
+                
+                  ),
+
+                ),
+              )
             ],
           ),
         ),
