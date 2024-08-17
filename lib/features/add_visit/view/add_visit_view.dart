@@ -20,7 +20,6 @@ class AddVisitView extends StatefulWidget {
 
 class _AddVisitViewState extends State<AddVisitView> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,15 +64,18 @@ class _AddVisitViewState extends State<AddVisitView> {
                               style: GoogleFonts.montserrat(),
                             )),
                             Expanded(
-                                child: Text(
-                              StringConstants.enterGaranteeDuration,
-                              style: GoogleFonts.montserrat(),
+                                child: Center(
+                              child: Text(
+                                StringConstants.enterGaranteeDuration,
+                                style: GoogleFonts.montserrat(),
+                              ),
                             )),
                             Expanded(
-                                flex: 2,
-                                child: Text(
-                                  StringConstants.enterNote,
-                                  style: GoogleFonts.montserrat(),
+                                child: Center(
+                                  child: Text(
+                                    StringConstants.enterNote,
+                                    style: GoogleFonts.montserrat(),
+                                  ),
                                 )),
                             Expanded(
                                 child: Text(
@@ -105,7 +107,8 @@ class _AddVisitViewState extends State<AddVisitView> {
                                             child: Text(
                                           '${snapshot.data?[index].visitDate}',
                                           style: GoogleFonts.montserrat(),
-                                        )),
+                                        )
+                                        ),
                                         Expanded(
                                             child: Text(
                                           '${snapshot.data?[index].serviceType}',
@@ -127,10 +130,11 @@ class _AddVisitViewState extends State<AddVisitView> {
                                           style: GoogleFonts.montserrat(),
                                         )),
                                         Expanded(
-                                            flex: 2,
-                                            child: Text(
-                                              '${snapshot.data?[index].visitRemarks}',
-                                              style: GoogleFonts.montserrat(),
+                                            child: Center(
+                                              child: Text(
+                                                '${snapshot.data?[index].visitRemarks}',
+                                                style: GoogleFonts.montserrat(),
+                                              ),
                                             )),
                                         Expanded(
                                             child: Text(
