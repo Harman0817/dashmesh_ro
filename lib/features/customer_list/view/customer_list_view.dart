@@ -14,6 +14,7 @@ class CustomerListView extends StatefulWidget {
 }
 
 class _CustomerListViewState extends State<CustomerListView> {
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -55,104 +56,11 @@ class _CustomerListViewState extends State<CustomerListView> {
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return AlertDialog(
-                          content:FutureBuilder(
-                                      future: DbOperation.getCustomerListDataFromDb(),
-                                      builder: (BuildContext context,
-                                          AsyncSnapshot<List<CustomerModel>> snapshot) {
-                                        return Container(
-                                          height: 500,
-                                          child: ListView.separated(
-                                            shrinkWrap: true,
-                                            physics: const BouncingScrollPhysics(),
-                                            itemCount: snapshot.data?.length ?? 0,
-                                            itemBuilder: (context, index) {
-                                              return ListTile(
-                                                leading: CircleAvatar(
-                                                                  backgroundColor:
-                                                                      snapshot.data?[index].purifierType == 'Set Change'
-                                                                          ? Theme.of(context).colorScheme.secondary
-                                                                          : snapshot.data?[index].purifierType == 'AMC'
-                                                                              ? Theme.of(context).colorScheme.onPrimary
-                                                                              : Colors.red,
-                                                                  child: Text("${snapshot.data?[index].name![0]}",
-                                                                      style: Theme.of(context).textTheme.displayMedium),
-                                                ),
-                                                title: Text(
-                                                                  '${snapshot.data?[index].name} - ${snapshot.data?[index].lastContactDate}',
-                                                                  style: GoogleFonts.montserrat(),
-                                                ),
-                                                subtitle: Text(
-                                                                  '${snapshot.data?[index].locality} - ${snapshot.data?[index].mobileNumber}',
-                                                                  style: GoogleFonts.montserrat(),
-                                                ),
-                                                trailing: SizedBox(
-                                                                  width: 50,
-                                                                  child: Row(
-                                                                    children: [
-                                                                      IconButton(
-                                                                          icon: const Icon(FontAwesomeIcons.house),
-                                                                          onPressed: () {
-                                                                            if (snapshot.data != null &&
-                                                                                snapshot.data?[index].id != null) {
-                                                                              Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => AddVisitView(
-                                                  customerID: snapshot
-                                                      .data![index].id!)));
-                                                                            }
-                                                                          }),
-                                                                      const SizedBox(
-                                                                        width: 25,
-                                                                      ),
-                                                                      IconButton(
-                                                                        icon: const Icon(FontAwesomeIcons.whatsapp),
-                                                                        onPressed: () => launchUrl(
-                                                                            Uri.parse(
-                                                                                'https://wa.me/${snapshot.data?[index].mobileNumber}?text=Hello%20${snapshot.data?[index].name}'),
-                                                                            mode: LaunchMode.externalApplication),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                ),
-                                              );
-                                            },
-                                            separatorBuilder: (context, index) => const Divider(),
-                                          ),
-                                        );
-                                      }) ,
-                          actions: <Widget>[
-                            TextFormField(
-                              onChanged: (_) {
-                                DbOperation.searchCustomer(_);
-                              },
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Search',
-                                prefixIcon: Icon(Icons.search),
-                              ),
-                            ),
-                          ],
-                        );
+                        return const SearchPage();
                       },
                     );
                   },
                   icon: const Icon(Icons.search))
-              //  Expanded(
-              //   child:  TextFormField(
-              //     onChanged: (_){
-              //       DbOperation.searchCustomer(_);
-              //     },
-              //     decoration:const InputDecoration(
-              //       border: OutlineInputBorder(),
-              //       hintText: 'Search',
-              //       prefixIcon: Icon(Icons.search),
-
-              //     ),
-
-              //   ),
-              // )
             ],
           ),
         ),
@@ -164,6 +72,7 @@ class _CustomerListViewState extends State<CustomerListView> {
                 return ListView.separated(
                   physics: const BouncingScrollPhysics(),
                   itemCount: snapshot.data?.length ?? 0,
+                  shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return ListTile(
                       leading: CircleAvatar(
@@ -221,6 +130,141 @@ class _CustomerListViewState extends State<CustomerListView> {
               }),
         ),
       ],
+    );
+  }
+}
+
+
+class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
+
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: TextFormField(
+        controller: searchController,
+        onChanged: (_) {
+          print('Call on change');
+          setState(() {
+
+          });
+        },
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          hintText: 'Search',
+          prefixIcon: Icon(Icons.search),
+        ),
+      ),
+      content: SizedBox(
+        height: 500,
+        width: 1000,
+        child: FutureBuilder(
+            future: DbOperation.searchCustomer(searchController.text),
+            builder: (BuildContext context,
+                AsyncSnapshot<List<CustomerModel>>
+                snapshot) {
+              if (snapshot.connectionState ==
+                  ConnectionState.waiting) {
+                return const Center(
+                    child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return const Center(
+                    child: Text('Error fetching data'));
+              } else if (!snapshot.hasData ||
+                  snapshot.data!.isEmpty) {
+                return const Center(
+                    child: Text('No results found'));
+              }
+              return ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                itemCount: snapshot.data?.length ?? 0,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: snapshot
+                          .data?[index]
+                          .purifierType ==
+                          'Set Change'
+                          ? Theme.of(context)
+                          .colorScheme
+                          .secondary
+                          : snapshot.data?[index]
+                          .purifierType ==
+                          'AMC'
+                          ? Theme.of(context)
+                          .colorScheme
+                          .onPrimary
+                          : Colors.red,
+                      child: Text(
+                          "${snapshot.data?[index].name![0]}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium),
+                    ),
+                    title: Text(
+                      '${snapshot.data?[index].name} - ${snapshot.data?[index].lastContactDate}',
+                      style: GoogleFonts.montserrat(),
+                    ),
+                    subtitle: Text(
+                      '${snapshot.data?[index].locality} - ${snapshot.data?[index].mobileNumber}',
+                      style: GoogleFonts.montserrat(),
+                    ),
+                    trailing: SizedBox(
+                      width: 105,
+                      child: Row(
+                        children: [
+                          IconButton(
+                              icon: const Icon(
+                                  FontAwesomeIcons
+                                      .house),
+                              onPressed: () {
+                                if (snapshot.data !=
+                                    null &&
+                                    snapshot
+                                        .data?[
+                                    index]
+                                        .id !=
+                                        null) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AddVisitView(
+                                              customerID: snapshot
+                                                  .data![
+                                              index]
+                                                  .id!)));
+                                }
+                              }),
+                          const SizedBox(
+                            width: 25,
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                                FontAwesomeIcons
+                                    .whatsapp),
+                            onPressed: () => launchUrl(
+                                Uri.parse(
+                                    'https://wa.me/${snapshot.data?[index].mobileNumber}?text=Hello%20${snapshot.data?[index].name}'),
+                                mode: LaunchMode
+                                    .externalApplication),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) =>
+                const Divider(),
+              );
+            }),
+      ),
     );
   }
 }

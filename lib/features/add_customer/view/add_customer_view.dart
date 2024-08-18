@@ -110,95 +110,39 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                             ],
                           ),
                           const SizedBox(height: 20),
-                          Row(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Purifier Type ",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displaySmall),
-                                    const SizedBox(height: 5),
-                                    DropdownButtonFormField(
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Please select type';
-                                        }
-                                        return null;
-                                      },
-                                      items: controller.type
-                                          .map((element) => DropdownMenuItem(
-                                              value: element,
-                                              child: Text(element)))
-                                          .toList(),
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5)),
-                                        prefixIcon: const Icon(
-                                            Icons.type_specimen_rounded),
-                                        hintText: "Select Type",
-                                      ),
-                                      onChanged: (value) {
-                                        print(value.runtimeType);
-                                        controller.selectedType = value ?? '';
-                                      },
-                                    ),
-                                  ],
+                              Text("Purifier Type ",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall),
+                              const SizedBox(height: 5),
+                              DropdownButtonFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please select type';
+                                  }
+                                  return null;
+                                },
+                                items: controller.type
+                                    .map((element) => DropdownMenuItem(
+                                        value: element,
+                                        child: Text(element)))
+                                    .toList(),
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(5)),
+                                  prefixIcon: const Icon(
+                                      Icons.type_specimen_rounded),
+                                  hintText: "Select Type",
                                 ),
+                                onChanged: (value) {
+                                  print(value.runtimeType);
+                                  controller.selectedType = value ?? '';
+                                },
                               ),
-                              const SizedBox(width: 25),
-                              Expanded(
-                                  child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Last Contact Date ",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  TextFormField(
-                                    readOnly: true,
-                                    // validator: (value) {
-                                    //   if (value == null || value.isEmpty) {
-                                    //     return 'Please enter last contact date';
-                                    //   }
-                                    //   return null;
-                                    // },
-                                    controller:
-                                        controller.lastContactDateController,
-                                    decoration: InputDecoration(
-                                        hintText: 'DD/MM/YYYY',
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5)),
-                                        prefixIcon: const Icon(
-                                            Icons.calendar_today_rounded)),
-                                    onTap: () async {
-                                      DateTime? pickeddate =
-                                          await showDatePicker(
-                                              context: context,
-                                              firstDate: DateTime(
-                                                  DateTime.now().year - 70),
-                                              currentDate: DateTime.now(),
-                                              lastDate: DateTime(
-                                                  DateTime.now().year + 70));
-                                      if (pickeddate != null) {
-                                        setState(() {
-                                          controller.lastContactDateController
-                                                  ?.text =
-                                              DateFormat("dd-MM-yyyy")
-                                                  .format(pickeddate);
-                                        });
-                                      }
-                                    },
-                                  ),
-                                ],
-                              ))
                             ],
                           ),
                           const SizedBox(

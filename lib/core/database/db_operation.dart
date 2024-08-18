@@ -128,6 +128,7 @@ static Future<List<NotificationModel>> getCustomerAndVisitData(String date) asyn
   }
 
   static Future<List<CustomerModel>> searchCustomer(String searchText) async{
+    print(searchText);
     List<CustomerModel> customerList = [];
     await DatabaseHelper.fetchSearchResult(searchText)
         .then(

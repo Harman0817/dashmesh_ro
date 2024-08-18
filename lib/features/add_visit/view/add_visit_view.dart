@@ -20,6 +20,7 @@ class AddVisitView extends StatefulWidget {
 
 class _AddVisitViewState extends State<AddVisitView> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool showColNames = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,42 +50,44 @@ class _AddVisitViewState extends State<AddVisitView> {
                   flex: 2,
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Text(
-                              StringConstants.visitdate,
-                              style: GoogleFonts.montserrat(),
-                            )),
-                            Expanded(
-                                child: Text(
-                              StringConstants.enterAmount,
-                              style: GoogleFonts.montserrat(),
-                            )),
-                            Expanded(
-                                child: Center(
-                              child: Text(
-                                StringConstants.enterGaranteeDuration,
-                                style: GoogleFonts.montserrat(),
-                              ),
-                            )),
-                            Expanded(
-                                child: Center(
-                                  child: Text(
-                                    StringConstants.enterNote,
+                      !showColNames
+                          ? Container()
+                          : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      child: Text(
+                                    StringConstants.visitdate,
                                     style: GoogleFonts.montserrat(),
-                                  ),
-                                )),
-                            Expanded(
-                                child: Text(
-                              StringConstants.enterServiceDuration,
-                              style: GoogleFonts.montserrat(),
-                            ))
-                          ],
-                        ),
-                      ),
+                                  )),
+                                  Expanded(
+                                      child: Text(
+                                    StringConstants.enterAmount,
+                                    style: GoogleFonts.montserrat(),
+                                  )),
+                                  Expanded(
+                                      child: Center(
+                                    child: Text(
+                                      StringConstants.enterGaranteeDuration,
+                                      style: GoogleFonts.montserrat(),
+                                    ),
+                                  )),
+                                  Expanded(
+                                      child: Center(
+                                    child: Text(
+                                      StringConstants.enterNote,
+                                      style: GoogleFonts.montserrat(),
+                                    ),
+                                  )),
+                                  Expanded(
+                                      child: Text(
+                                    StringConstants.enterServiceDuration,
+                                    style: GoogleFonts.montserrat(),
+                                  ))
+                                ],
+                              ),
+                            ),
                       const SizedBox(
                         height: 5,
                       ),
@@ -95,6 +98,22 @@ class _AddVisitViewState extends State<AddVisitView> {
                                     widget.customerID),
                             builder: (BuildContext context,
                                 AsyncSnapshot<List<VisitModel>> snapshot) {
+                              if (snapshot.data == null ||
+                                  snapshot.data!.isEmpty) {
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((_) {
+                                  setState(() {
+                                    showColNames = false;
+                                  });
+                                });
+
+                                return Align(
+                                    alignment: Alignment.topCenter,
+                                    child: Image.asset(
+                                      'assets/no_data.png',
+                                      height: 400,
+                                    ));
+                              }
                               return ListView.separated(
                                 physics: const BouncingScrollPhysics(),
                                 itemCount: snapshot.data?.length ?? 0,
@@ -105,10 +124,10 @@ class _AddVisitViewState extends State<AddVisitView> {
                                       children: [
                                         Expanded(
                                             child: Text(
-                                          '${snapshot.data?[index].visitDate}'.split(" ")[0],
+                                          '${snapshot.data?[index].visitDate}'
+                                              .split(" ")[0],
                                           style: GoogleFonts.montserrat(),
-                                        )
-                                        ),
+                                        )),
                                         Expanded(
                                             child: Text(
                                           '${snapshot.data?[index].serviceType}',
@@ -131,11 +150,11 @@ class _AddVisitViewState extends State<AddVisitView> {
                                         )),
                                         Expanded(
                                             child: Center(
-                                              child: Text(
-                                                '${snapshot.data?[index].visitRemarks}',
-                                                style: GoogleFonts.montserrat(),
-                                              ),
-                                            )),
+                                          child: Text(
+                                            '${snapshot.data?[index].visitRemarks}',
+                                            style: GoogleFonts.montserrat(),
+                                          ),
+                                        )),
                                         Expanded(
                                             child: Text(
                                           '${snapshot.data?[index].visitStatus}',
@@ -272,8 +291,7 @@ class _AddVisitViewState extends State<AddVisitView> {
                                             DateTime(DateTime.now().year + 70));
                                     if (pickeddate != null) {
                                       setState(() {
-                                        controller.date?.text =
-                                            "$pickeddate";
+                                        controller.date?.text = "$pickeddate";
                                       });
                                     }
                                   },
