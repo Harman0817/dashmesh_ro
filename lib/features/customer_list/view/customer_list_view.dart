@@ -18,37 +18,141 @@ class _CustomerListViewState extends State<CustomerListView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-       Padding(
+        Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CircleAvatar(backgroundColor: Theme.of(context).colorScheme.secondary, radius: 12),
+              CircleAvatar(
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  radius: 12),
               const SizedBox(width: 10),
-               Text('Set Change',style: GoogleFonts.montserrat(),),
+              Text(
+                'Set Change',
+                style: GoogleFonts.montserrat(),
+              ),
               const SizedBox(width: 100),
-              CircleAvatar(backgroundColor: Theme.of(context).colorScheme.onPrimary, radius: 12),
+              CircleAvatar(
+                  backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                  radius: 12),
               const SizedBox(width: 10),
-               Text('AMC',style: GoogleFonts.montserrat(),),
+              Text(
+                'AMC',
+                style: GoogleFonts.montserrat(),
+              ),
               const SizedBox(width: 100),
-              CircleAvatar(backgroundColor: Theme.of(context).colorScheme.tertiary, radius: 12),
+              CircleAvatar(
+                  backgroundColor: Theme.of(context).colorScheme.tertiary,
+                  radius: 12),
               const SizedBox(width: 10),
-               Text('Error',style: GoogleFonts.montserrat(),),
-              const SizedBox(width: 100),
-               Expanded(
-                child:  TextFormField(
-                  onChanged: (_){
-                    DbOperation.searchCustomer(_);
+              Text(
+                'Error',
+                style: GoogleFonts.montserrat(),
+              ),
+              const SizedBox(width: 480),
+              IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content:FutureBuilder(
+                                      future: DbOperation.getCustomerListDataFromDb(),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<List<CustomerModel>> snapshot) {
+                                        return Container(
+                                          height: 500,
+                                          child: ListView.separated(
+                                            shrinkWrap: true,
+                                            physics: const BouncingScrollPhysics(),
+                                            itemCount: snapshot.data?.length ?? 0,
+                                            itemBuilder: (context, index) {
+                                              return ListTile(
+                                                leading: CircleAvatar(
+                                                                  backgroundColor:
+                                                                      snapshot.data?[index].purifierType == 'Set Change'
+                                                                          ? Theme.of(context).colorScheme.secondary
+                                                                          : snapshot.data?[index].purifierType == 'AMC'
+                                                                              ? Theme.of(context).colorScheme.onPrimary
+                                                                              : Colors.red,
+                                                                  child: Text("${snapshot.data?[index].name![0]}",
+                                                                      style: Theme.of(context).textTheme.displayMedium),
+                                                ),
+                                                title: Text(
+                                                                  '${snapshot.data?[index].name} - ${snapshot.data?[index].lastContactDate}',
+                                                                  style: GoogleFonts.montserrat(),
+                                                ),
+                                                subtitle: Text(
+                                                                  '${snapshot.data?[index].locality} - ${snapshot.data?[index].mobileNumber}',
+                                                                  style: GoogleFonts.montserrat(),
+                                                ),
+                                                trailing: SizedBox(
+                                                                  width: 50,
+                                                                  child: Row(
+                                                                    children: [
+                                                                      IconButton(
+                                                                          icon: const Icon(FontAwesomeIcons.house),
+                                                                          onPressed: () {
+                                                                            if (snapshot.data != null &&
+                                                                                snapshot.data?[index].id != null) {
+                                                                              Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => AddVisitView(
+                                                  customerID: snapshot
+                                                      .data![index].id!)));
+                                                                            }
+                                                                          }),
+                                                                      const SizedBox(
+                                                                        width: 25,
+                                                                      ),
+                                                                      IconButton(
+                                                                        icon: const Icon(FontAwesomeIcons.whatsapp),
+                                                                        onPressed: () => launchUrl(
+                                                                            Uri.parse(
+                                                                                'https://wa.me/${snapshot.data?[index].mobileNumber}?text=Hello%20${snapshot.data?[index].name}'),
+                                                                            mode: LaunchMode.externalApplication),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            separatorBuilder: (context, index) => const Divider(),
+                                          ),
+                                        );
+                                      }) ,
+                          actions: <Widget>[
+                            TextFormField(
+                              onChanged: (_) {
+                                DbOperation.searchCustomer(_);
+                              },
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Search',
+                                prefixIcon: Icon(Icons.search),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
-                  decoration:const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Search',
-                    prefixIcon: Icon(Icons.search),
-                
-                  ),
+                  icon: const Icon(Icons.search))
+              //  Expanded(
+              //   child:  TextFormField(
+              //     onChanged: (_){
+              //       DbOperation.searchCustomer(_);
+              //     },
+              //     decoration:const InputDecoration(
+              //       border: OutlineInputBorder(),
+              //       hintText: 'Search',
+              //       prefixIcon: Icon(Icons.search),
 
-                ),
-              )
+              //     ),
+
+              //   ),
+              // )
             ],
           ),
         ),
@@ -69,17 +173,17 @@ class _CustomerListViewState extends State<CustomerListView> {
                                 : snapshot.data?[index].purifierType == 'AMC'
                                     ? Theme.of(context).colorScheme.onPrimary
                                     : Colors.red,
-                        child: Text(
-                          "${snapshot.data?[index].name![0]}",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                        ),
+                        child: Text("${snapshot.data?[index].name![0]}",
+                            style: Theme.of(context).textTheme.displayMedium),
                       ),
                       title: Text(
-                          '${snapshot.data?[index].name} - ${snapshot.data?[index].lastContactDate}',style: GoogleFonts.montserrat(),),
+                        '${snapshot.data?[index].name} - ${snapshot.data?[index].lastContactDate}',
+                        style: GoogleFonts.montserrat(),
+                      ),
                       subtitle: Text(
-                          '${snapshot.data?[index].locality} - ${snapshot.data?[index].mobileNumber}',style: GoogleFonts.montserrat(),),
+                        '${snapshot.data?[index].locality} - ${snapshot.data?[index].mobileNumber}',
+                        style: GoogleFonts.montserrat(),
+                      ),
                       trailing: SizedBox(
                         width: 150,
                         child: Row(
