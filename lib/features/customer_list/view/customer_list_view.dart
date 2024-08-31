@@ -252,8 +252,7 @@ class _SearchPageState extends State<SearchPage> {
                             onPressed: () => launchUrl(
                                 Uri.parse(
                                     'https://wa.me/${snapshot.data?[index].mobileNumber}?text=Hello%20${snapshot.data?[index].name}'),
-                                mode: LaunchMode
-                                    .externalApplication),
+                                mode: LaunchMode.externalApplication),
                           ),
                         ],
                       ),

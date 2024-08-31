@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "426568631045",
+    "project_id": "dashmesh-mechanix",
+    "storage_bucket": "dashmesh-mechanix.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426568631045:android:745c21d158fdf506642d6c",
+        "android_client_info": {
+          "package_name": "com.example.dashmesh_ro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwwO-xjnmH2BTb5WlC12va8sgrTiHTMkY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

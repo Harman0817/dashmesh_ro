@@ -37,6 +37,8 @@ class DbOperation {
   static Future<List<VisitModel>> getVisitListDataFromDbByCustomerId(
       int customerId) async {
     List<VisitModel> visitList = [];
+
+
     await DatabaseHelper.fetchMapList(
         tableName: DbConstants.TABLE_VISIT_LIST,
         where: "${DbConstants.COL_CUSTOMER_ID} = ?",
