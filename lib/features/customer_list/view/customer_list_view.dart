@@ -113,7 +113,7 @@ class _CustomerListViewState extends State<CustomerListView> {
                               icon: const Icon(FontAwesomeIcons.whatsapp),
                               onPressed: () => launchUrl(
                                   Uri.parse(
-                                      'https://wa.me/${snapshot.data?[index].mobileNumber}?text=Hello%20${snapshot.data?[index].name}'),
+                                      'https://wa.me/+91${snapshot.data?[index]['number']}?text=Hello%20${snapshot.data?[index]['name']}'),
                                   mode: LaunchMode.externalApplication),
                             ),
                           ],
@@ -164,7 +164,7 @@ class _SearchPageState extends State<SearchPage> {
         child: FutureBuilder(
             future: DbOperation.searchCustomer(searchController.text),
             builder: (BuildContext context,
-                AsyncSnapshot<List<CustomerModel>>
+                AsyncSnapshot<List<dynamic>>
                 snapshot) {
               if (snapshot.connectionState ==
                   ConnectionState.waiting) {
@@ -184,32 +184,19 @@ class _SearchPageState extends State<SearchPage> {
                 itemBuilder: (context, index) {
                   return ListTile(
                     leading: CircleAvatar(
-                      backgroundColor: snapshot
-                          .data?[index]
-                          .purifierType ==
-                          'Set Change'
-                          ? Theme.of(context)
-                          .colorScheme
-                          .secondary
-                          : snapshot.data?[index]
-                          .purifierType ==
-                          'AMC'
-                          ? Theme.of(context)
-                          .colorScheme
-                          .onPrimary
-                          : Colors.red,
+                      backgroundColor: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
                       child: Text(
-                          "${snapshot.data?[index].name![0]}",
+                          "${snapshot.data?[index]['name']![0]}",
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium),
                     ),
                     title: Text(
-                      '${snapshot.data?[index].name} - ${snapshot.data?[index].lastContactDate}',
+                      '${snapshot.data?[index]['name'].toString()} ',
                       style: GoogleFonts.montserrat(),
                     ),
                     subtitle: Text(
-                      '${snapshot.data?[index].locality} - ${snapshot.data?[index].mobileNumber}',
+                      '${snapshot.data?[index]['locality']} - ${snapshot.data?[index]['number']}',
                       style: GoogleFonts.montserrat(),
                     ),
                     trailing: SizedBox(
@@ -247,7 +234,7 @@ class _SearchPageState extends State<SearchPage> {
                                     .whatsapp),
                             onPressed: () => launchUrl(
                                 Uri.parse(
-                                    'https://wa.me/${snapshot.data?[index].mobileNumber}?text=Hello%20${snapshot.data?[index].name}'),
+                                    'https://wa.me/+91${snapshot.data?[index]['number']}?text=Hello%20${snapshot.data?[index]['name']}'),
                                 mode: LaunchMode.externalApplication),
                           ),
                         ],

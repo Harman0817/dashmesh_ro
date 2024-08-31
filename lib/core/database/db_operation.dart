@@ -136,20 +136,38 @@ static Future<List<NotificationModel>> getCustomerAndVisitData(String date) asyn
     return fullJoinData;
   }
 
-  static Future<List<CustomerModel>> searchCustomer(String searchText) async{
+  static Future<List<dynamic>> searchCustomer(String searchText) async{
     print(searchText);
-    List<CustomerModel> customerList = [];
-    await DatabaseHelper.fetchSearchResult(searchText)
-        .then(
-          (dataList) {
-        if (dataList.isNotEmpty) {
-          for (var element in dataList) {
-            CustomerModel model = CustomerModel.fromJson(element);
-            customerList.add(model);
-          }
-        }
-      },
-    );
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    List<dynamic> customerList = [];
+    QuerySnapshot nameQuery = await firestore.collection('Customer')
+        .where('name', isGreaterThanOrEqualTo: '$searchText')
+        .where('name', isLessThan: '$searchText' + 'z')
+        .get();
+    QuerySnapshot numberQuery = await firestore.collection('Customer')
+        .where('number', isGreaterThanOrEqualTo: '$searchText')
+        .where('number', isLessThan: '$searchText' + 'z')
+        .get();
+    QuerySnapshot localityQuery = await firestore.collection('Customer')
+        .where('locality', isGreaterThanOrEqualTo: '$searchText')
+        .where('locality', isLessThan: '$searchText' + 'z')
+        .get();
+    QuerySnapshot addressQuery = await firestore.collection('Customer')
+        .where('address', isGreaterThanOrEqualTo: '$searchText')
+        .where('address', isLessThan: '$searchText' + 'z')
+        .get();
+    for (var doc in nameQuery.docs) {
+      customerList.add(doc.data() );
+    }
+    for (var doc in numberQuery.docs) {
+      customerList.add(doc.data());
+    }
+    for (var doc in localityQuery.docs) {
+      customerList.add(doc.data() );
+    }
+    for (var doc in addressQuery.docs) {
+      customerList.add(doc.data());
+    }
     return customerList;
 
   }
