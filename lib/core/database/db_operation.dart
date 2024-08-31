@@ -3,6 +3,8 @@ import 'package:dashmesh_ro/core/models/notification_model.dart';
 import 'package:dashmesh_ro/core/models/visit_model.dart';
 import 'package:dashmesh_ro/core/shared/db_constants.dart';
 import 'package:dashmesh_ro/core/shared/ro_logger.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'database_helper.dart';
 
 class DbOperation {
@@ -75,20 +77,25 @@ class DbOperation {
     return visitList;
   }
 
-  static Future<List<CustomerModel>> getCustomerListDataFromDb() async {
-    List<CustomerModel> customerList = [];
-    await DatabaseHelper.fetchMapList(
-            tableName: DbConstants.TABLE_CUSTOMER_LIST)
-        .then(
-      (dataList) {
-        if (dataList.isNotEmpty) {
-          for (var element in dataList) {
-            CustomerModel model = CustomerModel.fromJson(element);
-            customerList.add(model);
-          }
-        }
-      },
-    );
+  static Future<List<dynamic>> getCustomerListDataFromDb() async {
+    List<dynamic> customerList = [];
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    QuerySnapshot querySnapshot = await firestore.collection('Customer').get();
+    for (var doc in querySnapshot.docs) {
+      customerList.add(doc.data());
+    }
+    // await DatabaseHelper.fetchMapList(
+    //         tableName: DbConstants.TABLE_CUSTOMER_LIST)
+    //     .then(
+    //   (dataList) {
+    //     if (dataList.isNotEmpty) {
+    //       for (var element in dataList) {
+    //         CustomerModel model = CustomerModel.fromJson(element);
+    //         customerList.add(model);
+    //       }
+    //     }
+    //   },
+    // );
     return customerList;
   }
 

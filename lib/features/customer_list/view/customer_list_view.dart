@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'dart:math' as math;
 class CustomerListView extends StatefulWidget {
   const CustomerListView({super.key});
 
@@ -68,7 +68,7 @@ class _CustomerListViewState extends State<CustomerListView> {
           child: FutureBuilder(
               future: DbOperation.getCustomerListDataFromDb(),
               builder: (BuildContext context,
-                  AsyncSnapshot<List<CustomerModel>> snapshot) {
+                  AsyncSnapshot<List<dynamic>> snapshot) {
                 return ListView.separated(
                   physics: const BouncingScrollPhysics(),
                   itemCount: snapshot.data?.length ?? 0,
@@ -77,20 +77,16 @@ class _CustomerListViewState extends State<CustomerListView> {
                     return ListTile(
                       leading: CircleAvatar(
                         backgroundColor:
-                            snapshot.data?[index].purifierType == 'Set Change'
-                                ? Theme.of(context).colorScheme.secondary
-                                : snapshot.data?[index].purifierType == 'AMC'
-                                    ? Theme.of(context).colorScheme.onPrimary
-                                    : Colors.red,
-                        child: Text("${snapshot.data?[index].name![0]}",
+                        Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
+                        child: Text("${snapshot.data?[index]['name'][0].toString()}",
                             style: Theme.of(context).textTheme.displayMedium),
                       ),
                       title: Text(
-                        '${snapshot.data?[index].name} - ${snapshot.data?[index].lastContactDate}',
+                        '${snapshot.data?[index]['name'].toString()} ',
                         style: GoogleFonts.montserrat(),
                       ),
                       subtitle: Text(
-                        '${snapshot.data?[index].locality} - ${snapshot.data?[index].mobileNumber}',
+                        '${snapshot.data?[index]['locality'].toString()} - ${snapshot.data?[index]['number'].toString()}',
                         style: GoogleFonts.montserrat(),
                       ),
                       trailing: SizedBox(

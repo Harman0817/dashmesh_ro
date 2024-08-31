@@ -6,7 +6,6 @@ import 'package:dashmesh_ro/utils/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import '../../widgets/gradient_button.dart';
 
 class AddVisitView extends StatefulWidget {
