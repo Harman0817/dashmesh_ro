@@ -36,26 +36,32 @@ class DbOperation {
     }
   }
 
-  static Future<List<VisitModel>> getVisitListDataFromDbByCustomerId(
-      int customerId) async {
-    List<VisitModel> visitList = [];
+  static Future<List<dynamic>> getVisitListDataFromDbByCustomerId(
+      var customerId) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    List<dynamic> visitList = [];
+    QuerySnapshot customerQuery = await firestore.collection('Visits')
+        .where('Customer_id', isEqualTo: '$customerId')
+        .get();
+    for (var doc in customerQuery.docs) {
+      visitList.add(doc.data() );
+    }
 
-
-    await DatabaseHelper.fetchMapList(
-        tableName: DbConstants.TABLE_VISIT_LIST,
-        where: "${DbConstants.COL_CUSTOMER_ID} = ?",
-        whereArgs: [customerId]).then(
-      (dataList) {
-        if (dataList.isNotEmpty) {
-          for (var element in dataList) {
-            VisitModel model = VisitModel.fromJson(element);
-            visitList.add(model);
-          }
-        }
-      },
-    ).onError((stack, error) {
-      print(error);
-    });
+    // await DatabaseHelper.fetchMapList(
+    //     tableName: DbConstants.TABLE_VISIT_LIST,
+    //     where: "${DbConstants.COL_CUSTOMER_ID} = ?",
+    //     whereArgs: [customerId]).then(
+    //   (dataList) {
+    //     if (dataList.isNotEmpty) {
+    //       for (var element in dataList) {
+    //         VisitModel model = VisitModel.fromJson(element);
+    //         visitList.add(model);
+    //       }
+    //     }
+    //   },
+    // ).onError((stack, error) {
+    //   print(error);
+    // });
     return visitList;
   }
 

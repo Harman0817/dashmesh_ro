@@ -97,13 +97,13 @@ class _CustomerListViewState extends State<CustomerListView> {
                                 icon: const Icon(FontAwesomeIcons.house),
                                 onPressed: () {
                                   if (snapshot.data != null &&
-                                      snapshot.data?[index].id != null) {
+                                      snapshot.data?[index]['Customer_id'] != null) {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => AddVisitView(
-                                                customerID: snapshot
-                                                    .data![index].id!)));
+                                                customerID: "${snapshot
+                                                    .data![index]['Customer_id']!}")));
                                   }
                                 }),
                             const SizedBox(
@@ -213,7 +213,7 @@ class _SearchPageState extends State<SearchPage> {
                                     snapshot
                                         .data?[
                                     index]
-                                        .id !=
+                                        ['Customer_id']!=
                                         null) {
                                   Navigator.push(
                                       context,
@@ -222,7 +222,7 @@ class _SearchPageState extends State<SearchPage> {
                                               customerID: snapshot
                                                   .data![
                                               index]
-                                                  .id!)));
+                                                  ['Customer_id']!)));
                                 }
                               }),
                           const SizedBox(

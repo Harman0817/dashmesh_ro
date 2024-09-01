@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../widgets/gradient_button.dart';
 
 class AddVisitView extends StatefulWidget {
-  final int customerID;
+   final customerID;
 
   const AddVisitView({super.key, required this.customerID});
 
@@ -96,16 +96,16 @@ class _AddVisitViewState extends State<AddVisitView> {
                                 DbOperation.getVisitListDataFromDbByCustomerId(
                                     widget.customerID),
                             builder: (BuildContext context,
-                                AsyncSnapshot<List<VisitModel>> snapshot) {
+                                AsyncSnapshot<List<dynamic>> snapshot) {
                               if (snapshot.data == null ||
-                                  snapshot.data!.isEmpty) {
-                                WidgetsBinding.instance
-                                    .addPostFrameCallback((_) {
-                                  setState(() {
-                                    showColNames = false;
-                                  });
-                                });
-
+                                  snapshot.data!.isEmpty) //{
+                                // WidgetsBinding.instance
+                                //     .addPostFrameCallback((_) {
+                                //   setState(() {
+                                //     showColNames = false;
+                                //   });
+                                // });
+                                {
                                 return Align(
                                     alignment: Alignment.topCenter,
                                     child: Image.asset(
@@ -123,45 +123,49 @@ class _AddVisitViewState extends State<AddVisitView> {
                                       children: [
                                         Expanded(
                                             child: Text(
-                                          '${snapshot.data?[index].visitDate}'
+                                          '${snapshot.data?[index]['Date']}'
                                               .split(" ")[0],
                                           style: GoogleFonts.montserrat(),
                                         )),
+                                        const SizedBox(width:8,),
+                                        // Expanded(
+                                        //     child: Text(
+                                        //   '${snapshot.data?[index]['Service_Type']}',
+                                        //   style: GoogleFonts.montserrat(),
+                                        // )),
                                         Expanded(
                                             child: Text(
-                                          '${snapshot.data?[index].serviceType}',
+                                          '${snapshot.data?[index]['Bill_Amount']}',
                                           style: GoogleFonts.montserrat(),
                                         )),
+                                        const SizedBox(width: 2,),
+                                        // Expanded(
+                                        //     child: Text(
+                                        //   '${snapshot.data?[index]['Pending_Amount']}',
+                                        //   style: GoogleFonts.montserrat(),
+                                        // )),
                                         Expanded(
                                             child: Text(
-                                          '${snapshot.data?[index].billingAmount}',
+                                          '${snapshot.data?[index]['Guarantee']}',
                                           style: GoogleFonts.montserrat(),
                                         )),
-                                        Expanded(
-                                            child: Text(
-                                          '${snapshot.data?[index].pendingAmount}',
-                                          style: GoogleFonts.montserrat(),
-                                        )),
-                                        Expanded(
-                                            child: Text(
-                                          '${snapshot.data?[index].guaranteePeriod}',
-                                          style: GoogleFonts.montserrat(),
-                                        )),
+                                        const SizedBox(width: 2,),
                                         Expanded(
                                             child: Center(
                                           child: Text(
-                                            '${snapshot.data?[index].visitRemarks}',
+                                            '${snapshot.data?[index]['Note']}',
                                             style: GoogleFonts.montserrat(),
                                           ),
                                         )),
+                                        const SizedBox(width: 2,),
+                                        // Expanded(
+                                        //     child: Text(
+                                        //   '${snapshot.data?[index]['Equipment_List']}',
+                                        //   style: GoogleFonts.montserrat(),
+                                        // )),
                                         Expanded(
                                             child: Text(
-                                          '${snapshot.data?[index].visitStatus}',
-                                          style: GoogleFonts.montserrat(),
-                                        )),
-                                        Expanded(
-                                            child: Text(
-                                          '${snapshot.data?[index].serviceDuration}',
+                                          '${snapshot.data?[index]['Service_Duration']}',
                                           style: GoogleFonts.montserrat(),
                                         )),
                                       ],
