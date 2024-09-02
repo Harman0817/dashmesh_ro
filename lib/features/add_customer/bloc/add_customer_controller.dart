@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dashmesh_ro/core/database/database_helper.dart';
 import 'package:dashmesh_ro/core/shared/db_constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,8 +12,8 @@ class AddCustomerController extends GetxController {
   TextEditingController? addressController;
   TextEditingController? districtController;
   TextEditingController? localityController;
-  TextEditingController? streetController;
-  TextEditingController? pinController;
+  TextEditingController? noteController;
+  TextEditingController? rotypeController;
   List<String> type = ['Set Change','AMC'];
   String selectedType = 'Set Change';
 
@@ -26,8 +27,8 @@ class AddCustomerController extends GetxController {
     addressController = TextEditingController();
     districtController = TextEditingController();
     localityController = TextEditingController();
-    streetController = TextEditingController();
-    pinController = TextEditingController();
+    noteController = TextEditingController();
+    rotypeController = TextEditingController();
   }
 
   @override
@@ -39,18 +40,25 @@ class AddCustomerController extends GetxController {
     addressController?.dispose();
     districtController?.dispose();
     localityController?.dispose();
-    streetController?.dispose();
-    pinController?.dispose();
+    noteController?.dispose();
+    rotypeController?.dispose();
   }
 
   Future addCustomer() async {
-    await DatabaseHelper.insertDataInTable(DbConstants.TABLE_CUSTOMER_LIST, {
-      'name': nameController?.text??'-',
-      'mobileNumber': mobileController?.text,
-      'address': addressController?.text??'-',
-      'locality': localityController?.text??'-',
-      'lastContactDate': lastContactDateController?.text??'-',
-      'purifierType': selectedType
+    CollectionReference users = FirebaseFirestore.instance.collection('Customer');
+    List<dynamic>list=[];
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('Customer').get();
+    for (var doc in querySnapshot.docs) {
+      list.add(doc.data());
+    }
+    users.doc(mobileController?.text??'-------').set({
+      'Customer_id':'${list.length+1}',
+      'name': nameController?.text??'No Data',
+      'number': mobileController?.text??'No Data',
+      'address': addressController?.text??'No Data',
+      'locality': localityController?.text??'No Data',
+      'ro_type':rotypeController?.text??'No Data',
+      'Note': noteController?.text?? 'No Data',
     }).onError((error, stackTrace) {
       Get.snackbar('Error', error.toString());
     }).whenComplete(() {
@@ -58,7 +66,8 @@ class AddCustomerController extends GetxController {
       mobileController?.clear();
       addressController?.clear();
       localityController?.clear();
-      lastContactDateController?.clear();
+      rotypeController?.clear();
+      noteController?.clear();
       Get.back();
     });
   }

@@ -125,20 +125,41 @@ class DbOperation {
     return visitList;
   }
 
-static Future<List<NotificationModel>> getCustomerAndVisitData(String date) async {
+static Future<List<dynamic>> getCustomerAndVisitData(String date) async {
     print('called $date');
-  List<NotificationModel> fullJoinData = [];
-    await  DatabaseHelper.fetchJoinResult(date).then(
-      (dataList) {
-        print(dataList);
-        if (dataList.isNotEmpty) {
-          for (var element in dataList){
-            NotificationModel model = NotificationModel.fromJson(element);
-            fullJoinData.add(model);
-          }
-        }
-      },
-    );
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    List<dynamic> fullJoinData = [];
+    QuerySnapshot customerQuery = await firestore.collection('Visits')
+        .where('Notification_Date', isEqualTo: '$date')
+        .get();
+    List<dynamic> list=[];
+    List<dynamic>Store=[];
+    for (var doc in customerQuery.docs) {
+      list.add(doc.data());
+    }
+    for (var data in list){
+      String id=data['Customer_id'];
+      QuerySnapshot query = await firestore.collection('Customer')
+          .where('Customer', isEqualTo: '$id')
+          .get();
+      for(var store in query.docs){
+        Store.add(store.data());
+      }
+    }
+    for (var StoredData in list){
+
+    }
+    // await  DatabaseHelper.fetchJoinResult(date).then(
+    //   (dataList) {
+    //     print(dataList);
+    //     if (dataList.isNotEmpty) {
+    //       for (var element in dataList){
+    //         NotificationModel model = NotificationModel.fromJson(element);
+    //         fullJoinData.add(model);
+    //       }
+    //     }
+    //   },
+    // );
     return fullJoinData;
   }
 

@@ -4,7 +4,7 @@ import 'package:dashmesh_ro/features/widgets/gradient_button.dart';
 import 'package:dashmesh_ro/utils/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+
 
 class AddCustomerView extends StatefulWidget {
   const AddCustomerView({super.key});
@@ -110,38 +110,35 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                             ],
                           ),
                           const SizedBox(height: 20),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
                             children: [
-                              Text("Purifier Type ",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall),
-                              const SizedBox(height: 5),
-                              DropdownButtonFormField(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please select type';
-                                  }
-                                  return null;
-                                },
-                                items: controller.type
-                                    .map((element) => DropdownMenuItem(
-                                        value: element,
-                                        child: Text(element)))
-                                    .toList(),
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(5)),
-                                  prefixIcon: const Icon(
-                                      Icons.type_specimen_rounded),
-                                  hintText: "Select Type",
+                              Expanded(
+                                child: CustomTextField(
+                                  label: StringConstants.enterRotype,
+                                  controller: controller.rotypeController,
+                                  icon: const Icon(Icons.type_specimen),
+                                  // validator: (value) {
+                                  //   if (value == null || value.isEmpty) {
+                                  //     return 'Please enter Address';
+                                  //   }
+                                  //   return null;
+                                  // },
                                 ),
-                                onChanged: (value) {
-                                  print(value.runtimeType);
-                                  controller.selectedType = value ?? '';
-                                },
+                              ),
+                              const SizedBox(width: 25),
+                              Expanded(
+                                child: CustomTextField(
+                                  label: StringConstants.enterNote,
+                                  controller: controller.noteController,
+                                  icon: const Icon(Icons.note),
+
+                                  // validator: (value) {
+                                  //   if (value == null || value.isEmpty) {
+                                  //     return 'Please enter Locality';
+                                  //   }
+                                  //   return null;
+                                  // },
+                                ),
                               ),
                             ],
                           ),

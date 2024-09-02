@@ -2,7 +2,7 @@ import 'package:dashmesh_ro/core/models/notification_model.dart';
 import 'package:dashmesh_ro/features/notification/bloc/notification_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'dart:math' as math;
 import '../../../core/database/db_operation.dart';
 
 class NotificationView extends StatelessWidget {
@@ -28,7 +28,7 @@ class NotificationView extends StatelessWidget {
                         // )
                     ),
                     builder: (BuildContext context,
-                        AsyncSnapshot<List<NotificationModel>> snapshot) {
+                        AsyncSnapshot<List<dynamic>> snapshot) {
                       if(snapshot.data==null||snapshot.data!.isEmpty){
                         return  Align(
                           alignment: Alignment.topCenter,
@@ -47,18 +47,8 @@ class NotificationView extends StatelessWidget {
                               },
                               trailing: Checkbox(value: true, onChanged: (bool? value) {  },),
                               leading: CircleAvatar(
-                                backgroundColor: snapshot
-                                            .data?[index].purifierType ==
-                                        'Set Change'
-                                    ? Theme.of(context).colorScheme.secondary
-                                    : snapshot.data?[index].purifierType ==
-                                            'AMC'
-                                        ? Theme.of(context)
-                                            .colorScheme
-                                            .onPrimary
-                                        : Colors.red,
-                                child: Text(
-                                  "${snapshot.data?[index].name}"[0],
+                                backgroundColor: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
+                                child: Text("${snapshot.data?[index]['name'][0].toString()}",
                                   style:
                                       Theme.of(context).textTheme.displayMedium,
                                 ),
