@@ -15,8 +15,10 @@ class StringConstants{
       static const String enterlocality = 'Locality';
       static const String enterAmount = 'Billing Amount';
       static const enterPaidAmount = 'Paid Amount';
-      static const String enterGaranteeDuration  = 'Garantee Duration';
+      static const String enterGaranteeDuration  = 'Guarantee Duration';
       static const String enterServiceDuration = 'Service Duration';
+      static const String enterEquipmentList = 'Equipment List';
+      static const String enterFaultDuration = 'Fault';
       static const String enterRotype = 'RO Type';
 
       static const String enterNote = 'Note';

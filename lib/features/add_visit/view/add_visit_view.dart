@@ -196,7 +196,6 @@ class _AddVisitViewState extends State<AddVisitView> {
                             const SizedBox(height: 35),
                             CustomTextField(
                                 label: StringConstants.enterAmount,
-                                maxLength: 5,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter the amount';
@@ -208,48 +207,107 @@ class _AddVisitViewState extends State<AddVisitView> {
                             const SizedBox(height: 15),
                             CustomTextField(
                                 label: StringConstants.enterPaidAmount,
-                                maxLength: 5,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter the amount';
                                   }
                                   return null;
                                 },
-                                controller: controller.pendingAmountController,
+                                controller: controller.paidAmountController,
                                 icon: const Icon(Icons.add_box_rounded)),
                             const SizedBox(height: 15),
                             CustomTextField(
                                 label: StringConstants.enterGaranteeDuration,
-                                maxLength: 5,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter the duration';
-                                  }
-                                  return null;
-                                },
+                                // validator: (value) {
+                                //   if (value == null || value.isEmpty) {
+                                //     return 'Please enter the duration';
+                                //   }
+                                //   return null;
+                                // },
                                 controller: controller.gtdurationController,
                                 icon: const Icon(Icons.access_alarm_rounded)),
                             const SizedBox(height: 15),
                             CustomTextField(
                                 label: StringConstants.enterServiceDuration,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter the duration';
-                                  }
-                                  return null;
-                                },
+                                // validator: (value) {
+                                //   if (value == null || value.isEmpty) {
+                                //     return 'Please enter the duration';
+                                //   }
+                                //   return null;
+                                // },
                                 controller: controller.serdurationController,
-                                icon: const Icon(Icons.access_time_rounded)),
+                                icon: const Icon(Icons.timelapse_outlined)),
+
+                            const SizedBox(height: 15),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Service Type ",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall),
+                                const SizedBox(height: 5),
+                                DropdownButtonFormField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please select type';
+                                    }
+                                    return null;
+                                  },
+                                  items: controller.type
+                                      .map((element) => DropdownMenuItem(
+                                      value: element,
+                                      child: Text(element)))
+                                      .toList(),
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(5)),
+                                    prefixIcon: const Icon(
+                                        Icons.type_specimen_rounded),
+                                    hintText: "Select Type",
+                                  ),
+                                  onChanged: (value) {
+                                    print(value.runtimeType);
+                                    controller.selectedType = value ?? '';
+                                  },
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 15),
+                            CustomTextField(
+                                label: StringConstants.enterFaultDuration,
+                                // validator: (value) {
+                                //   if (value == null || value.isEmpty) {
+                                //     return 'Please enter the duration';
+                                //   }
+                                //   return null;
+                                // },
+                                controller: controller.faultController,
+                                icon: const Icon(Icons.build)),
+
+                            const SizedBox(height: 15),
+
+                            CustomTextField(
+                                label: StringConstants.enterEquipmentList,
+                                // validator: (value) {
+                                //   if (value == null || value.isEmpty) {
+                                //     return 'Please enter the duration';
+                                //   }
+                                //   return null;
+                                // },
+                                controller: controller.equipmentlistController,
+                                icon: const Icon(Icons.list_alt)),
                             const SizedBox(height: 15),
                             CustomTextField(
                               label: StringConstants.enterNote,
                               maxlines: 3,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter the note';
-                                }
-                                return null;
-                              },
+                              // validator: (value) {
+                              //   if (value == null || value.isEmpty) {
+                              //     return 'Please enter the note';
+                              //   }
+                              //   return null;
+                              // },
                               controller: controller.noteController,
                             ),
                             const SizedBox(

@@ -47,7 +47,16 @@ class NotificationView extends StatelessWidget {
                               },
                               trailing: Checkbox(value: true, onChanged: (bool? value) {  },),
                               leading: CircleAvatar(
-                                backgroundColor: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
+                                backgroundColor: snapshot
+                                    .data?[index].purifierType ==
+                                    'Set Change'
+                                    ? Theme.of(context).colorScheme.secondary
+                                    : snapshot.data?[index].purifierType ==
+                                    'AMC'
+                                    ? Theme.of(context)
+                                    .colorScheme
+                                    .onPrimary
+                                    : Colors.red,
                                 child: Text("${snapshot.data?[index]['name'][0].toString()}",
                                   style:
                                       Theme.of(context).textTheme.displayMedium,
