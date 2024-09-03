@@ -28,7 +28,7 @@ class NotificationView extends StatelessWidget {
                         // )
                     ),
                     builder: (BuildContext context,
-                        AsyncSnapshot<List<dynamic>> snapshot) {
+                        AsyncSnapshot<List<NotificationModel>> snapshot) {
                       if(snapshot.data==null||snapshot.data!.isEmpty){
                         return  Align(
                           alignment: Alignment.topCenter,
@@ -45,7 +45,7 @@ class NotificationView extends StatelessWidget {
                               onTap: () {
 
                               },
-                              trailing: Checkbox(value: true, onChanged: (bool? value) {  },),
+                              // trailing: Checkbox(value: true, onChanged: (bool? value) {  },),
                               leading: CircleAvatar(
                                 backgroundColor: snapshot
                                     .data?[index].purifierType ==
@@ -56,8 +56,15 @@ class NotificationView extends StatelessWidget {
                                     ? Theme.of(context)
                                     .colorScheme
                                     .onPrimary
-                                    : Colors.red,
-                                child: Text("${snapshot.data?[index]['name'][0].toString()}",
+                                    : snapshot.data?[index].purifierType ==
+                                    'New RO'
+                                    ? Theme.of(context)
+                                    .colorScheme
+                                    .primary
+                                :Theme.of(context)
+                                    .colorScheme
+                                    .tertiary,
+                                child: Text("${snapshot.data?[index].name.toString()[0]}",
                                   style:
                                       Theme.of(context).textTheme.displayMedium,
                                 ),

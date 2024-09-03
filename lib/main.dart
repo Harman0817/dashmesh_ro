@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 
 
-import 'documentidupdate/documentidupdate.dart';
+
 import 'firebase_options.dart';
 
 void main() async{
@@ -12,7 +12,7 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  changeDocumentIdsToMobileNumber();
+
 
   runApp(const App());
 }

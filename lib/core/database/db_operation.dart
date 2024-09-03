@@ -125,30 +125,56 @@ class DbOperation {
     return visitList;
   }
 
-static Future<List<dynamic>> getCustomerAndVisitData(String date) async {
+static Future<List<NotificationModel>> getCustomerAndVisitData(String date) async {
     print('called $date');
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    List<dynamic> fullJoinData = [];
-    QuerySnapshot customerQuery = await firestore.collection('Visits')
+    List<NotificationModel> fullJoinData = [];
+    List<dynamic> visitList=[];
+    QuerySnapshot visitSnap = await firestore.collection('Visits')
         .where('Notification_Date', isEqualTo: '$date')
         .get();
-    List<dynamic> list=[];
-    List<dynamic>Store=[];
-    for (var doc in customerQuery.docs) {
-      list.add(doc.data());
+    for(var doc in visitSnap.docs){
+      visitList.add(doc.data());
     }
-    for (var data in list){
-      String id=data['Customer_id'];
-      QuerySnapshot query = await firestore.collection('Customer')
-          .where('Customer', isEqualTo: '$id')
-          .get();
-      for(var store in query.docs){
-        Store.add(store.data());
-      }
+    for (var data in visitList){
+        String custId = data['Customer_id'];
+        QuerySnapshot customerSnap = await firestore.collection('Customer')
+            .where('Customer_id', isEqualTo: '$custId')
+            .get();
+        List<dynamic> customerList=[];
+        for(var customer_Data in customerSnap.docs ){
+          customerList.add(customer_Data);
+        };
+        for (var data2 in customerList) {
+          NotificationModel model = NotificationModel(
+            address:data2['address'],
+            locality:data2['locality'],
+            mobileNumber:data2['number'],
+            name:data2['name'],
+            purifierType:data['Service_Type'],
+          );
+          fullJoinData.add(model);
+        }
     }
-    for (var StoredData in list){
+    // List<dynamic> visitList=[];
+    // List<dynamic>customerList=[];
+    //
+    // for (var doc in customerQuery.docs) {
+    //   visitList.add(doc.data());
+    // }
+    // for (var data in visitList){
+    //   String id=data['Customer_id'];
+    //   QuerySnapshot query = await firestore.collection('Customer')
+    //       .where('Customer_id', isEqualTo: '$id')
+    //       .get();
+    //   for(var store in query.docs){
+    //     customerList.add(store.data());
+    //   }
+    // }
 
-    }
+
+
+
     // await  DatabaseHelper.fetchJoinResult(date).then(
     //   (dataList) {
     //     print(dataList);

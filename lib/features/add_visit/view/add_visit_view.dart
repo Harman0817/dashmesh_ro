@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../widgets/gradient_button.dart';
 
 class AddVisitView extends StatefulWidget {
-   final customerID;
+  final customerID;
 
   const AddVisitView({super.key, required this.customerID});
 
@@ -83,6 +83,11 @@ class _AddVisitViewState extends State<AddVisitView> {
                                       child: Text(
                                     StringConstants.enterServiceDuration,
                                     style: GoogleFonts.montserrat(),
+                                  )),
+                                  Expanded(
+                                      child: Text(
+                                    StringConstants.enterPendingAmount,
+                                    style: GoogleFonts.montserrat(),
                                   ))
                                 ],
                               ),
@@ -99,13 +104,13 @@ class _AddVisitViewState extends State<AddVisitView> {
                                 AsyncSnapshot<List<dynamic>> snapshot) {
                               if (snapshot.data == null ||
                                   snapshot.data!.isEmpty) //{
-                                // WidgetsBinding.instance
-                                //     .addPostFrameCallback((_) {
-                                //   setState(() {
-                                //     showColNames = false;
-                                //   });
-                                // });
-                                {
+                              // WidgetsBinding.instance
+                              //     .addPostFrameCallback((_) {
+                              //   setState(() {
+                              //     showColNames = false;
+                              //   });
+                              // });
+                              {
                                 return Align(
                                     alignment: Alignment.topCenter,
                                     child: Image.asset(
@@ -127,7 +132,9 @@ class _AddVisitViewState extends State<AddVisitView> {
                                               .split(" ")[0],
                                           style: GoogleFonts.montserrat(),
                                         )),
-                                        const SizedBox(width:8,),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
                                         // Expanded(
                                         //     child: Text(
                                         //   '${snapshot.data?[index]['Service_Type']}',
@@ -138,7 +145,9 @@ class _AddVisitViewState extends State<AddVisitView> {
                                           '${snapshot.data?[index]['Bill_Amount']}',
                                           style: GoogleFonts.montserrat(),
                                         )),
-                                        const SizedBox(width: 2,),
+                                        const SizedBox(
+                                          width: 2,
+                                        ),
                                         // Expanded(
                                         //     child: Text(
                                         //   '${snapshot.data?[index]['Pending_Amount']}',
@@ -149,7 +158,9 @@ class _AddVisitViewState extends State<AddVisitView> {
                                           '${snapshot.data?[index]['Guarantee']}',
                                           style: GoogleFonts.montserrat(),
                                         )),
-                                        const SizedBox(width: 2,),
+                                        const SizedBox(
+                                          width: 2,
+                                        ),
                                         Expanded(
                                             child: Center(
                                           child: Text(
@@ -157,7 +168,9 @@ class _AddVisitViewState extends State<AddVisitView> {
                                             style: GoogleFonts.montserrat(),
                                           ),
                                         )),
-                                        const SizedBox(width: 2,),
+                                        const SizedBox(
+                                          width: 2,
+                                        ),
                                         // Expanded(
                                         //     child: Text(
                                         //   '${snapshot.data?[index]['Equipment_List']}',
@@ -166,6 +179,11 @@ class _AddVisitViewState extends State<AddVisitView> {
                                         Expanded(
                                             child: Text(
                                           '${snapshot.data?[index]['Service_Duration']}',
+                                          style: GoogleFonts.montserrat(),
+                                        )),
+                                        Expanded(
+                                            child: Text(
+                                          '${snapshot.data?[index]['Pending_Amount']}',
                                           style: GoogleFonts.montserrat(),
                                         )),
                                       ],
@@ -237,7 +255,6 @@ class _AddVisitViewState extends State<AddVisitView> {
                                 // },
                                 controller: controller.serdurationController,
                                 icon: const Icon(Icons.timelapse_outlined)),
-
                             const SizedBox(height: 15),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,15 +273,13 @@ class _AddVisitViewState extends State<AddVisitView> {
                                   },
                                   items: controller.type
                                       .map((element) => DropdownMenuItem(
-                                      value: element,
-                                      child: Text(element)))
+                                          value: element, child: Text(element)))
                                       .toList(),
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(5)),
-                                    prefixIcon: const Icon(
-                                        Icons.type_specimen_rounded),
+                                        borderRadius: BorderRadius.circular(5)),
+                                    prefixIcon:
+                                        const Icon(Icons.type_specimen_rounded),
                                     hintText: "Select Type",
                                   ),
                                   onChanged: (value) {
@@ -285,9 +300,7 @@ class _AddVisitViewState extends State<AddVisitView> {
                                 // },
                                 controller: controller.faultController,
                                 icon: const Icon(Icons.build)),
-
                             const SizedBox(height: 15),
-
                             CustomTextField(
                                 label: StringConstants.enterEquipmentList,
                                 // validator: (value) {

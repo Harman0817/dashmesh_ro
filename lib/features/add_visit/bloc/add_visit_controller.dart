@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddVisitController extends GetxController {
-  List<String> serviceType = ["AMC", "Set Change","New Ro"];
+
 
   TextEditingController? amountController;
   TextEditingController? faultController;
@@ -34,7 +34,7 @@ class AddVisitController extends GetxController {
     super.onInit();
   }
 
-  addVisit(var customerID) {
+  Future addVisit(var customerID) async  {
      CollectionReference users = FirebaseFirestore.instance.collection('Visits');
     // DatabaseHelper.insertDataInTable(DbConstants.TABLE_VISIT_LIST, {
     //   DbConstants.COL_CUSTOMER_ID: customerID,
@@ -49,22 +49,32 @@ class AddVisitController extends GetxController {
     //   DbConstants.COL_GUARANTEE_PERIOD: gtdurationController?.text,
     //   DbConstants.COL_SERVICE_TYPE: "",
     // })
+     List<String>? equipmentList= equipmentlistController?.text.split(',')??['No Data'];
+
+       List<dynamic>list=[];
+
+       QuerySnapshot querySnapshot = await users.get();
+       for (var doc in querySnapshot.docs) {
+         list.add(doc.data());
+       }
+
      DateTime Date=DateTime.parse(date!.text);
      DateTime Notification_Date=DateTime(Date.year, Date.month + 2, Date.day);
-     users.doc(customerID).set({
+     users.doc('${list.length + 1}').set({
        'Customer_id':customerID,
        'Bill_Amount':amountController?.text??"00000",
        'Paid_Amount':paidAmountController?.text??'00000',
        'Pending_Amount':'${int.parse(amountController!.text)-int.parse(paidAmountController!.text)}'??'No Data',
-       'Equipment_List':equipmentlistController?.text??'No Data',
+       'Equipment_List':equipmentList,
        'Date':date?.text??'0000-00-00 00:00:00',
-       'Notification_Date':'$Notification_Date'??'0000-00-00 00:00:00',
+       'Notification_Date':'$Notification_Date',
        'Guarantee':gtdurationController?.text??'No Data',
        'Service_Duration':serdurationController?.text??'No Data',
        'Note':noteController?.text??'No Data',
-       'Service_Type':serviceType,
+       'Service_Type':selectedType,
        'Diary_Number':'--',
-       'Fault':faultController?.text??'No Data'
+       'Fault':faultController?.text??'No Data',
+       'Visit_id':'${list.length + 1}',
      })
     .onError((error, stackTrace) {
       Get.snackbar('Error', error.toString());

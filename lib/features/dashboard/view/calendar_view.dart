@@ -22,7 +22,9 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NotificationBloc, DateTime>(builder: (context, state) {
+
       return CalendarCarousel<Event>(
+        key: ValueKey(state),
         selectedDateTime: context.read<NotificationBloc>().state,
         selectedDayTextStyle: const TextStyle(color: Colors.green),
         ///styling for selected date
@@ -54,6 +56,7 @@ class _CalendarPageState extends State<CalendarPage> {
         minSelectedDate: DateTime.now().subtract(const Duration(days: 360)),
         maxSelectedDate: DateTime.now().add(const Duration(days: 360)),
         onCalendarChanged: (DateTime date) {},
+
       );
     });
   }
