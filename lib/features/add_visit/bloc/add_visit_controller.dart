@@ -68,12 +68,12 @@ class AddVisitController extends GetxController {
        'Equipment_List':equipmentList,
        'Date':date?.text??'0000-00-00 00:00:00',
        'Notification_Date':'$Notification_Date',
-       'Guarantee':gtdurationController?.text??'No Data',
-       'Service_Duration':serdurationController?.text??'No Data',
-       'Note':noteController?.text??'No Data',
+       'Guarantee':gtdurationController?.text??'-',
+       'Service_Duration':serdurationController?.text??'-',
+       'Note':noteController?.text??'--',
        'Service_Type':selectedType,
        'Diary_Number':'--',
-       'Fault':faultController?.text??'No Data',
+       'Fault':faultController?.text??'--',
        'Visit_id':'${list.length + 1}',
      })
     .onError((error, stackTrace) {

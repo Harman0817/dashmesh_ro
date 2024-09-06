@@ -28,7 +28,7 @@ class GradientButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(5)),
             child: Center(
           child: Text(
-            "Submit",
+            text,
             style: Theme.of(context).textTheme.displayMedium!.copyWith(
               color: Theme.of(context).scaffoldBackgroundColor
             ),

@@ -53,12 +53,12 @@ class AddCustomerController extends GetxController {
     }
     users.doc(mobileController?.text??'-------').set({
       'Customer_id':'${list.length+1}',
-      'name': nameController?.text??'No Data',
-      'number': mobileController?.text??'No Data',
-      'address': addressController?.text??'No Data',
-      'locality': localityController?.text??'No Data',
-      'ro_type':rotypeController?.text??'No Data',
-      'Note': noteController?.text?? 'No Data',
+      'Name': nameController?.text??'--',
+      'Number': mobileController?.text??'--',
+      'Address': addressController?.text??'--',
+      'Locality': localityController?.text??'--',
+      'Ro_Type':rotypeController?.text??'--',
+      'Note': noteController?.text?? '--',
     }).onError((error, stackTrace) {
       Get.snackbar('Error', error.toString());
     }).whenComplete(() {

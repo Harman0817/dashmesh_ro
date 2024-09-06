@@ -78,15 +78,15 @@ class _CustomerListViewState extends State<CustomerListView> {
                       leading: CircleAvatar(
                         backgroundColor:
                         Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
-                        child: Text("${snapshot.data?[index]['name'][0].toString()}",
+                        child: Text("${snapshot.data?[index]['Name'][0].toString()}",
                             style: Theme.of(context).textTheme.displayMedium),
                       ),
                       title: Text(
-                        '${snapshot.data?[index]['name'].toString()} - ${snapshot.data?[index]['ro_type']} ',
+                        '${snapshot.data?[index]['Name'].toString()} - ${snapshot.data?[index]['Ro_Type']} ',
                         style: GoogleFonts.montserrat(),
                       ),
                       subtitle: Text(
-                        '${snapshot.data?[index]['address'].toString()},${snapshot.data?[index]['locality'].toString()} - ${snapshot.data?[index]['number'].toString()}\n${snapshot.data?[index]['Note'].toString()}',
+                        '${snapshot.data?[index]['Address'].toString()},${snapshot.data?[index]['Locality'].toString()} - ${snapshot.data?[index]['Number'].toString()}\n${snapshot.data?[index]['Note'].toString()}',
                         style: GoogleFonts.montserrat(),
                       ),
                       trailing: SizedBox(
@@ -113,7 +113,7 @@ class _CustomerListViewState extends State<CustomerListView> {
                               icon: const Icon(FontAwesomeIcons.whatsapp),
                               onPressed: () => launchUrl(
                                   Uri.parse(
-                                      'https://wa.me/+91${snapshot.data?[index]['number']}?text=Hello%20${snapshot.data?[index]['name']}'),
+                                      'https://wa.me/+91${snapshot.data?[index]['Number']}?text=Hello%20${snapshot.data?[index]['Name']}'),
                                   mode: LaunchMode.externalApplication),
                             ),
                           ],
@@ -186,17 +186,17 @@ class _SearchPageState extends State<SearchPage> {
                     leading: CircleAvatar(
                       backgroundColor: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
                       child: Text(
-                          "${snapshot.data?[index]['name']![0]}",
+                          "${snapshot.data?[index]['Name']![0]}",
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium),
                     ),
                     title: Text(
-                      '${snapshot.data?[index]['name'].toString()} ',
+                      '${snapshot.data?[index]['Name'].toString()} - ${snapshot.data?[index]['Ro_Type']} ',
                       style: GoogleFonts.montserrat(),
                     ),
                     subtitle: Text(
-                      '${snapshot.data?[index]['locality']} - ${snapshot.data?[index]['number']}',
+                      '${snapshot.data?[index]['Address'].toString()},${snapshot.data?[index]['Locality'].toString()} - ${snapshot.data?[index]['Number'].toString()}\n${snapshot.data?[index]['Note'].toString()}',
                       style: GoogleFonts.montserrat(),
                     ),
                     trailing: SizedBox(
@@ -234,7 +234,7 @@ class _SearchPageState extends State<SearchPage> {
                                     .whatsapp),
                             onPressed: () => launchUrl(
                                 Uri.parse(
-                                    'https://wa.me/+91${snapshot.data?[index]['number']}?text=Hello%20${snapshot.data?[index]['name']}'),
+                                    'https://wa.me/+91${snapshot.data?[index]['Number']}?text=Hello%20${snapshot.data?[index]['Name']}'),
                                 mode: LaunchMode.externalApplication),
                           ),
                         ],

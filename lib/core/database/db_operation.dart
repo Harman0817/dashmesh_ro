@@ -147,10 +147,10 @@ static Future<List<NotificationModel>> getCustomerAndVisitData(String date) asyn
         };
         for (var data2 in customerList) {
           NotificationModel model = NotificationModel(
-            address:data2['address'],
-            locality:data2['locality'],
-            mobileNumber:data2['number'],
-            name:data2['name'],
+            address:data2['Address'],
+            locality:data2['Locality'],
+            mobileNumber:data2['Number'],
+            name:data2['Name'],
             purifierType:data['Service_Type'],
           );
           fullJoinData.add(model);
@@ -194,20 +194,20 @@ static Future<List<NotificationModel>> getCustomerAndVisitData(String date) asyn
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     List<dynamic> customerList = [];
     QuerySnapshot nameQuery = await firestore.collection('Customer')
-        .where('name', isGreaterThanOrEqualTo: '$searchText')
-        .where('name', isLessThan: '$searchText' + 'z')
+        .where('Name', isGreaterThanOrEqualTo: '$searchText')
+        .where('Name', isLessThan: '$searchText' + 'z')
         .get();
     QuerySnapshot numberQuery = await firestore.collection('Customer')
-        .where('number', isGreaterThanOrEqualTo: '$searchText')
-        .where('number', isLessThan: '$searchText' + 'z')
+        .where('Number', isGreaterThanOrEqualTo: '$searchText')
+        .where('Number', isLessThan: '$searchText' + 'z')
         .get();
     QuerySnapshot localityQuery = await firestore.collection('Customer')
-        .where('locality', isGreaterThanOrEqualTo: '$searchText')
-        .where('locality', isLessThan: '$searchText' + 'z')
+        .where('Locality', isGreaterThanOrEqualTo: '$searchText')
+        .where('Locality', isLessThan: '$searchText' + 'z')
         .get();
     QuerySnapshot addressQuery = await firestore.collection('Customer')
-        .where('address', isGreaterThanOrEqualTo: '$searchText')
-        .where('address', isLessThan: '$searchText' + 'z')
+        .where('Address', isGreaterThanOrEqualTo: '$searchText')
+        .where('Address', isLessThan: '$searchText' + 'z')
         .get();
     for (var doc in nameQuery.docs) {
       customerList.add(doc.data() );

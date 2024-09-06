@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
+
+
 class AddCustomerView extends StatefulWidget {
   const AddCustomerView({super.key});
 
@@ -153,6 +155,8 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                             },
                             text: 'Submit',
                           ),
+
+
                         ],
                       ),
                     ),
