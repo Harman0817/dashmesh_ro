@@ -6,6 +6,7 @@ import 'package:dashmesh_ro/utils/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import '../../widgets/gradient_button.dart';
 
 class AddVisitView extends StatefulWidget {
@@ -62,13 +63,28 @@ class _AddVisitViewState extends State<AddVisitView> {
                                   )),
                                   Expanded(
                                       child: Text(
-                                    StringConstants.enterAmount,
+                                        StringConstants.equipmentList,
+                                        style: GoogleFonts.montserrat(),
+                                      )),
+                                  Expanded(
+                                      child: Text(
+                                    StringConstants.bill,
                                     style: GoogleFonts.montserrat(),
                                   )),
                                   Expanded(
+                                      child: Text(
+                                        StringConstants.paid,
+                                        style: GoogleFonts.montserrat(),
+                                      )),
+                                  Expanded(
+                                      child: Text(
+                                        StringConstants.service_type,
+                                        style: GoogleFonts.montserrat(),
+                                      )),
+                                  Expanded(
                                       child: Center(
                                     child: Text(
-                                      StringConstants.enterGaranteeDuration,
+                                      StringConstants.garanteeDuration,
                                       style: GoogleFonts.montserrat(),
                                     ),
                                   )),
@@ -81,14 +97,19 @@ class _AddVisitViewState extends State<AddVisitView> {
                                   )),
                                   Expanded(
                                       child: Text(
-                                    StringConstants.enterServiceDuration,
+                                    StringConstants.serviceDuration,
                                     style: GoogleFonts.montserrat(),
                                   )),
                                   Expanded(
                                       child: Text(
                                     StringConstants.enterPendingAmount,
                                     style: GoogleFonts.montserrat(),
-                                  ))
+                                  )),
+                                  Expanded(
+                                      child: Text(
+                                        StringConstants.flt,
+                                        style: GoogleFonts.montserrat(),
+                                      ))
                                 ],
                               ),
                             ),
@@ -123,36 +144,39 @@ class _AddVisitViewState extends State<AddVisitView> {
                                 itemCount: snapshot.data?.length ?? 0,
                                 itemBuilder: (context, index) {
                                   return Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.only(top:8,right:8,bottom:8),
                                     child: Row(
                                       children: [
                                         Expanded(
                                             child: Text(
-                                          '${snapshot.data?[index]['Date']}'
-                                              .split(" ")[0],
+                                          '${DateFormat('dd-MM-yy').format(DateTime.parse('${snapshot.data?[index]['Date']}'))}'
+                                              ,
                                           style: GoogleFonts.montserrat(),
                                         )),
                                         const SizedBox(
                                           width: 8,
                                         ),
-                                        // Expanded(
-                                        //     child: Text(
-                                        //   '${snapshot.data?[index]['Service_Type']}',
-                                        //   style: GoogleFonts.montserrat(),
-                                        // )),
                                         Expanded(
                                             child: Text(
-                                          '${snapshot.data?[index]['Bill_Amount']}',
+                                          '${snapshot.data?[index]['Equipment_List']}',
                                           style: GoogleFonts.montserrat(),
                                         )),
-                                        const SizedBox(
-                                          width: 2,
-                                        ),
-                                        // Expanded(
-                                        //     child: Text(
-                                        //   '${snapshot.data?[index]['Pending_Amount']}',
-                                        //   style: GoogleFonts.montserrat(),
-                                        // )),
+                                        Expanded(
+                                            child: Text(
+                                          '₹${snapshot.data?[index]['Bill_Amount']}',
+                                          style: GoogleFonts.montserrat(),
+                                        )),
+                                        Expanded(
+                                            child: Text(
+                                              '₹${snapshot.data?[index]['Paid_Amount']}',
+                                              style: GoogleFonts.montserrat(),
+                                            )),
+
+                                        Expanded(
+                                            child: Text(
+                                          '${snapshot.data?[index]['Service_Type']}',
+                                          style: GoogleFonts.montserrat(),
+                                        )),
                                         Expanded(
                                             child: Text(
                                           '${snapshot.data?[index]['Guarantee']}',
@@ -186,6 +210,11 @@ class _AddVisitViewState extends State<AddVisitView> {
                                           '${snapshot.data?[index]['Pending_Amount']}',
                                           style: GoogleFonts.montserrat(),
                                         )),
+                                        Expanded(
+                                            child: Text(
+                                              '${snapshot.data?[index]['Fault']}',
+                                              style: GoogleFonts.montserrat(),
+                                            )),
                                       ],
                                     ),
                                   );

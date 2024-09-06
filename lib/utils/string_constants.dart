@@ -14,10 +14,18 @@ class StringConstants{
       static const String enterAddress = 'Address';
       static const String enterlocality = 'Locality';
       static const String enterAmount = 'Billing Amount';
-      static const enterPaidAmount = 'Paid Amount';
+      static const String bill = 'Bill';
+      static const String paid = 'Paid';
+      static const String service_type = 'Service';
+      static const String flt = 'Fault';
+      static const String enterPaidAmount = 'Paid Amount';
+      static const String paidAmount = 'Paid Amt';
       static const String enterGaranteeDuration  = 'Guarantee Duration';
+      static const String garanteeDuration  = 'Guar Dur';
       static const String enterServiceDuration = 'Service Duration';
-      static const String enterPendingAmount = 'Pending Amount';
+      static const String serviceDuration = 'Ser. Dur';
+      static const String enterPendingAmount = 'Pending';
+      static const String pendingAmount = 'Pending';
       static const String enterEquipmentList = 'Equipment List';
       static const String enterFaultDuration = 'Fault';
       static const String enterRotype = 'RO Type';
@@ -29,7 +37,8 @@ class StringConstants{
       static const String editCustomer = 'Edit Customer';
       static const String yes = 'Yes';
       static const String no = 'No';
-      static const String visitdate = 'Visit Date';
+      static const String visitdate = 'Date';
+      static const String equipmentList = 'Eq List';
 
 
 }

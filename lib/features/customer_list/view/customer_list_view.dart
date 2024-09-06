@@ -82,11 +82,11 @@ class _CustomerListViewState extends State<CustomerListView> {
                             style: Theme.of(context).textTheme.displayMedium),
                       ),
                       title: Text(
-                        '${snapshot.data?[index]['name'].toString()} ',
+                        '${snapshot.data?[index]['name'].toString()} - ${snapshot.data?[index]['ro_type']} ',
                         style: GoogleFonts.montserrat(),
                       ),
                       subtitle: Text(
-                        '${snapshot.data?[index]['locality'].toString()} - ${snapshot.data?[index]['number'].toString()}',
+                        '${snapshot.data?[index]['address'].toString()},${snapshot.data?[index]['locality'].toString()} - ${snapshot.data?[index]['number'].toString()}\n${snapshot.data?[index]['Note'].toString()}',
                         style: GoogleFonts.montserrat(),
                       ),
                       trailing: SizedBox(
