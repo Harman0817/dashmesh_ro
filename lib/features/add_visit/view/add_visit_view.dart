@@ -58,6 +58,11 @@ class _AddVisitViewState extends State<AddVisitView> {
                                 children: [
                                   Expanded(
                                       child: Text(
+                                        StringConstants.dairy,
+                                        style: GoogleFonts.montserrat(),
+                                      )),
+                                  Expanded(
+                                      child: Text(
                                     StringConstants.visitdate,
                                     style: GoogleFonts.montserrat(),
                                   )),
@@ -147,6 +152,11 @@ class _AddVisitViewState extends State<AddVisitView> {
                                     padding: const EdgeInsets.only(top:8,right:8,bottom:8),
                                     child: Row(
                                       children: [
+                                        Expanded(
+                                            child: Text(
+                                              '${snapshot.data?[index]['Diary_Number']}',
+                                              style: GoogleFonts.montserrat(),
+                                            )),
                                         Expanded(
                                             child: Text(
                                           '${DateFormat('dd-MM-yy').format(DateTime.parse('${snapshot.data?[index]['Date']}'))}'
@@ -241,6 +251,17 @@ class _AddVisitViewState extends State<AddVisitView> {
                                 style:
                                     Theme.of(context).textTheme.displayLarge),
                             const SizedBox(height: 35),
+                            CustomTextField(
+                                label: StringConstants.enterDairy,
+                                // validator: (value) {
+                                //   if (value == null || value.isEmpty) {
+                                //     return 'Please enter the amount';
+                                //   }
+                                //   return null;
+                                // },
+                                controller: controller.dairyController,
+                                icon: const Icon(Icons.book)),
+                            const SizedBox(height: 15),
                             CustomTextField(
                                 label: StringConstants.enterAmount,
                                 validator: (value) {

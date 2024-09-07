@@ -10,12 +10,13 @@ class StringConstants{
       static const String mobileNumber = 'Mobile Number';
       static const String enterMobileNumber = 'Enter Mobile Number';
       static const String email = 'Email';
-      static const String enterEmail = 'Enter Email';
+      static const String enterDairy = 'Dairy No.';
       static const String enterAddress = 'Address';
       static const String enterlocality = 'Locality';
       static const String enterAmount = 'Billing Amount';
       static const String bill = 'Bill';
       static const String paid = 'Paid';
+      static const String dairy = 'D.No.';
       static const String service_type = 'Service';
       static const String flt = 'Fault';
       static const String enterPaidAmount = 'Paid Amount';

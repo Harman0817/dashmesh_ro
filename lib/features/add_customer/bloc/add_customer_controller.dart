@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 class AddCustomerController extends GetxController {
   TextEditingController? nameController;
   TextEditingController? mobileController;
-  TextEditingController? lastContactDateController;
+  TextEditingController? dairyController;
   TextEditingController? addressController;
   TextEditingController? districtController;
   TextEditingController? localityController;
@@ -23,7 +23,7 @@ class AddCustomerController extends GetxController {
     super.onInit();
     nameController = TextEditingController();
     mobileController = TextEditingController();
-    lastContactDateController = TextEditingController();
+    dairyController = TextEditingController();
     addressController = TextEditingController();
     districtController = TextEditingController();
     localityController = TextEditingController();
@@ -36,7 +36,7 @@ class AddCustomerController extends GetxController {
     super.dispose();
     nameController?.dispose();
     mobileController?.dispose();
-    lastContactDateController?.dispose();
+    dairyController?.dispose();
     addressController?.dispose();
     districtController?.dispose();
     localityController?.dispose();
@@ -59,9 +59,11 @@ class AddCustomerController extends GetxController {
       'Locality': localityController?.text??'--',
       'Ro_Type':rotypeController?.text??'--',
       'Note': noteController?.text?? '--',
+      'Dairy_Number':dairyController?.text??'--',
     }).onError((error, stackTrace) {
       Get.snackbar('Error', error.toString());
     }).whenComplete(() {
+      dairyController?.clear();
       nameController?.clear();
       mobileController?.clear();
       addressController?.clear();

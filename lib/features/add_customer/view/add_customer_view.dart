@@ -144,6 +144,18 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                               ),
                             ],
                           ),
+                          const SizedBox(height: 20),
+                          CustomTextField(
+                            label: StringConstants.enterDairy,
+                            controller: controller.dairyController,
+                            icon: const Icon(Icons.book),
+                            // validator: (value) {
+                            //   if (value == null || value.isEmpty) {
+                            //     return 'Please enter Address';
+                            //   }
+                            //   return null;
+                            // },
+                          ),
                           const SizedBox(
                             height: 35,
                           ),

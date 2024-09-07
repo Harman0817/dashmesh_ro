@@ -15,6 +15,7 @@ class AddVisitController extends GetxController {
   TextEditingController? serdurationController;
   TextEditingController? serdateController;
   TextEditingController? noteController;
+  TextEditingController? dairyController;
   TextEditingController? date;
 
   List<String> type = ['Set Change','AMC','New RO','Not Applicable'];
@@ -30,6 +31,7 @@ class AddVisitController extends GetxController {
     serdurationController = TextEditingController();
     serdateController = TextEditingController();
     noteController = TextEditingController();
+    dairyController = TextEditingController();
     date = TextEditingController();
     super.onInit();
   }
@@ -72,7 +74,7 @@ class AddVisitController extends GetxController {
        'Service_Duration':serdurationController?.text??'-',
        'Note':noteController?.text??'--',
        'Service_Type':selectedType,
-       'Diary_Number':'--',
+       'Diary_Number':dairyController?.text??'--',
        'Fault':faultController?.text??'--',
        'Visit_id':'${list.length + 1}',
      })
@@ -87,6 +89,7 @@ class AddVisitController extends GetxController {
       equipmentlistController?.clear();
       serdurationController?.clear();
       gtdurationController?.clear();
+      dairyController?.clear();
     });
     ;
     update();

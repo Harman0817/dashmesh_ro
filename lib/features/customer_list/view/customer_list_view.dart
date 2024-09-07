@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:math' as math;
+
 class CustomerListView extends StatefulWidget {
   const CustomerListView({super.key});
 
@@ -14,7 +15,6 @@ class CustomerListView extends StatefulWidget {
 }
 
 class _CustomerListViewState extends State<CustomerListView> {
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,35 +22,8 @@ class _CustomerListViewState extends State<CustomerListView> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              CircleAvatar(
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
-                  radius: 12),
-              const SizedBox(width: 10),
-              Text(
-                'Set Change',
-                style: GoogleFonts.montserrat(),
-              ),
-              const SizedBox(width: 100),
-              CircleAvatar(
-                  backgroundColor: Theme.of(context).colorScheme.onPrimary,
-                  radius: 12),
-              const SizedBox(width: 10),
-              Text(
-                'AMC',
-                style: GoogleFonts.montserrat(),
-              ),
-              const SizedBox(width: 100),
-              CircleAvatar(
-                  backgroundColor: Theme.of(context).colorScheme.tertiary,
-                  radius: 12),
-              const SizedBox(width: 10),
-              Text(
-                'Error',
-                style: GoogleFonts.montserrat(),
-              ),
-              const SizedBox(width: 480),
               IconButton(
                   onPressed: () {
                     showDialog(
@@ -76,13 +49,18 @@ class _CustomerListViewState extends State<CustomerListView> {
                   itemBuilder: (context, index) {
                     return ListTile(
                       leading: CircleAvatar(
-                        backgroundColor:
-                        Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
-                        child: Text("${snapshot.data?[index]['Name'][0].toString()}",
-                            style: Theme.of(context).textTheme.displayMedium),
+                        backgroundColor: Color(
+                                (math.Random().nextDouble() * 0xFFFFFF).toInt())
+                            .withOpacity(1.0),
+                        child: Text(
+                            "${snapshot.data?[index]['Customer_id'].toString()}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall!
+                                .copyWith(color: Colors.white)),
                       ),
                       title: Text(
-                        '${snapshot.data?[index]['Name'].toString()} - ${snapshot.data?[index]['Ro_Type']} ',
+                        '${snapshot.data?[index]['Name'].toString()} - ${snapshot.data?[index]['Ro_Type']} - ${snapshot.data?[index]['Diary_Number']}',
                         style: GoogleFonts.montserrat(),
                       ),
                       subtitle: Text(
@@ -97,13 +75,14 @@ class _CustomerListViewState extends State<CustomerListView> {
                                 icon: const Icon(FontAwesomeIcons.house),
                                 onPressed: () {
                                   if (snapshot.data != null &&
-                                      snapshot.data?[index]['Customer_id'] != null) {
+                                      snapshot.data?[index]['Customer_id'] !=
+                                          null) {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => AddVisitView(
-                                                customerID: "${snapshot
-                                                    .data![index]['Customer_id']!}")));
+                                                customerID:
+                                                    "${snapshot.data![index]['Customer_id']!}")));
                                   }
                                 }),
                             const SizedBox(
@@ -111,10 +90,34 @@ class _CustomerListViewState extends State<CustomerListView> {
                             ),
                             IconButton(
                               icon: const Icon(FontAwesomeIcons.whatsapp),
-                              onPressed: () => launchUrl(
-                                  Uri.parse(
-                                      'https://wa.me/+91${snapshot.data?[index]['Number']}?text=Hello%20${snapshot.data?[index]['Name']}'),
-                                  mode: LaunchMode.externalApplication),
+                              onPressed: () {
+                                if (snapshot.data?[index]['Number'].length <=
+                                    10) {
+                                  launchUrl(
+                                      Uri.parse(
+                                          'https://wa.me/+91${snapshot.data?[index]['Number']}?text=Hello%20${snapshot.data?[index]['Name']}'),
+                                      mode: LaunchMode.externalApplication);
+                                } else {
+                                  List<String>? numbers = snapshot.data?[index]
+                                          ['Number']
+                                      .toString()
+                                      .split('/');
+
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return SizedBox(
+                                        height: 100,
+                                        child: ListView.builder(
+                                            itemCount: numbers?.length,
+                                            itemBuilder: (context, index) {
+                                              return Text(numbers![index]);
+                                            }),
+                                      );
+                                    },
+                                  );
+                                }
+                              },
                             ),
                           ],
                         ),
@@ -129,7 +132,6 @@ class _CustomerListViewState extends State<CustomerListView> {
     );
   }
 }
-
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -147,10 +149,7 @@ class _SearchPageState extends State<SearchPage> {
       title: TextFormField(
         controller: searchController,
         onChanged: (_) {
-          print('Call on change');
-          setState(() {
-
-          });
+          setState(() {});
         },
         decoration: const InputDecoration(
           border: OutlineInputBorder(),
@@ -163,20 +162,14 @@ class _SearchPageState extends State<SearchPage> {
         width: 1000,
         child: FutureBuilder(
             future: DbOperation.searchCustomer(searchController.text),
-            builder: (BuildContext context,
-                AsyncSnapshot<List<dynamic>>
-                snapshot) {
-              if (snapshot.connectionState ==
-                  ConnectionState.waiting) {
-                return const Center(
-                    child: CircularProgressIndicator());
+            builder:
+                (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                return const Center(
-                    child: Text('Error fetching data'));
-              } else if (!snapshot.hasData ||
-                  snapshot.data!.isEmpty) {
-                return const Center(
-                    child: Text('No results found'));
+                return const Center(child: Text('Error fetching data'));
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return const Center(child: Text('No results found'));
               }
               return ListView.separated(
                 physics: const BouncingScrollPhysics(),
@@ -184,12 +177,11 @@ class _SearchPageState extends State<SearchPage> {
                 itemBuilder: (context, index) {
                   return ListTile(
                     leading: CircleAvatar(
-                      backgroundColor: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
-                      child: Text(
-                          "${snapshot.data?[index]['Name']![0]}",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium),
+                      backgroundColor:
+                          Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                              .withOpacity(1.0),
+                      child: Text("${snapshot.data?[index]['Name']![0]}",
+                          style: Theme.of(context).textTheme.displayMedium),
                     ),
                     title: Text(
                       '${snapshot.data?[index]['Name'].toString()} - ${snapshot.data?[index]['Ro_Type']} ',
@@ -204,24 +196,16 @@ class _SearchPageState extends State<SearchPage> {
                       child: Row(
                         children: [
                           IconButton(
-                              icon: const Icon(
-                                  FontAwesomeIcons
-                                      .house),
+                              icon: const Icon(FontAwesomeIcons.house),
                               onPressed: () {
-                                if (snapshot.data !=
-                                    null &&
-                                    snapshot
-                                        .data?[
-                                    index]
-                                        ['Customer_id']!=
+                                if (snapshot.data != null &&
+                                    snapshot.data?[index]['Customer_id'] !=
                                         null) {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => AddVisitView(
-                                              customerID: snapshot
-                                                  .data![
-                                              index]
+                                              customerID: snapshot.data![index]
                                                   ['Customer_id']!)));
                                 }
                               }),
@@ -229,21 +213,74 @@ class _SearchPageState extends State<SearchPage> {
                             width: 25,
                           ),
                           IconButton(
-                            icon: const Icon(
-                                FontAwesomeIcons
-                                    .whatsapp),
-                            onPressed: () => launchUrl(
-                                Uri.parse(
-                                    'https://wa.me/+91${snapshot.data?[index]['Number']}?text=Hello%20${snapshot.data?[index]['Name']}'),
-                                mode: LaunchMode.externalApplication),
-                          ),
+                              icon: const Icon(FontAwesomeIcons.whatsapp),
+                              onPressed: () {
+                                // launchUrl(
+                                //   Uri.parse(
+                                //       'https://wa.me/+91${snapshot.data?[index]['Number']}?text=Hello%20${snapshot.data?[index]['Name']}'),
+                                //   mode: LaunchMode.externalApplication);
+                                if (snapshot.data?[index]['Number'].length <=
+                                    10) {
+                                  launchUrl(
+                                      Uri.parse(
+                                          'https://wa.me/+91${snapshot.data?[index]['Number']}?text=Hello%20${snapshot.data?[index]['Name']}'),
+                                      mode: LaunchMode.externalApplication);
+                                } else {
+                                  List<String>? numbers = snapshot.data?[index]
+                                          ['Number']
+                                      .toString()
+                                      .split('/');
+                                  print(numbers?[0]);
+                                  print(numbers?[1]);
+
+
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                icon: const Icon(Icons.close))
+                                          ],
+                                        ),
+                                        content: SizedBox(
+                                          height: 100,
+                                          width: 200,
+                                          child: ListView.builder(
+                                              shrinkWrap: true,
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              itemCount: numbers?.length,
+                                              itemBuilder: (context, idx) {
+                                                return GestureDetector(
+                                                    onTap: () {
+                                                      launchUrl(
+                                                          Uri.parse(
+                                                              'https://wa.me/+91${numbers[idx].trim()}?text=Hello%20${snapshot.data?[index]['Name']}'),
+                                                          mode: LaunchMode
+                                                              .externalApplication);
+                                                    },
+                                                    child:
+                                                        Text(numbers![idx]));
+                                              }),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }
+                              }),
                         ],
                       ),
                     ),
                   );
                 },
-                separatorBuilder: (context, index) =>
-                const Divider(),
+                separatorBuilder: (context, index) => const Divider(),
               );
             }),
       ),
