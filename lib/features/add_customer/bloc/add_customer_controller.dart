@@ -14,13 +14,31 @@ class AddCustomerController extends GetxController {
   TextEditingController? localityController;
   TextEditingController? noteController;
   TextEditingController? rotypeController;
-  List<String> type = ['Set Change','AMC'];
-  String selectedType = 'Set Change';
+
+  Future<List<String>> rotype() async {
+    List<dynamic>list=[];
+
+    QuerySnapshot query = await FirebaseFirestore.instance.collection('Ro_Type').get();
+    for(var doc in query.docs){
+      list.add(doc.data());
+    }
+
+    for (var data in list){
+      type.add('${data['Ro_Type']}');
+    }
+
+    return type;
+  }
+
+  List<String> type = List.empty(growable: true);
+
+  String selectedType = 'Ro Type';
 
 
   @override
   onInit() {
     super.onInit();
+    rotype();
     nameController = TextEditingController();
     mobileController = TextEditingController();
     dairyController = TextEditingController();
@@ -51,8 +69,8 @@ class AddCustomerController extends GetxController {
     for (var doc in querySnapshot.docs) {
       list.add(doc.data());
     }
-    users.doc(mobileController?.text??'-------').set({
-      'Customer_id':'${list.length+1}',
+    users.add({
+      'Customer_id':list.length+1,
       'Name': nameController?.text??'--',
       'Number': mobileController?.text??'--',
       'Address': addressController?.text??'--',
@@ -60,8 +78,6 @@ class AddCustomerController extends GetxController {
       'Ro_Type':rotypeController?.text??'--',
       'Note': noteController?.text?? '--',
       'Dairy_Number':dairyController?.text??'--',
-    }).onError((error, stackTrace) {
-      Get.snackbar('Error', error.toString());
     }).whenComplete(() {
       dairyController?.clear();
       nameController?.clear();

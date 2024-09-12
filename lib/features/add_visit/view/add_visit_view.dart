@@ -331,6 +331,7 @@ class _AddVisitViewState extends State<AddVisitView> {
                                     prefixIcon:
                                         const Icon(Icons.type_specimen_rounded),
                                     hintText: "Select Type",
+                                    hintStyle: GoogleFonts.montserrat()
                                   ),
                                   onChanged: (value) {
                                     print(value.runtimeType);

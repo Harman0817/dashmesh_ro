@@ -25,8 +25,8 @@ class DashboardView extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Container(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
+                  // height: MediaQuery.of(context).size.height,
+                  // width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.all(8.0),
                   child:  const CalendarPage(),
                 ),

@@ -82,43 +82,75 @@ class _CustomerListViewState extends State<CustomerListView> {
                                         MaterialPageRoute(
                                             builder: (context) => AddVisitView(
                                                 customerID:
-                                                    "${snapshot.data![index]['Customer_id']!}")));
+                                                    snapshot.data![index]['Customer_id'])));
                                   }
                                 }),
                             const SizedBox(
                               width: 25,
                             ),
                             IconButton(
-                              icon: const Icon(FontAwesomeIcons.whatsapp),
-                              onPressed: () {
-                                if (snapshot.data?[index]['Number'].length <=
-                                    10) {
-                                  launchUrl(
-                                      Uri.parse(
-                                          'https://wa.me/+91${snapshot.data?[index]['Number']}?text=Hello%20${snapshot.data?[index]['Name']}'),
-                                      mode: LaunchMode.externalApplication);
-                                } else {
-                                  List<String>? numbers = snapshot.data?[index]
-                                          ['Number']
-                                      .toString()
-                                      .split('/');
+                                icon: const Icon(FontAwesomeIcons.whatsapp),
+                                onPressed: () {
+                                  // launchUrl(
+                                  //   Uri.parse(
+                                  //       'https://wa.me/+91${snapshot.data?[index]['Number']}?text=Hello%20${snapshot.data?[index]['Name']}'),
+                                  //   mode: LaunchMode.externalApplication);
+                                  if (snapshot.data?[index]['Number'].length <=
+                                      10) {
+                                    launchUrl(
+                                        Uri.parse(
+                                            'https://wa.me/+91${snapshot.data?[index]['Number']}?text=Hello%20${snapshot.data?[index]['Name']}'),
+                                        mode: LaunchMode.externalApplication);
+                                  } else {
+                                    List<String>? numbers = snapshot.data?[index]
+                                    ['Number']
+                                        .toString()
+                                        .split('/');
+                                    print(numbers?[0]);
+                                    print(numbers?[1]);
 
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return SizedBox(
-                                        height: 100,
-                                        child: ListView.builder(
-                                            itemCount: numbers?.length,
-                                            itemBuilder: (context, index) {
-                                              return Text(numbers![index]);
-                                            }),
-                                      );
-                                    },
-                                  );
-                                }
-                              },
-                            ),
+
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                            children: [
+                                              IconButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  icon: const Icon(Icons.close))
+                                            ],
+                                          ),
+                                          content: SizedBox(
+                                            height: 100,
+                                            width: 200,
+                                            child: ListView.builder(
+                                                shrinkWrap: true,
+                                                physics:
+                                                const NeverScrollableScrollPhysics(),
+                                                itemCount: numbers?.length,
+                                                itemBuilder: (context, idx) {
+                                                  return GestureDetector(
+                                                      onTap: () {
+                                                        launchUrl(
+                                                            Uri.parse(
+                                                                'https://wa.me/+91${numbers[idx].trim()}?text=Hello%20${snapshot.data?[index]['Name']}'),
+                                                            mode: LaunchMode
+                                                                .externalApplication);
+                                                      },
+                                                      child:
+                                                      Text(numbers![idx]));
+                                                }),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
+                                }),
                           ],
                         ),
                       ),
@@ -180,8 +212,8 @@ class _SearchPageState extends State<SearchPage> {
                       backgroundColor:
                           Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
                               .withOpacity(1.0),
-                      child: Text("${snapshot.data?[index]['Name']![0]}",
-                          style: Theme.of(context).textTheme.displayMedium),
+                      child: Text("${snapshot.data?[index]['Customer_id']}",
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(color:Colors.white)),
                     ),
                     title: Text(
                       '${snapshot.data?[index]['Name'].toString()} - ${snapshot.data?[index]['Ro_Type']} ',
@@ -206,7 +238,7 @@ class _SearchPageState extends State<SearchPage> {
                                       MaterialPageRoute(
                                           builder: (context) => AddVisitView(
                                               customerID: snapshot.data![index]
-                                                  ['Customer_id']!)));
+                                                  ['Customer_id'])));
                                 }
                               }),
                           const SizedBox(

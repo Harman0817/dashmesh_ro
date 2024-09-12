@@ -4,6 +4,7 @@ import 'package:dashmesh_ro/features/widgets/gradient_button.dart';
 import 'package:dashmesh_ro/utils/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 
@@ -115,16 +116,45 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                           Row(
                             children: [
                               Expanded(
-                                child: CustomTextField(
-                                  label: StringConstants.enterRotype,
-                                  controller: controller.rotypeController,
-                                  icon: const Icon(Icons.type_specimen),
-                                  // validator: (value) {
-                                  //   if (value == null || value.isEmpty) {
-                                  //     return 'Please enter Address';
-                                  //   }
-                                  //   return null;
-                                  // },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Ro Type ",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall),
+                                    const SizedBox(height: 5),
+                                    FutureBuilder(
+                                        future: AddCustomerController().rotype(),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<List<String>> snapshot){
+    if(snapshot.data==null) return const SizedBox();
+    else {
+                                                return DropdownButtonFormField(
+                                                  validator: (value) {
+                                                    if (value == null ) {
+                                                      return 'Please select type';
+                                                    }
+                                                    return null;
+                                                  },
+                                                  items: snapshot.data!
+                                                      .map((element) => DropdownMenuItem(
+                                                      value: element, child: Text(element)))
+                                                      .toList(),
+                                                  decoration: InputDecoration(
+                                                    border: OutlineInputBorder(
+                                                        borderRadius: BorderRadius.circular(5)),
+                                                    prefixIcon:
+                                                    const Icon(Icons.type_specimen_rounded),
+                                                    hintText: "Select Ro Type",
+                                                    hintStyle: GoogleFonts.montserrat()
+                                                  ),
+                                                  onChanged: (value) {
+                                                    print(value.runtimeType);
+                                                    controller.selectedType = value ?? '';
+                                                  },
+                                                ); }}
+                                    ),                                  ],
                                 ),
                               ),
                               const SizedBox(width: 25),

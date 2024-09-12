@@ -11,7 +11,7 @@ class HomeCubit extends Cubit<SidebarState>{
     SidebarItem(AddCustomerSelected()),
     // SidebarItem(AddVisitSelected()),
     SidebarItem(CustomerListSelected()),
-    // SidebarItem(ManageSelected())
+    SidebarItem(ManageSelected())
   ];
 
   List<SummaryItem> summaryList = [

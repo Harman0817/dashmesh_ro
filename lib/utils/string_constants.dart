@@ -11,6 +11,8 @@ class StringConstants{
       static const String enterMobileNumber = 'Enter Mobile Number';
       static const String email = 'Email';
       static const String enterDairy = 'Dairy No.';
+      static const String addRoType = 'Add Ro Type';
+      static const String removeRoType = 'Remove Ro Type';
       static const String enterAddress = 'Address';
       static const String enterlocality = 'Locality';
       static const String enterAmount = 'Billing Amount';
