@@ -47,9 +47,7 @@ class NotificationView extends StatelessWidget {
                               },
                               // trailing: Checkbox(value: true, onChanged: (bool? value) {  },),
                               leading: CircleAvatar(
-                                backgroundColor:Color(
-                                    (math.Random().nextDouble() * 0xFFFFFF).toInt())
-                                    .withOpacity(1.0),
+                                backgroundColor:Theme.of(context).colorScheme.onPrimary,
                                 child: Text("${snapshot.data?[index].customerId.toString()}",
                                   style:
                                       Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.white),
