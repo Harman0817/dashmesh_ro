@@ -6,5 +6,7 @@ class SummaryItem{
   IconData icon;
   
 
-  SummaryItem({required this.title, required this.count, required this.icon});
+  SummaryItem({ required this.title, required this.count, required this.icon});
+
+
 }

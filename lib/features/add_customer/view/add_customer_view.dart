@@ -6,9 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
-
-
 class AddCustomerView extends StatefulWidget {
   const AddCustomerView({super.key});
 
@@ -125,36 +122,46 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                                             .displaySmall),
                                     const SizedBox(height: 5),
                                     FutureBuilder(
-                                        future: AddCustomerController().rotype(),
+                                        future:
+                                            AddCustomerController().rotype(),
                                         builder: (BuildContext context,
-                                            AsyncSnapshot<List<String>> snapshot){
-    if(snapshot.data==null) return const SizedBox();
-    else {
-                                                return DropdownButtonFormField(
-                                                  validator: (value) {
-                                                    if (value == null ) {
-                                                      return 'Please select type';
-                                                    }
-                                                    return null;
-                                                  },
-                                                  items: snapshot.data!
-                                                      .map((element) => DropdownMenuItem(
-                                                      value: element, child: Text(element)))
-                                                      .toList(),
-                                                  decoration: InputDecoration(
-                                                    border: OutlineInputBorder(
-                                                        borderRadius: BorderRadius.circular(5)),
-                                                    prefixIcon:
-                                                    const Icon(Icons.type_specimen_rounded),
-                                                    hintText: "Select Ro Type",
-                                                    hintStyle: GoogleFonts.montserrat()
-                                                  ),
-                                                  onChanged: (value) {
-                                                    print(value.runtimeType);
-                                                    controller.selectedType = value ?? '';
-                                                  },
-                                                ); }}
-                                    ),                                  ],
+                                            AsyncSnapshot<List<String>>
+                                                snapshot) {
+                                          if (snapshot.data == null)
+                                            return const SizedBox();
+                                          else {
+                                            return DropdownButtonFormField(
+                                              validator: (value) {
+                                                if (value == null) {
+                                                  return 'Please select type';
+                                                }
+                                                return null;
+                                              },
+                                              items: snapshot.data!
+                                                  .map((element) =>
+                                                      DropdownMenuItem(
+                                                          value: element,
+                                                          child: Text(element)))
+                                                  .toList(),
+                                              decoration: InputDecoration(
+                                                  border: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5)),
+                                                  prefixIcon: const Icon(Icons
+                                                      .type_specimen_rounded),
+                                                  hintText: "Select Ro Type",
+                                                  hintStyle:
+                                                      GoogleFonts.montserrat()),
+                                              onChanged: (value) {
+                                                print(value.runtimeType);
+                                                controller.selectedType =
+                                                    value ?? '';
+                                              },
+                                            );
+                                          }
+                                        }),
+                                  ],
                                 ),
                               ),
                               const SizedBox(width: 25),
@@ -191,14 +198,12 @@ class _AddCustomerViewState extends State<AddCustomerView> {
                           ),
                           GradientButton(
                             onPressed: () {
-                              if(formKey.currentState!.validate()) {
+                              if (formKey.currentState!.validate()) {
                                 controller.addCustomer();
                               }
                             },
                             text: 'Submit',
                           ),
-
-
                         ],
                       ),
                     ),

@@ -11,34 +11,34 @@ class DashboardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-                    create: (BuildContext context)=>NotificationBloc(DateTime.now()),
-                    child:Column(
-      children: [
-        const Expanded(
-          flex: 3,
-          child: ServiceSummary(),
-        ),
-        Expanded(
-          flex: 9,
-          child: Row(
-            children: [
-              Expanded(
-                flex: 3,
-                child: Container(
-                  // height: MediaQuery.of(context).size.height,
-                  // width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.all(8.0),
-                  child:  const CalendarPage(),
-                ),
+        create: (BuildContext context) => NotificationBloc(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)),
+        child: Column(
+          children: [
+            const Expanded(
+              flex: 3,
+              child: ServiceSummary(),
+            ),
+            Expanded(
+              flex: 9,
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      // height: MediaQuery.of(context).size.height,
+                      // width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.all(8.0),
+                      child: const CalendarPage(),
+                    ),
+                  ),
+                  const Expanded(
+                    flex: 4,
+                    child: NotificationPage(),
+                  ),
+                ],
               ),
-              const Expanded(
-                flex: 4,
-                child: NotificationPage(),
-              ),
-            ],
-          ),
-        )
-      ],
-    ));
+            )
+          ],
+        ));
   }
 }

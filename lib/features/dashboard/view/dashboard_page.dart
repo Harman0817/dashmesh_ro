@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return  BlocProvider(

@@ -2,6 +2,7 @@ import 'package:dashmesh_ro/core/models/notification_model.dart';
 import 'package:dashmesh_ro/features/notification/bloc/notification_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'dart:math' as math;
 import '../../../core/database/db_operation.dart';
 
@@ -43,30 +44,15 @@ class NotificationView extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return ListTile(
                               onTap: () {
-
                               },
                               // trailing: Checkbox(value: true, onChanged: (bool? value) {  },),
                               leading: CircleAvatar(
-                                backgroundColor: snapshot
-                                    .data?[index].purifierType ==
-                                    'Set Change'
-                                    ? Theme.of(context).colorScheme.secondary
-                                    : snapshot.data?[index].purifierType ==
-                                    'AMC'
-                                    ? Theme.of(context)
-                                    .colorScheme
-                                    .onPrimary
-                                    : snapshot.data?[index].purifierType ==
-                                    'New RO'
-                                    ? Theme.of(context)
-                                    .colorScheme
-                                    .primary
-                                :Theme.of(context)
-                                    .colorScheme
-                                    .tertiary,
-                                child: Text("${snapshot.data?[index].name.toString()[0]}",
+                                backgroundColor:Color(
+                                    (math.Random().nextDouble() * 0xFFFFFF).toInt())
+                                    .withOpacity(1.0),
+                                child: Text("${snapshot.data?[index].customerId.toString()}",
                                   style:
-                                      Theme.of(context).textTheme.displayMedium,
+                                      Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.white),
                                 ),
                               ),
                               title: Row(

@@ -3,7 +3,6 @@ import 'package:dashmesh_ro/core/models/notification_model.dart';
 import 'package:dashmesh_ro/core/models/visit_model.dart';
 import 'package:dashmesh_ro/core/shared/db_constants.dart';
 import 'package:dashmesh_ro/core/shared/ro_logger.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'database_helper.dart';
 
@@ -134,10 +133,12 @@ class DbOperation {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     List<NotificationModel> fullJoinData = [];
     List<dynamic> visitList = [];
+    print('Waheguru');
     QuerySnapshot visitSnap = await firestore
         .collection('Visits')
         .where('Notification_Date', isEqualTo: date)
         .get();
+    print(visitSnap.docs.length);
     for (var doc in visitSnap.docs) {
       visitList.add(doc.data());
       print(visitList);
@@ -156,6 +157,7 @@ class DbOperation {
       ;
       for (var data2 in customerList) {
         NotificationModel model = NotificationModel(
+          customerId: data2['Customer_id'],
           address: data2['Address'],
           locality: data2['Locality'],
           mobileNumber: data2['Number'],
@@ -163,7 +165,6 @@ class DbOperation {
           purifierType: data['Service_Type'],
         );
         fullJoinData.add(model);
-
       }
       print(fullJoinData);
     }
@@ -200,63 +201,54 @@ class DbOperation {
   static Future<List<dynamic>> searchCustomer(String searchText) async {
     print(searchText);
     FirebaseFirestore firestore = FirebaseFirestore.instance;
+    List<dynamic> searchList = [];
     List<dynamic> customerList = [];
-    QuerySnapshot nameQuery = await firestore
-        .collection('Customer')
-        .where('Name', isGreaterThanOrEqualTo: '$searchText')
-        .where('Name', isLessThan: '$searchText' + 'z')
-        .get();
-    QuerySnapshot numberQuery = await firestore
-        .collection('Customer')
-        .where('Number', isGreaterThanOrEqualTo: '$searchText')
-        .where('Number', isLessThan: '$searchText' + 'z')
-        .get();
-    QuerySnapshot localityQuery = await firestore
-        .collection('Customer')
-        .where('Locality', isGreaterThanOrEqualTo: '$searchText')
-        .where('Locality', isLessThan: '$searchText' + 'z')
-        .get();
-    QuerySnapshot addressQuery = await firestore
-        .collection('Customer')
-        .where('Address', isGreaterThanOrEqualTo: '$searchText')
-        .where('Address', isLessThan: '$searchText' + 'z')
-        .get();
+    List<dynamic> visitList = [];
+    QuerySnapshot visitQuery = await firestore.collection('Visits').get();
+    QuerySnapshot customerQuery = await firestore.collection('Customer').get();
+    for (var doc in customerQuery.docs) {
+      customerList.add(doc.data());
+    }
+    for (var doc in visitQuery.docs) {
+      visitList.add(doc.data());
+    }
     if (int.tryParse(searchText) != null) {
       QuerySnapshot customeridQuery = await firestore
           .collection('Customer')
           .where('Customer_id', isEqualTo: int.parse(searchText))
           .get();
       for (var doc in customeridQuery.docs) {
-        customerList.add(doc.data());
+        searchList.add(doc.data());
       }
     }
-    QuerySnapshot servicetypeQuery = await firestore
-        .collection('Visits')
-        .where('Service_Type', isGreaterThanOrEqualTo: '$searchText')
-        .where('Service_Type', isLessThan: '$searchText' + 'z')
-        .get();
-    for (var doc in servicetypeQuery.docs) {
-      int custId = doc['Customer_id'];
-      QuerySnapshot customerSnap = await firestore
-          .collection('Customer')
-          .where('Customer_id', isEqualTo: custId)
-          .get();
-      for (var data in customerSnap.docs){
-        customerList.add(data.data());
+
+    for (var data in customerList) {
+      if ('${data['Name']}'
+          .toLowerCase()
+          .startsWith('${searchText}'.toLowerCase())) {
+        searchList.add(data);
+      } else if ('${data['Number']}'
+          .toLowerCase()
+          .startsWith('${searchText}'.toLowerCase())) {
+        searchList.add(data);
+      } else if('${data['Locality']}'.toLowerCase().startsWith('${searchText}'.toLowerCase())){
+        searchList.add(data);
+      } else if('${data['Address']}'.toLowerCase().startsWith('${searchText}'.toLowerCase())){
+        searchList.add(data);
       }
     }
-    for (var doc in nameQuery.docs) {
-      customerList.add(doc.data());
+    for(var doc in visitList){
+          if('${doc['Service_Type']}'.toLowerCase().startsWith('${searchText}'.toLowerCase())){
+        int custId = doc['Customer_id'];
+        QuerySnapshot customerSnap = await firestore
+            .collection('Customer')
+            .where('Customer_id', isEqualTo: custId)
+            .get();
+        for (var data in customerSnap.docs) {
+          searchList.add(data.data());
+        }
+      }
     }
-    for (var doc in numberQuery.docs) {
-      customerList.add(doc.data());
-    }
-    for (var doc in localityQuery.docs) {
-      customerList.add(doc.data());
-    }
-    for (var doc in addressQuery.docs) {
-      customerList.add(doc.data());
-    }
-    return customerList;
+    return searchList;
   }
 }

@@ -4,9 +4,10 @@ class NotificationBloc extends Cubit<DateTime> {
 
   NotificationBloc(super.initialState);
 
-  set text(String text) {}
+  // set text(String text) {}
 
   changeDate(DateTime date) {
+    print('Hello');
     emit(date);
   }
 }
