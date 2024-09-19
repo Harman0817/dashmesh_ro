@@ -55,7 +55,7 @@ class _CustomerListViewState extends State<CustomerListView> {
                             style: Theme.of(context)
                                 .textTheme
                                 .displaySmall!
-                                .copyWith(color: Colors.white)),
+                                .copyWith(color: Theme.of(context).colorScheme.primary)),
                       ),
                       title: Text(
                         '${snapshot.data?[index]['Name'].toString()} - ${snapshot.data?[index]['Ro_Type']} - ${snapshot.data?[index]['Diary_Number']}',
