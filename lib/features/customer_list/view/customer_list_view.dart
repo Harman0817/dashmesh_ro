@@ -49,7 +49,7 @@ class _CustomerListViewState extends State<CustomerListView> {
                   itemBuilder: (context, index) {
                     return ListTile(
                       leading: CircleAvatar(
-                        backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                        backgroundColor: Theme.of(context).colorScheme.secondary,
                         child: Text(
                             "${snapshot.data?[index]['Customer_id'].toString()}",
                             style: Theme.of(context)
