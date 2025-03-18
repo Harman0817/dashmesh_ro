@@ -8,27 +8,28 @@ import '../../management/view/manangement_view.dart';
 sealed class SidebarState {
   final String title;
   final Widget layout;
+  final IconData icon;
 
-  SidebarState({required this.title, required this.layout});
+  SidebarState({required this.title, required this.layout, required this.icon});
 }
 
 class DashboardSelected extends SidebarState {
   DashboardSelected()
-      : super(title: 'Dashboard', layout: const DashboardView());
+      : super(title: 'Dashboard', layout: const DashboardView(), icon: Icons.dashboard_customize_outlined);
 }
 
 class AddCustomerSelected extends SidebarState {
   AddCustomerSelected()
-      : super(title: 'Add Customer', layout: const AddCustomerView());
+      : super(title: 'Add Customer', layout: const AddCustomerView(), icon: Icons.add_reaction_outlined);
 }
 
 class CustomerListSelected extends SidebarState {
   CustomerListSelected()
-      : super(title: 'Customer List', layout: const CustomerListView());
+      : super(title: 'Customer List', layout: const CustomerListView(), icon: Icons.checklist_rtl);
 }
 
 class ManageSelected extends SidebarState {
-  ManageSelected() : super(title: 'Manage', layout: const ManageView());
+  ManageSelected() : super(title: 'Manage', layout: const ManageView(), icon: Icons.settings);
 }
 
 

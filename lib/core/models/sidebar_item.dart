@@ -5,9 +5,11 @@ class SidebarItem {
   SidebarState? state;
   String? title;
   Widget? view;
+  IconData? icon;
 
   SidebarItem(this.state) {
     title = state?.title;
     view = state?.layout;
+    icon = state?.icon;
   }
 }

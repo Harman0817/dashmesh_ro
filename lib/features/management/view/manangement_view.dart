@@ -1,11 +1,7 @@
 import 'package:dashmesh_ro/utils/string_constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:just_audio/just_audio.dart';
 
 import '../../widgets/custom_text_field.dart';
 import '../../management/bloc/rotype_controller.dart';

@@ -10,6 +10,48 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar:
+      LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          if (constraints.maxWidth > 600) {
+            return const SizedBox.shrink();
+          } else {
+            return BottomAppBar(
+              child: BlocBuilder<HomeCubit, SidebarState>(
+                builder: (context, state) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: List.generate(context.read<HomeCubit>().sidebarMenu.length, (index)=>
+                        GestureDetector(
+                          onTap: () => context.read<HomeCubit>().changeState(
+                            context
+                                .read<HomeCubit>()
+                                .sidebarMenu[index]
+                                .state ??
+                                DashboardSelected(),
+                          ),
+                          child: Icon(
+                            context
+                                .read<HomeCubit>()
+                                .sidebarMenu[index]
+                                .icon,
+                            color: context
+                                .read<HomeCubit>()
+                                .sidebarMenu[index]
+                                .title ==
+                                state.title
+                                ? Theme.of(context).colorScheme.onPrimary
+                                : Colors.black,
+                          ),
+                        ),
+                    ),
+                  );
+                },
+              ),
+            );
+          }
+        },
+      ),
       appBar: AppBar(
           flexibleSpace: Container(
               decoration: BoxDecoration(
@@ -31,72 +73,79 @@ class HomeView extends StatelessWidget {
           )),
       body: BlocBuilder<HomeCubit, SidebarState>(
         builder: (context, state) {
-          return Row(
-            children: [
-              Expanded(
-                  flex: 2,
-                  child: Container(
-                    color: Colors.grey.shade100
-                    //  Theme.of(context).colorScheme.secondary
-                    ,
-                    child: ListView.builder(
-                      itemCount: context.read<HomeCubit>().sidebarMenu.length,
-                      itemBuilder: (context, index) => GestureDetector(
-                        onTap: () => context.read<HomeCubit>().changeState(
-                              context
-                                      .read<HomeCubit>()
-                                      .sidebarMenu[index]
-                                      .state ??
-                                  DashboardSelected(),
-                            ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Container(
-                            padding: const EdgeInsets.all(8.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: context
+          return LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              if(constraints.maxWidth<600){
+                return context.read<HomeCubit>().state.layout;
+              }
+              return Row(
+                children: [
+                  Expanded(
+                      flex: 2,
+                      child: Container(
+                        color: Colors.grey.shade100
+                        //  Theme.of(context).colorScheme.secondary
+                        ,
+                        child: ListView.builder(
+                          itemCount: context.read<HomeCubit>().sidebarMenu.length,
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: () => context.read<HomeCubit>().changeState(
+                                  context
                                           .read<HomeCubit>()
                                           .sidebarMenu[index]
-                                          .title ==
-                                      state.title
-                                  ? Theme.of(context).colorScheme.onPrimary
-                                  : Colors.transparent,
-                            ),
-                            child: Center(
-                              child: Text(
-                                context
-                                        .read<HomeCubit>()
-                                        .sidebarMenu[index]
-                                        .title ??
-                                    '',
-                                style: GoogleFonts.montserrat(
-                                    fontSize: 20,
-                                    // fontWeight: FontWeight.bold,
-                                    color: context
-                                                .read<HomeCubit>()
-                                                .sidebarMenu[index]
-                                                .title ==
-                                            state.title
-                                        ? Theme.of(context)
-                                            .scaffoldBackgroundColor
-                                        : Colors.black
-                                    //  Theme.of(context).scaffoldBackgroundColor.withOpacity(0.4)
-                                    ),
+                                          .state ??
+                                      DashboardSelected(),
+                                ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Container(
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: context
+                                              .read<HomeCubit>()
+                                              .sidebarMenu[index]
+                                              .title ==
+                                          state.title
+                                      ? Theme.of(context).colorScheme.onPrimary
+                                      : Colors.transparent,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    context
+                                            .read<HomeCubit>()
+                                            .sidebarMenu[index]
+                                            .title ??
+                                        '',
+                                    style: GoogleFonts.montserrat(
+                                        fontSize: 20,
+                                        // fontWeight: FontWeight.bold,
+                                        color: context
+                                                    .read<HomeCubit>()
+                                                    .sidebarMenu[index]
+                                                    .title ==
+                                                state.title
+                                            ? Theme.of(context)
+                                                .scaffoldBackgroundColor
+                                            : Colors.black
+                                        //  Theme.of(context).scaffoldBackgroundColor.withOpacity(0.4)
+                                        ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
+                      )),
+                  Expanded(
+                    flex: 10,
+                    child: Center(
+                      child: context.read<HomeCubit>().state.layout,
                     ),
-                  )),
-              Expanded(
-                flex: 10,
-                child: Center(
-                  child: context.read<HomeCubit>().state.layout,
-                ),
-              ),
-            ],
+                  ),
+                ],
+              );
+            }
           );
         },
       ),
