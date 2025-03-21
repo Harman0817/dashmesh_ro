@@ -469,7 +469,7 @@ class _AddVisitViewState extends State<AddVisitView> {
                     controller: controller.date,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter the date';
+                        return  'Please enter the date';
                       }
                       return null;
                     },
