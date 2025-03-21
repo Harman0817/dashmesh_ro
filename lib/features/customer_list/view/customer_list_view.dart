@@ -68,6 +68,7 @@ class _CustomerListViewState extends State<CustomerListView> {
                       trailing: SizedBox(
                         width: 150,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             IconButton(
                                 icon: const Icon(FontAwesomeIcons.house),
